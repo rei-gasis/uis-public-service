@@ -1,0 +1,56 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="PerPSInstCUVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstCUVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT DISTINCT
+       (SELECT concatenated_segments
+        FROM hr_soft_coding_keyflex hsck
+        WHERE hsck.soft_coding_keyflex_id = paaf.soft_coding_keyflex_id) constituent_university
+      ,papf.person_id
+FROM per_all_people_f papf
+    ,per_all_assignments_f paaf
+WHERE SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
+AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
+AND paaf.person_id = papf.person_id
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <ViewAttribute
+      Name="ConstituentUniversity"
+      IsPersistent="false"
+      Precision="700"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="CONSTITUENT_UNIVERSITY"
+      Expression="CONSTITUENT_UNIVERSITY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="700" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PersonId"
+      IsPersistent="false"
+      IsNotNull="true"
+      Precision="10"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="PERSON_ID"
+      Expression="PERSON_ID"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+</ViewObject>

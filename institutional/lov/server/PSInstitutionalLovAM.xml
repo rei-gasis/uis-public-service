@@ -1,0 +1,28 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+
+<AppModule
+   Name="PSInstitutionalLovAM"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.lov.server.PSInstitutionalLovAMImpl" >
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_deployType" Value="0" />
+   </DesignTime>
+   <ViewUsage
+      Name="PerPSInstCUVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstCUVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSInstMemberVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstMemberVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSSubjectAreaInterestVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSSubjectAreaInterestVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSInstOrganizationsVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstOrganizationsVO" >
+   </ViewUsage>
+</AppModule>

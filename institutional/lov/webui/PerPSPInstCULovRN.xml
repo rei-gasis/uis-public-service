@@ -1,0 +1,10 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oa:listOfValues version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" controllerClass="xxup.oracle.apps.per.publicservice.institutional.lov.webui.PerPSInstCULovCO" amDefName="xxup.oracle.apps.per.publicservice.institutional.lov.server.PSInstitutionalLovAM">
+   <ui:contents>
+      <oa:table name="PerPSPInstCULovRN" id="PerPSInstCUVO1">
+         <ui:contents>
+            <oa:messageStyledText id="ConstituentUniversity" dataType="VARCHAR2" prompt="ConstituentUniversity" viewName="PerPSInstCUVO1" viewAttr="ConstituentUniversity" maximumLength="700" queryable="true" selectiveSearchCriteria="false"/>
+         </ui:contents>
+      </oa:table>
+   </ui:contents>
+</oa:listOfValues>

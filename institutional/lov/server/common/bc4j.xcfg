@@ -1,0 +1,27 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<BC4JConfig>
+   <AppModuleConfigBag>
+      <AppModuleConfig name="PSInstitutionalLovAMLocal">
+         <DeployPlatform>LOCAL</DeployPlatform>
+         <JDBCName>UISDEV</JDBCName>
+         <jbo.project>psInstitutional</jbo.project>
+         <AppModuleJndiName>xxup.oracle.apps.per.publicservice.institutional.lov.server.PSInstitutionalLovAM</AppModuleJndiName>
+         <java.naming.factory.initial>oracle.jbo.common.JboInitialContextFactory</java.naming.factory.initial>
+         <ApplicationName>xxup.oracle.apps.per.publicservice.institutional.lov.server.PSInstitutionalLovAM</ApplicationName>
+      </AppModuleConfig>
+   </AppModuleConfigBag>
+   <ConnectionDefinition name="UISDEV">
+      <ENTRY name="JDBC_PORT" value="1531"/>
+      <ENTRY name="ConnectionType" value="JDBC"/>
+      <ENTRY name="HOSTNAME" value="202.92.142.121"/>
+      <ENTRY name="user" value="apps"/>
+      <ENTRY name="ConnectionName" value="UISDEV"/>
+      <ENTRY name="SID" value="UISDEV"/>
+      <ENTRY name="JdbcDriver" value="oracle.jdbc.OracleDriver"/>
+      <ENTRY name="password">
+         <![CDATA[{904}05ACFD87AC1DB9127AC04AC09FD6D019217892A8B9A003AEFC]]>
+      </ENTRY>
+      <ENTRY name="ORACLE_JDBC_TYPE" value="thin"/>
+      <ENTRY name="DeployPassword" value="true"/>
+   </ConnectionDefinition>
+</BC4JConfig>

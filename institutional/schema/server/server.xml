@@ -1,0 +1,77 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE JboPackage SYSTEM "jbo_03_01.dtd">
+
+<JboPackage
+   Name="server"
+   SeparateXMLFiles="true"
+   PackageName="xxup.oracle.apps.per.publicservice.institutional.schema.server" >
+   <DesignTime>
+      <Attr Name="_ejbPackage" Value="false" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+   </DesignTime>
+   <Containee
+      Name="XxupPerPsInstActivitiesEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstActivitiesEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstAddrEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstAddrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstBenefOrgEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstBenefOrgEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstBenefTypeEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstBenefTypeEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstDeliveryModeEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstDeliveryModeEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstitutionalEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstitutionalEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstitutionalTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstitutionalTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstMembersEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstMembersEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstObjCatEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstObjCatEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstOffice"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstOffice"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstOfficeEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstOfficeEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstPartnerOrgEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstPartnerOrgEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsInstSubjEO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstSubjEO"
+      ObjectType="Entity" >
+   </Containee>
+</JboPackage>
