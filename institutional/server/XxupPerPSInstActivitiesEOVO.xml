@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstActivitiesEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstActivitiesEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstActivitiesEO.SEQUENCE_NO, 
+       XxupPerPsInstActivitiesEO.LINE_NUMBER, 
+       XxupPerPsInstActivitiesEO.ACTIVITY, 
+       XxupPerPsInstActivitiesEO.ATTRIBUTE1, 
+       XxupPerPsInstActivitiesEO.ATTRIBUTE2, 
+       XxupPerPsInstActivitiesEO.ATTRIBUTE3, 
+       XxupPerPsInstActivitiesEO.ATTRIBUTE4, 
+       XxupPerPsInstActivitiesEO.ATTRIBUTE5, 
+       XxupPerPsInstActivitiesEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstActivitiesEO.LAST_UPDATED_BY, 
+       XxupPerPsInstActivitiesEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstActivitiesEO.CREATED_BY, 
+       XxupPerPsInstActivitiesEO.CREATION_DATE, 
+       XxupPerPsInstActivitiesEO.SELECTED, 
+       XxupPerPsInstActivitiesEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_ACTIVITIES XxupPerPsInstActivitiesEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstActivitiesEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstActivitiesEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Activity"
+      EntityAttrName="Activity"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="ACTIVITY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Selected"
+      EntityAttrName="Selected"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="SELECTED" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstActivitiesEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

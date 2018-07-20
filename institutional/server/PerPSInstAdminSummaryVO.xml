@@ -1,0 +1,468 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="PerPSInstAdminSummaryVO"
+   BindingStyle="OracleName"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.PerPSInstAdminSummaryVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstitutionalEO.SEQUENCE_NO, 
+       XxupPerPsInstitutionalEO.CONSTITUENT_UNIVERSITY, 
+       XxupPerPsInstitutionalEO.PROJECT_NAME, 
+       XxupPerPsInstitutionalEO.IMPLEMENTATION_START_DATE, 
+       XxupPerPsInstitutionalEO.IMPLEMENTATION_END_DATE, 
+       XxupPerPsInstitutionalEO.DURATION_HOURS, 
+       XxupPerPsInstitutionalEO.IMPLEMENTATION_FREQUENCY, 
+       XxupPerPsInstitutionalEO.TYPE_OF_ACTIVITY, 
+       XxupPerPsInstitutionalEO.FUNDING_AGENCY, 
+       XxupPerPsInstitutionalEO.COST_OF_PARTICIPATION, 
+       XxupPerPsInstitutionalEO.UNIT_OF_BENEFICIARY, 
+       XxupPerPsInstitutionalEO.NO_OF_BENEFICIARY, 
+       XxupPerPsInstitutionalEO.COUNTRY, 
+       XxupPerPsInstitutionalEO.POST_ACT_EVAL_RATING, 
+       XxupPerPsInstitutionalEO.REMARKS, 
+       XxupPerPsInstitutionalEO.ATTRIBUTE1, 
+       XxupPerPsInstitutionalEO.ATTRIBUTE2, 
+       XxupPerPsInstitutionalEO.ATTRIBUTE3, 
+       XxupPerPsInstitutionalEO.ATTRIBUTE4, 
+       XxupPerPsInstitutionalEO.ATTRIBUTE5, 
+       XxupPerPsInstitutionalEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstitutionalEO.LAST_UPDATED_BY, 
+       XxupPerPsInstitutionalEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstitutionalEO.CREATED_BY, 
+       XxupPerPsInstitutionalEO.CREATION_DATE, 
+       XxupPerPsInstitutionalEO.STATUS, 
+       XxupPerPsInstitutionalEO.MALE_BENEF_COUNT, 
+       XxupPerPsInstitutionalEO.FEMALE_BENEF_COUNT, 
+       XxupPerPsInstitutionalEO.PROJECT_LEADER
+FROM XXUP.XXUP_PER_PS_INSTITUTIONAL XxupPerPsInstitutionalEO
+WHERE created_by IN
+(
+SELECT fu.user_id
+FROM hr.per_all_assignments_f paaf
+   ,hr.per_all_people_f papf
+   ,fnd_user fu
+WHERE paaf.person_id = papf.person_id
+  AND papf.person_id = fu.employee_id
+  AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
+  AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
+  AND person_type_id = 1126
+  AND primary_flag = 'Y'
+  AND organization_id IN (SELECT organization_id
+                         FROM haou
+                         WHERE name LIKE CASE WHEN xxup_org_cu_prefix(fnd_global.employee_id) = 'UPS'
+                                              THEN '%'
+                                              ELSE xxup_org_cu_prefix(fnd_global.employee_id) || '%'
+                                         END)
+
+)
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <ViewAttribute
+      Name="SequenceNo"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="SEQUENCE_NO"
+      Expression="SEQUENCE_NO"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ConstituentUniversity"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="CONSTITUENT_UNIVERSITY"
+      Expression="CONSTITUENT_UNIVERSITY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="30" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectName"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="200"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PROJECT_NAME"
+      Expression="PROJECT_NAME"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="200" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ImplementationStartDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="IMPLEMENTATION_START_DATE"
+      Expression="IMPLEMENTATION_START_DATE"
+      SQLType="DATE" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="7" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ImplementationEndDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="IMPLEMENTATION_END_DATE"
+      Expression="IMPLEMENTATION_END_DATE"
+      SQLType="DATE" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="7" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="DurationHours"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="200"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="DURATION_HOURS"
+      Expression="DURATION_HOURS"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="200" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ImplementationFrequency"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="IMPLEMENTATION_FREQUENCY"
+      Expression="IMPLEMENTATION_FREQUENCY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="50" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfActivity"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="50"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="TYPE_OF_ACTIVITY"
+      Expression="TYPE_OF_ACTIVITY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="50" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="FundingAgency"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="200"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="FUNDING_AGENCY"
+      Expression="FUNDING_AGENCY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="200" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CostOfParticipation"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="200"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COST_OF_PARTICIPATION"
+      Expression="COST_OF_PARTICIPATION"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="200" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="UnitOfBeneficiary"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="200"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="UNIT_OF_BENEFICIARY"
+      Expression="UNIT_OF_BENEFICIARY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="200" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="NoOfBeneficiary"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="NO_OF_BENEFICIARY"
+      Expression="NO_OF_BENEFICIARY"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Country"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="COUNTRY"
+      Expression="COUNTRY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="100" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PostActEvalRating"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="POST_ACT_EVAL_RATING"
+      Expression="POST_ACT_EVAL_RATING"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="100" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Remarks"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="1000"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="REMARKS"
+      Expression="REMARKS"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="1000" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="ATTRIBUTE1"
+      Expression="ATTRIBUTE1"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="ATTRIBUTE2"
+      Expression="ATTRIBUTE2"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="ATTRIBUTE3"
+      Expression="ATTRIBUTE3"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="ATTRIBUTE4"
+      Expression="ATTRIBUTE4"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="ATTRIBUTE5"
+      Expression="ATTRIBUTE5"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="LAST_UPDATE_DATE"
+      Expression="LAST_UPDATE_DATE"
+      SQLType="DATE" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="7" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="15"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="LAST_UPDATED_BY"
+      Expression="LAST_UPDATED_BY"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="15"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="LAST_UPDATE_LOGIN"
+      Expression="LAST_UPDATE_LOGIN"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="15"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="CREATED_BY"
+      Expression="CREATED_BY"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Date"
+      ColumnType="DATE"
+      AliasName="CREATION_DATE"
+      Expression="CREATION_DATE"
+      SQLType="DATE" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="7" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Status"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Precision="30"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="STATUS"
+      Expression="STATUS"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="30" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="MaleBenefCount"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="MALE_BENEF_COUNT"
+      Expression="MALE_BENEF_COUNT"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="FemaleBenefCount"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="FEMALE_BENEF_COUNT"
+      Expression="FEMALE_BENEF_COUNT"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectLeader"
+      IsUpdateable="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="PROJECT_LEADER"
+      Expression="PROJECT_LEADER"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+</ViewObject>

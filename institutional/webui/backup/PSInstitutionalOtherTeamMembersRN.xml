@@ -1,0 +1,44 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oa:advancedTable version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" viewName="XxupPerPSInstOtherMembersVO1">
+   <ui:contents>
+      <oa:column id="FullNameCol">
+         <ui:columnHeader>
+            <oa:sortableHeader id="FullNameSH" prompt="Full Name"/>
+         </ui:columnHeader>
+         <ui:contents>
+            <oa:messageTextInput id="OtherFullName" viewAttr="FullName" columns="30"/>
+         </ui:contents>
+      </oa:column>
+      <oa:column id="PositionCol">
+         <ui:columnHeader>
+            <oa:sortableHeader id="PositionSH" prompt="Position"/>
+         </ui:columnHeader>
+         <ui:contents>
+            <oa:messageTextInput id="OtherPosition" viewAttr="Position"/>
+         </ui:contents>
+      </oa:column>
+      <oa:column id="OrganizationCol">
+         <ui:columnHeader>
+            <oa:sortableHeader id="OrganizationSH" prompt="Organization"/>
+         </ui:columnHeader>
+         <ui:contents>
+            <oa:messageTextInput id="OtherOrganization" viewAttr="Organization"/>
+         </ui:contents>
+      </oa:column>
+      <oa:column id="ProjectRoleCol">
+         <ui:columnHeader>
+            <oa:sortableHeader id="ProjectRoleSH" prompt="Role in the project"/>
+         </ui:columnHeader>
+         <ui:contents>
+            <oa:messageTextInput id="OtherProjectRole" viewAttr="ProjectRole"/>
+         </ui:contents>
+      </oa:column>
+   </ui:contents>
+   <ui:footer>
+      <oa:tableFooter id="tableFooter1">
+         <ui:contents>
+            <oa:addTableRow id="addTableRow1"/>
+         </ui:contents>
+      </oa:tableFooter>
+   </ui:footer>
+</oa:advancedTable>

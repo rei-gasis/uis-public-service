@@ -1,0 +1,96 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+
+<AppModule
+   Name="PSInstitutionalAM"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.PSInstitutionalAMImpl" >
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_deployType" Value="0" />
+   </DesignTime>
+   <ViewUsage
+      Name="XxupPerPSInstObjCatEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstObjCatEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstSubjEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstSubjEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSSubjectAreaInterestVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSSubjectAreaInterestVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstAddrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstAddrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSCountryVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSCountryVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSActionHistoryVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.PerPSActionHistoryVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstOfficeEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOfficeEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstOtherMembersVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOtherMembersVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstMembersEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstMembersEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstPartnerOrgEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstPartnerOrgEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstDeliveryModeEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstDeliveryModeEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSInstDeliveryModeVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstDeliveryModeVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSAddressVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSAddressVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstBenefTypeEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstBenefTypeEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSBeneficiaryTypeVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryTypeVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstBenefOrgEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstBenefOrgEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstitutionalEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstitutionalEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSInstActivitiesVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstActivitiesVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstActivitiesEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstActivitiesEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSInstAdminSummaryVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.PerPSInstAdminSummaryVO" >
+   </ViewUsage>
+</AppModule>

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstOtherMembersVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOtherMembersVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT full_name
+      ,position
+      ,organization
+      ,project_role
+      ,attribute1 member_type
+      ,sequence_no
+FROM xxup.xxup_per_ps_inst_members
+WHERE attribute1 = 'Non-UP'
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <ViewAttribute
+      Name="FullName"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="FULL_NAME"
+      Expression="FULL_NAME"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Position"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="POSITION"
+      Expression="POSITION"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Organization"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="ORGANIZATION"
+      Expression="ORGANIZATION"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectRole"
+      IsPersistent="false"
+      Precision="100"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PROJECT_ROLE"
+      Expression="PROJECT_ROLE"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="100" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="MemberType"
+      IsPersistent="false"
+      Precision="140"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="MEMBER_TYPE"
+      Expression="MEMBER_TYPE"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="140" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="SequenceNo"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="SEQUENCE_NO"
+      Expression="SEQUENCE_NO"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+</ViewObject>

@@ -1,0 +1,123 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<page xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:ui="http://xmlns.oracle.com/uix/ui" version="10.1.3_1312" xml:lang="en-US" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$">
+   <content>
+      <oa:pageLayout id="PageLayoutRN" amDefName="xxup.oracle.apps.per.publicservice.institutional.server.PSInstitutionalAM" windowTitle="Public Service Summary Page" title="Public Service Institutional Summary Page" controllerClass="xxup.oracle.apps.per.publicservice.institutional.webui.PSInstitutionalSummaryCO">
+         <ui:corporateBranding>
+            <oa:image id="corporateBrandingImage" source="/OA_MEDIA/FNDSSCORP.gif"/>
+         </ui:corporateBranding>
+         <ui:contents>
+            <oa:query id="SummaryQRN" mode="resultsBasedSearch" dispCustomized="true" defaultPanel="simple" hideSaveSearch="true">
+               <ui:contents>
+                  <oa:advancedTable id="SummaryRN" viewName="PerPSInstAdminSummaryVO1" width="100%" detailViewAttr="">
+                     <ui:contents>
+                        <oa:column id="SequenceCol">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="SequenceNoSH" prompt="Sequence No"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="SequenceNo" viewAttr="SequenceNo" queryable="false" styleClass="OraDataText"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="ProjectNameCol">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="ProjectNameSH" prompt="Project Name"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="ProjectName" viewAttr="ProjectName" queryable="true"/>
+                           </ui:contents>
+                        </oa:column>
+                        <!-- <oa:column id="StartDateCol">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="StartDateSH" prompt="Start Date"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="StartDate" viewAttr="StartDate" dataType="DATE"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="EndDateCol">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="EndDateSH" prompt="End Date"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="EndDate" viewAttr="EndDate" dataType="DATE"/>
+                           </ui:contents>
+                        </oa:column> -->
+                        <!-- <oa:column id="PositionCol" rendered="false">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="PositionSH" prompt="Position"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="Position" viewAttr="PositionName"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="RequestDateCol" rendered="false">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="RequestDateSH" prompt="Request Date"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="RequestDate" viewAttr="RequestDate" dataType="DATE"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="RespondedDateCol" rendered="false">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="RespondedDateSH" prompt="Responded Date"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="RespondedDate" viewAttr="RespondedDate" dataType="DATE"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="DurationHoursCol" rendered="false">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="DurationHoursSH" prompt="Duration Hours"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="DurationHours" viewAttr="DurationHours" dataType="NUMBER"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="SourceOfFundCol" rendered="false">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="SourceOfFundSH" prompt="Source Of Fund"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="SourceOfFund" viewAttr="SourceOfFund"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="CostOfParticipationCol" rendered="false">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="CostOfParticipationSH" prompt="Cost Of Participation"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="CostOfParticipation" viewAttr="CostOfParticipation"/>
+                           </ui:contents>
+                        </oa:column> -->
+                        <oa:column id="ViewDetailsCol">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="ViewDetailsSH" prompt="View"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:image id="ViewDetails" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalReviewPG&amp;urlParam=View&amp;viewFrom=institutional&amp;pSequenceNo={@SequenceNo}" source="detailsicon_enabled.gif"/>
+                           </ui:contents>
+                        </oa:column>
+                        <oa:column id="UpdatePSCol" rendered="true">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="updatePSSH" prompt="Update"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:image id="UpdatePS" source="updateicon_enabled.gif" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalRequestPG&amp;urlParam=Update&amp;pSequenceNo={@SequenceNo}"/>
+                           </ui:contents>
+                        </oa:column>
+                     </ui:contents>
+                     <ui:tableActions>
+                        <oa:flowLayout id="PSTableAction">
+                           <ui:contents>
+                              <oa:button id="CreatePS" use="/oracle/apps/fnd/attributesets/Buttons/Apply" text="Add" prompt="Add" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalRequestPG&amp;urlParam=Create"/>
+                           </ui:contents>
+                        </oa:flowLayout>
+                     </ui:tableActions>
+                  </oa:advancedTable>
+               </ui:contents>
+            </oa:query>
+         </ui:contents>
+      </oa:pageLayout>
+   </content>
+</page>

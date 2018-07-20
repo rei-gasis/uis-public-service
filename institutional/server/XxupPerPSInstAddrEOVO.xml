@@ -1,0 +1,125 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstAddrEOVO"
+   BindingStyle="OracleName"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstAddrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstAddrEO.SEQUENCE_NO, 
+       XxupPerPsInstAddrEO.LINE_NUMBER, 
+       XxupPerPsInstAddrEO.ADDRESS, 
+       XxupPerPsInstAddrEO.ATTRIBUTE1, 
+       XxupPerPsInstAddrEO.ATTRIBUTE2, 
+       XxupPerPsInstAddrEO.ATTRIBUTE3, 
+       XxupPerPsInstAddrEO.ATTRIBUTE4, 
+       XxupPerPsInstAddrEO.ATTRIBUTE5, 
+       XxupPerPsInstAddrEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstAddrEO.LAST_UPDATED_BY, 
+       XxupPerPsInstAddrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstAddrEO.CREATED_BY, 
+       XxupPerPsInstAddrEO.CREATION_DATE, 
+       XxupPerPsInstAddrEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_ADDR XxupPerPsInstAddrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstAddrEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstAddrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Address"
+      EntityAttrName="Address"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="ADDRESS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstAddrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

@@ -1,0 +1,16 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oa:header version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" text="Action History" controllerClass="xxup.oracle.apps.per.publicservice.institutional.webui.PSInstitutionalApproversCO" amDefName="xxup.oracle.apps.per.publicservice.institutional.server.PSInstitutionalAM">
+   <ui:contents>
+      <oa:table id="ApproverTable" text="" width="70%">
+         <ui:contents>
+            <oa:messageStyledText id="ApproverNo" viewName="PerPSActionHistoryVO1" viewAttr="ApproverNo" prompt="Sequence" styleClass="OraDataText"/>
+            <oa:messageStyledText id="ToEmployeeName" viewName="PerPSActionHistoryVO1" viewAttr="ToEmployeeName" prompt="Name" styleClass="OraDataText"/>
+            <oa:messageStyledText id="ToPositionName" viewName="PerPSActionHistoryVO1" viewAttr="ToPositionName" prompt="Position" styleClass="OraDataText"/>
+            <oa:messageStyledText id="ToOrgName" viewName="PerPSActionHistoryVO1" viewAttr="ToOrgName" prompt="Organization" styleClass="OraDataText"/>
+            <oa:messageStyledText id="Action" viewName="PerPSActionHistoryVO1" viewAttr="Action" prompt="Action" styleClass="OraDataText"/>
+            <oa:messageStyledText id="ActionDate" viewName="PerPSActionHistoryVO1" viewAttr="ActionDate" prompt="Date" styleClass="OraDataText" dataType="DATETIME"/>
+            <oa:messageStyledText id="Note" viewName="PerPSActionHistoryVO1" viewAttr="Note" prompt="Note" styleClass="OraDataText"/>
+         </ui:contents>
+      </oa:table>
+   </ui:contents>
+</oa:header>

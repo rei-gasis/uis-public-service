@@ -1,0 +1,132 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstObjCatEOVO"
+   BindingStyle="OracleName"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstObjCatEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstObjCatEO.SEQUENCE_NO, 
+       XxupPerPsInstObjCatEO.LINE_NUMBER, 
+       XxupPerPsInstObjCatEO.OBJECTIVE_CATEGORY, 
+       XxupPerPsInstObjCatEO.SPECIFICS, 
+       XxupPerPsInstObjCatEO.ATTRIBUTE1, 
+       XxupPerPsInstObjCatEO.ATTRIBUTE2, 
+       XxupPerPsInstObjCatEO.ATTRIBUTE3, 
+       XxupPerPsInstObjCatEO.ATTRIBUTE4, 
+       XxupPerPsInstObjCatEO.ATTRIBUTE5, 
+       XxupPerPsInstObjCatEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstObjCatEO.LAST_UPDATED_BY, 
+       XxupPerPsInstObjCatEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstObjCatEO.CREATED_BY, 
+       XxupPerPsInstObjCatEO.CREATION_DATE, 
+       XxupPerPsInstObjCatEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_OBJ_CAT XxupPerPsInstObjCatEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstObjCatEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstObjCatEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ObjectiveCategory"
+      EntityAttrName="ObjectiveCategory"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="OBJECTIVE_CATEGORY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Specifics"
+      EntityAttrName="Specifics"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="SPECIFICS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstObjCatEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

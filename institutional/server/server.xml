@@ -1,0 +1,87 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE JboPackage SYSTEM "jbo_03_01.dtd">
+
+<JboPackage
+   Name="server"
+   SeparateXMLFiles="true"
+   PackageName="xxup.oracle.apps.per.publicservice.institutional.server" >
+   <DesignTime>
+      <Attr Name="_ejbPackage" Value="false" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+   </DesignTime>
+   <Containee
+      Name="PerPSInstAdminSummaryVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.PerPSInstAdminSummaryVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PSInstitutionalAM"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.PSInstitutionalAM"
+      ObjectType="AppModule" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstActivitiesEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstActivitiesEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstAddrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstAddrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstBenefOrgEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstBenefOrgEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstBenefTypeEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstBenefTypeEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstDeliveryModeEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstDeliveryModeEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstitutionalEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstitutionalEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstMembersEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstMembersEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstObjCatEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstObjCatEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstOfficeEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOfficeEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstOtherMembersVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOtherMembersVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstPartnerOrgEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstPartnerOrgEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstSubjEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstSubjEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+</JboPackage>
