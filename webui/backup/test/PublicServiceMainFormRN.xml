@@ -1,0 +1,73 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!--*[Enter Javadoc like developer documentation, delete this line once you fill the included template.] [Put a one line description of the region here.] [Put a brief description of the usage of the region here.] @param [Parameter_name] [Put parameter use here.] @param [Parameter_name] [Put parameter use here.] @see [Put any additional links apart from controller class and BC4J objects directly referenced by this region]-->
+<oa:header version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" controllerClass="xxup.oracle.apps.per.publicservice.webui.PublicServiceMainFormCO" standalone="true" amDefName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM" text="Public Service Request">
+   <ui:contents>
+      <oa:formValue id="PositionId" prompt="Position" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PositionId"/>
+      <oa:messageComponentLayout id="FieldsCL">
+         <ui:contents>
+            <oa:messageStyledText id="SequenceNo" dataType="NUMBER" prompt="Sequence No" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="SequenceNo" styleClass="OraDataText"/>
+            <oa:messageLovInput id="PositionName" dataType="VARCHAR2" prompt="Assignment Position" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PositionName" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPositionLovRN" columns="30" required="yes">
+               <lovMappings>
+                  <lovMap id="lovMap1" lovItem="PositionName" resultTo="PositionName" criteriaFrom="PositionName"/>
+                  <lovMap id="lovMap2" lovItem="PositionId" resultTo="PositionId" requiredForLOV="false"/>
+               </lovMappings>
+            </oa:messageLovInput>
+            <oa:messageTextInput id="ProjectName" dataType="VARCHAR2" prompt="Project Name" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="ProjectName" maximumLength="140" required="yes"/>
+            <oa:messageTextInput id="PrimaryRole" dataType="VARCHAR2" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PrimaryRole" maximumLength="140" prompt="Primary Role"/>
+            <oa:messageRadioGroup id="ProjectType" defaultValue="Initiated" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVO" pickListValAttr="ProjectTypeDisplay" pickListViewName="ProjectTypeDisplay" pickListDispAttr="ProjectTypeDisplay" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="ProjectType" prompt="Project Requested/Initiated" serverUnvalidated="false"/>
+            <oa:messageTextInput id="RequestDate" dataType="DATE" prompt="Request Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="RequestDate"/>
+            <oa:messageTextInput id="RespondedDate" dataType="DATE" prompt="Responded Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="RespondedDate"/>
+            <oa:messageTextInput id="StartDate" dataType="DATE" prompt="Start Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="StartDate"/>
+            <oa:messageTextInput id="EndDate" dataType="DATE" prompt="End Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="EndDate"/>
+            <oa:messageTextInput id="DurationHours" dataType="NUMBER" prompt="No. of Hours (if less than 1 day)" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="DurationHours"/>
+            <oa:messageLayout id="ObjCatML">
+               <ui:contents>
+                  <oa:advancedTable id="ObjCatAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceObjCatRN"/>
+               </ui:contents>
+            </oa:messageLayout>
+            <oa:messageRadioGroup id="TypeOfActivity" pickListViewName="ActivityType" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSActivityTypeVO" pickListDispAttr="ActivityType" pickListValAttr="ActivityId" viewAttr="TypeOfActivity" viewName="XxupPerPublicServiceHeaderEOVO1" defaultValue="138030" prompt="Type of Activity" dataType="NUMBER"/>
+            <oa:messageLayout id="SubjectAreaML" prompt="Subject Area of Interest">
+               <ui:contents>
+                  <oa:table id="XxupPerPublicServiceSubjEOVO1">
+                     <ui:contents>
+                        <oa:messageCheckBox id="Selected" dataType="VARCHAR2" text="Selected" prompt="Selected" viewName="XxupPerPublicServiceSubjEOVO1" viewAttr="Selected" defaultValue="" checkedValue="Y" unCheckedValue="N"/>
+                        <oa:messageStyledText id="SubjectAreaInterest" dataType="VARCHAR2" prompt="Subject Area Interest" viewName="XxupPerPublicServiceSubjEOVO1" viewAttr="Attribute1"/>
+                     </ui:contents>
+                  </oa:table>
+               </ui:contents>
+            </oa:messageLayout>
+            <oa:messageTextInput id="SourceOfFund" dataType="VARCHAR2" prompt="Source of Fund" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="SourceOfFund" maximumLength="200"/>
+            <oa:messageTextInput id="PartnerOrgOrInst" dataType="VARCHAR2" prompt="Partner Organization/Institution" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PartnerOrgOrInst" maximumLength="200"/>
+            <oa:messageLovInput id="BeneficiaryCategory" dataType="VARCHAR2" prompt="Beneficiary Category" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="BeneficiaryCategory" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryCategoryLovRN" rendered="false">
+               <lovMappings>
+                  <lovMap id="lovMap6" lovItem="BeneficiaryCategoryDisplay" resultTo="BeneficiaryCategory" criteriaFrom="BeneficiaryCategory"/>
+               </lovMappings>
+            </oa:messageLovInput>
+            <oa:messageLovInput id="TypeOfBeneficiary" viewAttr="TypeOfBeneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryTypeRN" prompt="Type of Beneficiary" maximumLength="100">
+               <lovMappings>
+                  <lovMap id="lovMap7" lovItem="TypeOfBeneficiary" resultTo="TypeOfBeneficiary" criteriaFrom="TypeOfBeneficiary"/>
+               </lovMappings>
+            </oa:messageLovInput>
+            <oa:messageRadioGroup id="UnitOfBeneficiary" defaultValue="Individual" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryUnitVO" pickListViewName="UnitOfBeneficiary" pickListDispAttr="UnitOfBeneficiary" pickListValAttr="UnitOfBeneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="UnitOfBeneficiary" prompt="Unit of Beneficiary"/>
+            <oa:messageTextInput id="NoOfBeneficiary" dataType="NUMBER" prompt="No of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="NoOfBeneficiary"/>
+            <oa:messageLayout id="BenefOrgML">
+               <ui:contents>
+                  <oa:advancedTable id="BeneficiaryOrganizationAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceBenifOrgRN"/>
+               </ui:contents>
+            </oa:messageLayout>
+            <oa:messageLovInput id="Country" dataType="VARCHAR2" prompt="Country" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="Country" maximumLength="100" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSCountryRN" showRequired="false">
+               <lovMappings>
+                  <lovMap id="lovMap8" lovItem="Country" resultTo="Country" criteriaFrom="Country"/>
+               </lovMappings>
+            </oa:messageLovInput>
+            <oa:messageLayout id="AddressML" rendered="${oa.XxupPerPublicServiceHeaderEOVO1.RenderAddress}">
+               <ui:contents>
+                  <oa:advancedTable id="AddressAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceAddressRN"/>
+               </ui:contents>
+            </oa:messageLayout>
+            <oa:messageTextInput id="PostActEvalRating" dataType="VARCHAR2" prompt="Post Activity Evaluation Rating (Good and Better rating)" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PostActEvalRating" maximumLength="100"/>
+            <oa:messageTextInput id="Remarks" dataType="VARCHAR2" prompt="Remarks" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="Remarks" maximumLength="1000" columns="100" rows="3"/>
+         </ui:contents>
+      </oa:messageComponentLayout>
+   </ui:contents>
+</oa:header>

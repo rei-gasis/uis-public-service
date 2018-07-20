@@ -1,0 +1,34 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oa:advancedTable version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" viewName="XxupPerPublicServiceCatEOVO1" text="">
+   <ui:contents>
+      <oa:column id="ObjCatCol">
+         <ui:columnHeader>
+            <oa:sortableHeader id="ObjCatSH" prompt="Objective Category"/>
+         </ui:columnHeader>
+         <ui:contents>
+            <oa:formValue id="ObjectiveCategoryId" viewAttr="ObjectCategory"/>
+            <oa:messageLovInput id="ObjectiveCategory" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSObjCatLovRN" queryable="true" viewAttr="Attribute1" required="no">
+               <lovMappings>
+                  <lovMap id="lovMap1" lovItem="ObjectiveCategoryId" resultTo="ObjectiveCategoryId"/>
+                  <lovMap id="lovMap2" lovItem="ObjectiveCategoryDisplay" criteriaFrom="ObjectiveCategory" resultTo="ObjectiveCategory"/>
+               </lovMappings>
+            </oa:messageLovInput>
+         </ui:contents>
+      </oa:column>
+      <oa:column id="SpecificsCol">
+         <ui:columnHeader>
+            <oa:sortableHeader id="SpecificsSH" prompt="Specifics"/>
+         </ui:columnHeader>
+         <ui:contents>
+            <oa:messageTextInput id="Specifics" maximumLength="240" viewAttr="Specifics" rows="3" columns="100"/>
+         </ui:contents>
+      </oa:column>
+   </ui:contents>
+   <ui:footer>
+      <oa:tableFooter id="tableFooter1">
+         <ui:contents>
+            <oa:addTableRow id="addTableRow1"/>
+         </ui:contents>
+      </oa:tableFooter>
+   </ui:footer>
+</oa:advancedTable>

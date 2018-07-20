@@ -1,0 +1,20 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<page xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:ui="http://xmlns.oracle.com/uix/ui" version="10.1.3_1312" xml:lang="en-US" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$">
+   <content>
+      <oa:pageLayout id="PageLayoutRN" windowTitle="Public Service Request" title="Public Service Request" controllerClass="xxup.oracle.apps.per.publicservice.webui.PublicServiceRequestCO" amDefName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM">
+         <ui:corporateBranding>
+            <oa:image id="corporateBrandingImage" source="/OA_MEDIA/FNDSSCORP.gif"/>
+         </ui:corporateBranding>
+         <ui:contents>
+            <oa:stackLayout id="MainRN" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceMainFormRN"/>
+            <oa:pageButtonBar id="PageButtonBarRN">
+               <ui:contents>
+                  <oa:submitButton id="SaveAsDraft" use="/oracle/apps/fnd/attributesets/Buttons/Save" text="Save as Draft" prompt="Save as Draft" rendered="false"/>
+                  <oa:submitButton id="Next" use="/oracle/apps/fnd/attributesets/Buttons/Apply" text="Next" prompt="Next"/>
+                  <oa:submitButton id="Cancel" use="/oracle/apps/fnd/attributesets/Buttons/Cancel" unvalidated="true"/>
+               </ui:contents>
+            </oa:pageButtonBar>
+         </ui:contents>
+      </oa:pageLayout>
+   </content>
+</page>
