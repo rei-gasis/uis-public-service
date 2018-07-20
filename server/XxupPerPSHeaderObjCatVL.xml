@@ -1,0 +1,36 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewLink SYSTEM "jbo_03_01.dtd">
+
+<ViewLink
+   Name="XxupPerPSHeaderObjCatVL"
+   Where=":Bind_SequenceNo = XxupPerPublicServiceCatEO.SEQUENCE_NO (+)" >
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+   </DesignTime>
+   <ViewLinkDefEnd
+      Name="XxupPerPublicServiceHeaderEOVO"
+      Cardinality="1"
+      Owner="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVO"
+      Source="true" >
+      <AttrArray Name="Attributes">
+         <Item Value="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVO.SequenceNo" />
+      </AttrArray>
+      <DesignTime>
+         <Attr Name="_finderName" Value="XxupPerPublicServiceHeaderEOVO" />
+         <Attr Name="_isUpdateable" Value="true" />
+      </DesignTime>
+   </ViewLinkDefEnd>
+   <ViewLinkDefEnd
+      Name="XxupPerPublicServiceCatEOVO"
+      Cardinality="-1"
+      Owner="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVO" >
+      <AttrArray Name="Attributes">
+         <Item Value="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVO.SequenceNo" />
+      </AttrArray>
+      <DesignTime>
+         <Attr Name="_finderName" Value="XxupPerPublicServiceCatEOVO" />
+         <Attr Name="_isUpdateable" Value="true" />
+      </DesignTime>
+   </ViewLinkDefEnd>
+</ViewLink>

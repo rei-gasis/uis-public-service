@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE JboPackage SYSTEM "jbo_03_01.dtd">
+
+<JboPackage
+   Name="server"
+   SeparateXMLFiles="true"
+   PackageName="xxup.oracle.apps.per.publicservice.server" >
+   <DesignTime>
+      <Attr Name="_ejbPackage" Value="false" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+   </DesignTime>
+   <Containee
+      Name="PerPSActionHistoryVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.PerPSActionHistoryVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSAttachmentsVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.PerPSAttachmentsVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PublicServiceAM"
+      FullName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM"
+      ObjectType="AppModule" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSApprovedVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSApprovedVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSHeaderObjCatVL"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderObjCatVL"
+      ObjectType="ViewLink" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSHeaderSubjLVL"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderSubjLVL"
+      ObjectType="ViewLink" >
+   </Containee>
+   <Containee
+      Name="XxupPerPublicServiceAddrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceAddrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPublicServiceBenifEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceBenifEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPublicServiceCatEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPublicServiceHeaderEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPublicServiceSubjEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceSubjEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+</JboPackage>

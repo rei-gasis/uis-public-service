@@ -1,0 +1,129 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPublicServiceCatEOVO"
+   SelectList="XxupPerPublicServiceCatEO.SEQUENCE_NO, 
+       XxupPerPublicServiceCatEO.LINE_NUMBER, 
+       XxupPerPublicServiceCatEO.OBJECT_CATEGORY, 
+       XxupPerPublicServiceCatEO.SPECIFICS, 
+       XxupPerPublicServiceCatEO.ATTRIBUTE1, 
+       XxupPerPublicServiceCatEO.ATTRIBUTE2, 
+       XxupPerPublicServiceCatEO.ATTRIBUTE3, 
+       XxupPerPublicServiceCatEO.ATTRIBUTE4, 
+       XxupPerPublicServiceCatEO.ATTRIBUTE5, 
+       XxupPerPublicServiceCatEO.LAST_UPDATE_DATE, 
+       XxupPerPublicServiceCatEO.LAST_UPDATED_BY, 
+       XxupPerPublicServiceCatEO.LAST_UPDATE_LOGIN, 
+       XxupPerPublicServiceCatEO.CREATED_BY, 
+       XxupPerPublicServiceCatEO.CREATION_DATE, 
+       XxupPerPublicServiceCatEO.ROWID"
+   FromList="XXUP.XXUP_PER_PUBLIC_SERVICE_CAT XxupPerPublicServiceCatEO"
+   BindingStyle="OracleName"
+   CustomQuery="false"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVOImpl"
+   UseGlueCode="false" >
+   <DesignTime>
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPublicServiceCatEO"
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPublicServiceCatEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ObjectCategory"
+      EntityAttrName="ObjectCategory"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="OBJECT_CATEGORY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Specifics"
+      EntityAttrName="Specifics"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="SPECIFICS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPublicServiceCatEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

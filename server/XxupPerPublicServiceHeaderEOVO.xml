@@ -1,0 +1,339 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPublicServiceHeaderEOVO"
+   BindingStyle="OracleName"
+   CustomQuery="true"
+   RowClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVOImpl"
+   UseGlueCode="false" >
+   <Properties>
+      <Property Name ="VO_ATTR.XxupPerPublicServiceCatEOVO.VO_DATATYPE" Value ="Number" />
+      <Property Name ="VO_ATTR.XxupPerPublicServiceCatEOVO.VO_QUALIFIED_NAME" Value ="Number" />
+      <Property Name ="VO_ATTR.XxupPerPublicServiceSubjEOVO.VO_DATATYPE" Value ="Number" />
+      <Property Name ="VO_ATTR.XxupPerPublicServiceSubjEOVO.VO_QUALIFIED_NAME" Value ="Number" />
+   </Properties>
+   <SQLQuery><![CDATA[
+SELECT XxupPerPublicServiceHeaderEO.SEQUENCE_NO,
+  XxupPerPublicServiceHeaderEO.POSITION_ID,
+  XxupPerPublicServiceHeaderEO.PROJECT_NAME,
+  XxupPerPublicServiceHeaderEO.PRIMARY_ROLE,
+  XxupPerPublicServiceHeaderEO.PROJECT_TYPE,
+  XxupPerPublicServiceHeaderEO.REQUEST_DATE,
+  XxupPerPublicServiceHeaderEO.RESPONDED_DATE,
+  XxupPerPublicServiceHeaderEO.START_DATE,
+  XxupPerPublicServiceHeaderEO.END_DATE,
+  XxupPerPublicServiceHeaderEO.DURATION_HOURS,
+  XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIVITY,
+  XxupPerPublicServiceHeaderEO.SOURCE_OF_FUND,
+  XxupPerPublicServiceHeaderEO.COST_OF_PARTICIPATION,
+  XxupPerPublicServiceHeaderEO.PARTNER_ORG_OR_INST,
+  XxupPerPublicServiceHeaderEO.BENEFICIARY_CATEGORY,
+  XxupPerPublicServiceHeaderEO.TYPE_OF_BENEFICIARY,
+  XxupPerPublicServiceHeaderEO.UNIT_OF_BENEFICIARY,
+  XxupPerPublicServiceHeaderEO.NO_OF_BENEFICIARY,
+  XxupPerPublicServiceHeaderEO.COUNTRY,
+  XxupPerPublicServiceHeaderEO.POST_ACT_EVAL_RATING,
+  XxupPerPublicServiceHeaderEO.REMARKS,
+  XxupPerPublicServiceHeaderEO.REQUEST_STATUS,
+  XxupPerPublicServiceHeaderEO.ATTRIBUTE1,
+  XxupPerPublicServiceHeaderEO.ATTRIBUTE2,
+  XxupPerPublicServiceHeaderEO.ATTRIBUTE3,
+  XxupPerPublicServiceHeaderEO.ATTRIBUTE4,
+  XxupPerPublicServiceHeaderEO.ATTRIBUTE5,
+  XxupPerPublicServiceHeaderEO.LAST_UPDATE_DATE,
+  XxupPerPublicServiceHeaderEO.LAST_UPDATED_BY,
+  XxupPerPublicServiceHeaderEO.LAST_UPDATE_LOGIN,
+  XxupPerPublicServiceHeaderEO.CREATED_BY,
+  XxupPerPublicServiceHeaderEO.CREATION_DATE,
+  pp.name POSITION_NAME,
+  toa.activity_type ACTIVITY_TYPE_DISPLAY
+FROM XXUP.XXUP_PER_PUBLIC_SERVICE_HEADER XxupPerPublicServiceHeaderEO,
+  per_positions pp,
+  (SELECT flex_value_id activity_id ,
+    flex_value activity_type
+  FROM FND_FLEX_VALUES
+  WHERE flex_value_set_id =
+    (SELECT flex_value_set_id
+    FROM FND_FLEX_VALUE_SETS
+    WHERE flex_value_set_name = 'XXUP_PUBLIC_SERVICE_ACTIVITY_TYPES'
+    )
+  ORDER BY flex_value
+  ) toa
+WHERE pp.position_id                = XxupPerPublicServiceHeaderEO.POSITION_ID
+AND toa.activity_id (+)             = XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIVITY
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPublicServiceHeaderEO"
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPublicServiceHeaderEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PositionId"
+      EntityAttrName="PositionId"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="POSITION_ID" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectName"
+      EntityAttrName="ProjectName"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="PROJECT_NAME" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PrimaryRole"
+      EntityAttrName="PrimaryRole"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="PRIMARY_ROLE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectType"
+      EntityAttrName="ProjectType"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="PROJECT_TYPE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RequestDate"
+      EntityAttrName="RequestDate"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="REQUEST_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RespondedDate"
+      EntityAttrName="RespondedDate"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="RESPONDED_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="StartDate"
+      EntityAttrName="StartDate"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="START_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="EndDate"
+      EntityAttrName="EndDate"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="END_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="DurationHours"
+      EntityAttrName="DurationHours"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="DURATION_HOURS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfActivity"
+      EntityAttrName="TypeOfActivity"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="TYPE_OF_ACTIVITY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="SourceOfFund"
+      EntityAttrName="SourceOfFund"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="SOURCE_OF_FUND" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CostOfParticipation"
+      EntityAttrName="CostOfParticipation"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="COST_OF_PARTICIPATION" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PartnerOrgOrInst"
+      EntityAttrName="PartnerOrgOrInst"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="PARTNER_ORG_OR_INST" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="BeneficiaryCategory"
+      EntityAttrName="BeneficiaryCategory"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="BENEFICIARY_CATEGORY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfBeneficiary"
+      EntityAttrName="TypeOfBeneficiary"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="TYPE_OF_BENEFICIARY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="UnitOfBeneficiary"
+      EntityAttrName="UnitOfBeneficiary"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="UNIT_OF_BENEFICIARY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="NoOfBeneficiary"
+      EntityAttrName="NoOfBeneficiary"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="NO_OF_BENEFICIARY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Country"
+      EntityAttrName="Country"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="COUNTRY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PostActEvalRating"
+      EntityAttrName="PostActEvalRating"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="POST_ACT_EVAL_RATING" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Remarks"
+      EntityAttrName="Remarks"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="REMARKS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RequestStatus"
+      EntityAttrName="RequestStatus"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="REQUEST_STATUS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPublicServiceHeaderEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PositionName"
+      IsPersistent="false"
+      Precision="240"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="POSITION_NAME"
+      Expression="POSITION_NAME"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="240" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfActivityDisplay"
+      IsPersistent="false"
+      Precision="150"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="ACTIVITY_TYPE_DISPLAY"
+      Expression="ACTIVITY_TYPE_DISPLAY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="150" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ShowHide"
+      IsSelected="false"
+      IsPersistent="false"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderAddress"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderOrgRN"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewLinkAccessor
+      Name="XxupPerPublicServiceCatEOVO"
+      ViewLink="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderObjCatVL"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false" >
+   </ViewLinkAccessor>
+   <ViewLinkAccessor
+      Name="XxupPerPublicServiceSubjEOVO"
+      ViewLink="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderSubjLVL"
+      Type="oracle.jbo.RowIterator"
+      IsUpdateable="false" >
+   </ViewLinkAccessor>
+</ViewObject>

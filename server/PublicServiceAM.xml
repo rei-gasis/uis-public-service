@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE AppModule SYSTEM "jbo_03_01.dtd">
+
+<AppModule
+   Name="PublicServiceAM"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.PublicServiceAMImpl" >
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_deployType" Value="0" />
+   </DesignTime>
+   <ViewUsage
+      Name="XxupPerPublicServiceBenifEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceBenifEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPublicServiceCatEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPublicServiceSubjEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceSubjEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSSubjectAreaInterestVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSSubjectAreaInterestVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSBeneficiaryCategoryVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryCategoryVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSProjectTypeVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPublicServiceHeaderEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSHeaderObjCatVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSBeneficiaryTypeVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryTypeVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSCountryVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSCountryVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSAddressVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSAddressVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPublicServiceAddrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceAddrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSActionHistoryVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.PerPSActionHistoryVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSAttachmentsVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.PerPSAttachmentsVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSHeaderSubjVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceSubjEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="PerPSActivityTypeVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSActivityTypeVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSApprovedVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSApprovedVO" >
+   </ViewUsage>
+   <ViewLinkUsage
+      Name="XxupPerPSHeaderObjCatVL1"
+      ViewLinkObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderObjCatVL"
+      SrcViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPublicServiceHeaderEOVO1"
+      DstViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPSHeaderObjCatVO1" >
+      <DesignTime>
+         <Attr Name="_isCodegen" Value="true" />
+         <Attr Name="_version" Value="10.1.3.41.57" />
+      </DesignTime>
+   </ViewLinkUsage>
+   <ViewLinkUsage
+      Name="XxupPerPSHeaderSubjLVL1"
+      ViewLinkObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderSubjLVL"
+      SrcViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPublicServiceHeaderEOVO1"
+      DstViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPSHeaderSubjVO1" >
+      <DesignTime>
+         <Attr Name="_isCodegen" Value="true" />
+         <Attr Name="_version" Value="10.1.3.41.57" />
+      </DesignTime>
+   </ViewLinkUsage>
+</AppModule>

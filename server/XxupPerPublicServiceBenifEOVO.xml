@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPublicServiceBenifEOVO"
+   BindingStyle="OracleName"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceBenifEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPublicServiceBenifEO.SEQUENCE_NO, 
+       XxupPerPublicServiceBenifEO.LINE_NUMBER, 
+       XxupPerPublicServiceBenifEO.BENEFICIARY_ORGANIZATION, 
+       XxupPerPublicServiceBenifEO.CONTACT_DETAILS, 
+       XxupPerPublicServiceBenifEO.ATTRIBUTE1, 
+       XxupPerPublicServiceBenifEO.ATTRIBUTE2, 
+       XxupPerPublicServiceBenifEO.ATTRIBUTE3, 
+       XxupPerPublicServiceBenifEO.ATTRIBUTE4, 
+       XxupPerPublicServiceBenifEO.ATTRIBUTE5, 
+       XxupPerPublicServiceBenifEO.LAST_UPDATE_DATE, 
+       XxupPerPublicServiceBenifEO.LAST_UPDATED_BY, 
+       XxupPerPublicServiceBenifEO.LAST_UPDATE_LOGIN, 
+       XxupPerPublicServiceBenifEO.CREATED_BY, 
+       XxupPerPublicServiceBenifEO.CREATION_DATE,
+       XxupPerPublicServiceBenifEO.ROWID
+
+FROM XXUP.XXUP_PER_PUBLIC_SERVICE_BENIF XxupPerPublicServiceBenifEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPublicServiceBenifEO"
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPublicServiceBenifEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="BeneficiaryOrganization"
+      EntityAttrName="BeneficiaryOrganization"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="BENEFICIARY_ORGANIZATION" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ContactDetails"
+      EntityAttrName="ContactDetails"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="CONTACT_DETAILS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPublicServiceBenifEO"
+      AliasName="ROW_ID" >
+   </ViewAttribute>
+</ViewObject>
