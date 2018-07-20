@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="PerPSProjectTypeVO"
+   BindingStyle="OracleName"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT flex_value_id project_type_id ,
+  flex_value project_type_display
+FROM FND_FLEX_VALUES
+WHERE flex_value_set_id =
+  (SELECT flex_value_set_id
+  FROM FND_FLEX_VALUE_SETS
+  WHERE flex_value_set_name = 'XXUP_PUBLIC_SERVICE_PROJECT_TYPE'
+  )
+ORDER BY flex_value
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <ViewAttribute
+      Name="ProjectTypeId"
+      IsUpdateable="false"
+      IsPersistent="false"
+      IsNotNull="true"
+      Precision="15"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="PROJECT_TYPE_ID"
+      Passivate="true"
+      Expression="PROJECT_TYPE_ID"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectTypeDisplay"
+      IsUpdateable="false"
+      IsPersistent="false"
+      IsNotNull="true"
+      Precision="150"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PROJECT_TYPE_DISPLAY"
+      Expression="PROJECT_TYPE_DISPLAY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="150" />
+      </DesignTime>
+   </ViewAttribute>
+</ViewObject>

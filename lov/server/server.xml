@@ -1,0 +1,67 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE JboPackage SYSTEM "jbo_03_01.dtd">
+
+<JboPackage
+   Name="server"
+   SeparateXMLFiles="true"
+   PackageName="xxup.oracle.apps.per.publicservice.lov.server" >
+   <DesignTime>
+      <Attr Name="_ejbPackage" Value="false" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+   </DesignTime>
+   <Containee
+      Name="PerPositionsVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPositionsVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSActivityTypeVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSActivityTypeVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSAddressVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSAddressVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSBeneficiaryCategoryVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryCategoryVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSBeneficiaryTypeVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryTypeVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSBeneficiaryUnitVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryUnitVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSCountryVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSCountryVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSObjCatVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSObjCatVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSProjectTypeVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PerPSSubjectAreaInterestVO"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PerPSSubjectAreaInterestVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="PublicServiceLovAM"
+      FullName="xxup.oracle.apps.per.publicservice.lov.server.PublicServiceLovAM"
+      ObjectType="AppModule" >
+   </Containee>
+</JboPackage>
