@@ -19,7 +19,8 @@ SELECT sequence_no
         WHERE user_id = psh.created_by) person_id
       ,'Individual' type
       ,'VIEW_INDIVIDUAL' VIEW_DETAILS
-      ,'UPDATE_DISABLED' UPDATE_IMAGE
+      ,DECODE(FND_PROFILE.value('XXUP_PER_PS_SUMMARY_UPDATE_ENABLED'), 'YES', 'UPDATE_ENABLED'
+                                                                     , 'NO', 'UPDATE_DISABLED') UPDATE_IMAGE
 FROM xxup.xxup_per_public_service_header psh
 UNION
 SELECT inst.sequence_no
