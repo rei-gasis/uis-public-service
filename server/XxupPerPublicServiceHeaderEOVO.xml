@@ -36,7 +36,6 @@ SELECT XxupPerPublicServiceHeaderEO.SEQUENCE_NO,
   XxupPerPublicServiceHeaderEO.COUNTRY,
   XxupPerPublicServiceHeaderEO.POST_ACT_EVAL_RATING,
   XxupPerPublicServiceHeaderEO.REMARKS,
-  XxupPerPublicServiceHeaderEO.REQUEST_STATUS,
   XxupPerPublicServiceHeaderEO.ATTRIBUTE1,
   XxupPerPublicServiceHeaderEO.ATTRIBUTE2,
   XxupPerPublicServiceHeaderEO.ATTRIBUTE3,
@@ -202,12 +201,6 @@ AND toa.activity_id (+)             = XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIV
       EntityAttrName="Remarks"
       EntityUsage="XxupPerPublicServiceHeaderEO"
       AliasName="REMARKS" >
-   </ViewAttribute>
-   <ViewAttribute
-      Name="RequestStatus"
-      EntityAttrName="RequestStatus"
-      EntityUsage="XxupPerPublicServiceHeaderEO"
-      AliasName="REQUEST_STATUS" >
    </ViewAttribute>
    <ViewAttribute
       Name="Attribute1"

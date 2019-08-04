@@ -3,31 +3,31 @@
    <ui:contents>
       <oa:header id="PublicServiceHRN" text="Public Service">
          <ui:contents>
-            <oa:formValue id="PositionId" prompt="Position" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PositionId"/>
-            <oa:formValue id="TypeOfActivityId" prompt="Position" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="TypeOfActivity" dataType="VARCHAR2"/>
+            <oa:formValue id="PositionId" prompt="Position" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PositionId"/>
+            <oa:formValue id="TypeOfActivityId" prompt="Position" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfActivity" dataType="VARCHAR2"/>
             <oa:messageComponentLayout id="FieldsCL">
                <ui:contents>
-                  <oa:messageStyledText id="SequenceNo" dataType="NUMBER" prompt="Sequence No" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="SequenceNo" styleClass="OraDataText"/>
-                  <oa:messageLovInput id="PositionName" dataType="VARCHAR2" prompt="* Assignment Position" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PositionName" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPositionLovRN" required="no" translatableDefaultValue="31294">
+                  <oa:messageStyledText id="SequenceNo" dataType="NUMBER" prompt="Sequence No" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SequenceNo" styleClass="OraDataText"/>
+                  <oa:messageLovInput id="PositionName" dataType="VARCHAR2" prompt="* Assignment Position" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PositionName" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPositionLovRN" required="no" translatableDefaultValue="">
                      <lovMappings>
                         <lovMap id="lovMap1" lovItem="PositionName" resultTo="PositionName" criteriaFrom="PositionName"/>
                         <lovMap id="lovMap2" lovItem="PositionId" resultTo="PositionId" requiredForLOV="false"/>
                      </lovMappings>
                   </oa:messageLovInput>
-                  <oa:messageTextInput id="ProjectName" dataType="VARCHAR2" prompt="* Project Name" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="ProjectName" maximumLength="140" required="no" translatableDefaultValue="test"/>
-                  <oa:messageTextInput id="PrimaryRole" dataType="VARCHAR2" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PrimaryRole" maximumLength="140" prompt="* Primary Role" required="no"/>
-                  <oa:messageRadioGroup id="ProjectType" defaultValue="Initiated" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVO" pickListValAttr="ProjectTypeDisplay" pickListViewName="ProjectTypeDisplay" pickListDispAttr="ProjectTypeDisplay" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="ProjectType" prompt="Project Requested/Initiated" serverUnvalidated="false"/>
-                  <oa:messageTextInput id="RequestDate" dataType="DATE" prompt="Request Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="RequestDate"/>
-                  <oa:messageTextInput id="RespondedDate" dataType="DATE" prompt="Responded Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="RespondedDate"/>
-                  <oa:messageTextInput id="StartDate" dataType="DATE" prompt="* Start Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="StartDate" required="no"/>
-                  <oa:messageTextInput id="EndDate" dataType="DATE" prompt="End Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="EndDate"/>
-                  <oa:messageTextInput id="DurationHours" dataType="NUMBER" prompt="No. of Hours (if less than 1 day)" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="DurationHours"/>
+                  <oa:messageTextInput id="ProjectName" dataType="VARCHAR2" prompt="* Project Name" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectName" maximumLength="140" required="no" translatableDefaultValue="test"/>
+                  <oa:messageTextInput id="PrimaryRole" dataType="VARCHAR2" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PrimaryRole" maximumLength="140" prompt="* Primary Role" required="no"/>
+                  <oa:messageRadioGroup id="ProjectType" defaultValue="Initiated" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVO" pickListValAttr="ProjectTypeDisplay" pickListViewName="ProjectTypeDisplay" pickListDispAttr="ProjectTypeDisplay" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectType" prompt="Project Requested/Initiated" serverUnvalidated="false"/>
+                  <oa:messageTextInput id="RequestDate" dataType="DATE" prompt="Request Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="RequestDate"/>
+                  <oa:messageTextInput id="RespondedDate" dataType="DATE" prompt="Responded Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="RespondedDate"/>
+                  <oa:messageTextInput id="StartDate" dataType="DATE" prompt="* Start Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="StartDate" required="no"/>
+                  <oa:messageTextInput id="EndDate" dataType="DATE" prompt="End Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="EndDate"/>
+                  <oa:messageTextInput id="DurationHours" dataType="NUMBER" prompt="No. of Hours (if less than 1 day)" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="DurationHours"/>
                   <oa:messageLayout id="ObjCatML" prompt="* Objective Category">
                      <ui:contents>
                         <oa:advancedTable id="ObjCatAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceObjCatRN"/>
                      </ui:contents>
                   </oa:messageLayout>
-                  <oa:messageLovInput id="TypeOfActivityDisplay" dataType="VARCHAR2" prompt="* Type of Activity" viewName="XxupPerPublicServiceHeaderEOVO1" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSActivityTypeLovRN" rendered="true" viewAttr="TypeOfActivityDisplay" queryable="false" required="no">
+                  <oa:messageLovInput id="TypeOfActivityDisplay" dataType="VARCHAR2" prompt="* Type of Activity" viewName="XxupPerPSHeaderTrEOVO1" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSActivityTypeLovRN" rendered="true" viewAttr="TypeOfActivityDisplay" queryable="false" required="no">
                      <lovMappings>
                         <lovMap id="lovMap61" lovItem="ActivityId" resultTo="TypeOfActivityId" criteriaFrom="TypeOfActivityId"/>
                         <lovMap id="lovMap62" resultTo="TypeOfActivityDisplay" lovItem="ActivityType" criteriaFrom="TypeOfActivityDisplay"/>
@@ -43,45 +43,45 @@
                         </oa:table>
                      </ui:contents>
                   </oa:messageLayout>
-                  <oa:messageTextInput id="SourceOfFund" dataType="VARCHAR2" prompt="* Funding agency" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="SourceOfFund" maximumLength="200" required="no"/>
-                  <oa:messageTextInput id="PartnerOrgOrInst" dataType="VARCHAR2" prompt="Partner Organization/Institution" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PartnerOrgOrInst" maximumLength="200"/>
-                  <oa:messageLovInput id="BeneficiaryCategory" dataType="VARCHAR2" prompt="Beneficiary Category" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="BeneficiaryCategory" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryCategoryLovRN" rendered="false" required="no">
+                  <oa:messageTextInput id="SourceOfFund" dataType="VARCHAR2" prompt="* Funding agency" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SourceOfFund" maximumLength="200" required="no"/>
+                  <oa:messageTextInput id="PartnerOrgOrInst" dataType="VARCHAR2" prompt="Partner Organization/Institution" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PartnerOrgOrInst" maximumLength="200"/>
+                  <oa:messageLovInput id="BeneficiaryCategory" dataType="VARCHAR2" prompt="Beneficiary Category" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="BeneficiaryCategory" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryCategoryLovRN" rendered="false" required="no">
                      <lovMappings>
                         <lovMap id="lovMap6" lovItem="BeneficiaryCategoryDisplay" resultTo="BeneficiaryCategory" criteriaFrom="BeneficiaryCategory"/>
                      </lovMappings>
                   </oa:messageLovInput>
-                  <oa:messageLovInput id="TypeOfBeneficiary" viewAttr="TypeOfBeneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryTypeRN" prompt="* Type of Beneficiary" maximumLength="100">
+                  <oa:messageLovInput id="TypeOfBeneficiary" viewAttr="TypeOfBeneficiary" viewName="XxupPerPSHeaderTrEOVO1" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryTypeRN" prompt="* Type of Beneficiary" maximumLength="100">
                      <lovMappings>
                         <lovMap id="lovMap7" lovItem="TypeOfBeneficiary" resultTo="TypeOfBeneficiary" criteriaFrom="TypeOfBeneficiary"/>
                      </lovMappings>
                   </oa:messageLovInput>
-                  <oa:messageRadioGroup id="UnitOfBeneficiary" defaultValue="Individual" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryUnitVO" pickListViewName="UnitOfBeneficiary" pickListDispAttr="UnitOfBeneficiary" pickListValAttr="UnitOfBeneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="UnitOfBeneficiary" prompt="* Unit of Beneficiary">
+                  <oa:messageRadioGroup id="UnitOfBeneficiary" defaultValue="Individual" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryUnitVO" pickListViewName="UnitOfBeneficiary" pickListDispAttr="UnitOfBeneficiary" pickListValAttr="UnitOfBeneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="UnitOfBeneficiary" prompt="* Unit of Beneficiary">
                      <ui:primaryClientAction>
                         <ui:firePartialAction event="RenderOrganization">
                            <ui:parameters>
-                              <ui:parameter key="pUnitOfBeneficiary" value="${oa.XxupPerPublicServiceHeaderEOVO1.UnitOfBeneficiary}"/>
+                              <ui:parameter key="pUnitOfBeneficiary" value="${oa.XxupPerPSHeaderTrEOVO1.UnitOfBeneficiary}"/>
                            </ui:parameters>
                         </ui:firePartialAction>
                      </ui:primaryClientAction>
                   </oa:messageRadioGroup>
-                  <oa:messageTextInput id="NoOfBeneficiary" dataType="NUMBER" prompt="* Total No. of Beneficiaries" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="NoOfBeneficiary" required="no"/>
-                  <oa:messageLayout id="BenefOrgML" rendered="${oa.XxupPerPublicServiceHeaderEOVO1.RenderOrgRN}">
+                  <oa:messageTextInput id="NoOfBeneficiary" dataType="NUMBER" prompt="* Total No. of Beneficiaries" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="NoOfBeneficiary" required="no"/>
+                  <oa:messageLayout id="BenefOrgML" rendered="${oa.XxupPerPSHeaderTrEOVO1.RenderOrgRN}">
                      <ui:contents>
                         <oa:advancedTable id="BeneficiaryOrganizationAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceBenifOrgRN"/>
                      </ui:contents>
                   </oa:messageLayout>
-                  <oa:messageLovInput id="Country" dataType="VARCHAR2" prompt="* Country" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="Country" maximumLength="100" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSCountryRN" showRequired="false">
+                  <oa:messageLovInput id="Country" dataType="VARCHAR2" prompt="* Country" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="Country" maximumLength="100" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSCountryRN" showRequired="false">
                      <lovMappings>
                         <lovMap id="lovMap8" lovItem="Country" resultTo="Country" criteriaFrom="Country"/>
                      </lovMappings>
                   </oa:messageLovInput>
-                  <oa:messageLayout id="AddressML" rendered="${oa.XxupPerPublicServiceHeaderEOVO1.RenderAddress}">
+                  <oa:messageLayout id="AddressML" rendered="${oa.XxupPerPSHeaderTrEOVO1.RenderAddress}">
                      <ui:contents>
                         <oa:advancedTable id="AddressAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceAddressRN"/>
                      </ui:contents>
                   </oa:messageLayout>
-                  <oa:messageTextInput id="PostActEvalRating" dataType="VARCHAR2" prompt="Post Activity Evaluation Rating (Good and Better rating)" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PostActEvalRating" maximumLength="100"/>
-                  <oa:messageTextInput id="Remarks" dataType="VARCHAR2" prompt="Remarks" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="Remarks" maximumLength="1000" columns="100" rows="3"/>
+                  <oa:messageTextInput id="PostActEvalRating" dataType="VARCHAR2" prompt="Post Activity Evaluation Rating (Good and Better rating)" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PostActEvalRating" maximumLength="100"/>
+                  <oa:messageTextInput id="Remarks" dataType="VARCHAR2" prompt="Remarks" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="Remarks" maximumLength="1000" columns="100" rows="3"/>
                </ui:contents>
             </oa:messageComponentLayout>
          </ui:contents>

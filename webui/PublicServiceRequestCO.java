@@ -130,7 +130,7 @@ public class PublicServiceRequestCO extends OAControllerImpl {
             
              /*Validate required fields*/
             OAViewObject mainVo = 
-                (OAViewObject)am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
+                (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
                 
             if (mainVo != null) {
                 row = mainVo.getCurrentRow();

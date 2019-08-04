@@ -24,7 +24,6 @@ import xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVOImpl;
 import xxup.oracle.apps.per.publicservice.lov.server.PerPSSubjectAreaInterestVOImpl;
 import xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceBenifEOVOImpl;
 import xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVOImpl;
-import xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVOImpl;
 import xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceSubjEOVOImpl;
 
 
@@ -133,9 +132,13 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     }
 
     public void initVOForNewRequest() {
-        XxupPerPublicServiceHeaderEOVOImpl pshVO = 
-            getXxupPerPublicServiceHeaderEOVO1();
-        pshVO.initNewVO();
+        // XxupPerPublicServiceHeaderEOVOImpl pshVO = 
+        //     getXxupPerPublicServiceHeaderEOVO1();
+        // pshVO.initNewVO();
+
+        XxupPerPSHeaderTrEOVOImpl pshVO = 
+            getXxupPerPSHeaderTrEOVO1();
+        pshVO.initNewRecord();
 
         
         XxupPerPublicServiceCatEOVOImpl ppscVO = 
@@ -143,7 +146,6 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
         ppscVO.initNewRecord();
 
 
-        
         XxupPerPublicServiceBenifEOVOImpl ppsbVO =
             getXxupPerPublicServiceBenifEOVO1();
         ppsbVO.initNewRecord();
@@ -167,10 +169,13 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     public void setAttachments(String paramSequenceNo) {
         try {
             
-            XxupPerPublicServiceHeaderEOVOImpl pshVO = 
-                getXxupPerPublicServiceHeaderEOVO1();
-            pshVO.initExistingPS(paramSequenceNo);
+            // XxupPerPublicServiceHeaderEOVOImpl pshVO = 
+            //     getXxupPerPublicServiceHeaderEOVO1();
+            // pshVO.initExistingPS(paramSequenceNo);
             
+            XxupPerPSHeaderTrEOVOImpl pshVO = 
+                getXxupPerPSHeaderTrEOVO1();
+            pshVO.initExistingPS(paramSequenceNo);
             
             /*
             PerPSAttachmentsVOImpl attVO = 
@@ -206,8 +211,12 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     
         try {
             
-            XxupPerPublicServiceHeaderEOVOImpl pshVO = 
-                getXxupPerPublicServiceHeaderEOVO1();
+            // XxupPerPublicServiceHeaderEOVOImpl pshVO = 
+            //     getXxupPerPublicServiceHeaderEOVO1();
+            // pshVO.initExistingPS(paramSequenceNo);
+
+            XxupPerPSHeaderTrEOVOImpl pshVO = 
+                getXxupPerPSHeaderTrEOVO1();
             pshVO.initExistingPS(paramSequenceNo);
             
             
@@ -247,9 +256,13 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     public void updatePS(String paramSequenceNo) {
         try {
             
-            XxupPerPublicServiceHeaderEOVOImpl ppshvo = 
-                getXxupPerPublicServiceHeaderEOVO1();
-            ppshvo.initExistingPS(paramSequenceNo);
+            // XxupPerPublicServiceHeaderEOVOImpl ppshvo = 
+            //     getXxupPerPublicServiceHeaderEOVO1();
+            // ppshvo.initExistingPS(paramSequenceNo);
+            
+            XxupPerPSHeaderTrEOVOImpl pshVO = 
+                getXxupPerPSHeaderTrEOVO1();
+            pshVO.initExistingPS(paramSequenceNo);
             
 
             XxupPerPublicServiceCatEOVOImpl ppscVO = 
@@ -320,8 +333,11 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
 
 
         /*Object Category*/
-        XxupPerPublicServiceHeaderEOVOImpl vo = 
-            getXxupPerPublicServiceHeaderEOVO1();
+        // XxupPerPublicServiceHeaderEOVOImpl vo = 
+        //     getXxupPerPublicServiceHeaderEOVO1();
+
+        XxupPerPSHeaderTrEOVOImpl vo =
+            getXxupPerPSHeaderTrEOVO1();
 
         String sequenceNo = 
             vo.getCurrentRow().getAttribute("SequenceNo").toString();
@@ -616,25 +632,6 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     }
 
 
-    /**Container's getter for XxupPerPublicServiceHeaderEOVO1
-     */
-    public XxupPerPublicServiceHeaderEOVOImpl getXxupPerPublicServiceHeaderEOVO1() {
-        return (XxupPerPublicServiceHeaderEOVOImpl)findViewObject("XxupPerPublicServiceHeaderEOVO1");
-    }
-
-
-    /**Container's getter for XxupPerPSHeaderObjCatVL1
-     */
-    public ViewLinkImpl getXxupPerPSHeaderObjCatVL1() {
-        return (ViewLinkImpl)findViewLink("XxupPerPSHeaderObjCatVL1");
-    }
-
-    /**Container's getter for XxupPerPSHeaderObjCatVO1
-     */
-    public XxupPerPublicServiceCatEOVOImpl getXxupPerPSHeaderObjCatVO1() {
-        return (XxupPerPublicServiceCatEOVOImpl)findViewObject("XxupPerPSHeaderObjCatVO1");
-    }
-
     /**Container's getter for PerPSBeneficiaryTypeVO1
      */
     public PerPSBeneficiaryTypeVOImpl getPerPSBeneficiaryTypeVO1() {
@@ -673,18 +670,6 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     }
 
 
-    /**Container's getter for XxupPerPSHeaderSubjVO1
-     */
-    public XxupPerPublicServiceSubjEOVOImpl getXxupPerPSHeaderSubjVO1() {
-        return (XxupPerPublicServiceSubjEOVOImpl)findViewObject("XxupPerPSHeaderSubjVO1");
-    }
-
-    /**Container's getter for XxupPerPSHeaderSubjLVL1
-     */
-    public ViewLinkImpl getXxupPerPSHeaderSubjLVL1() {
-        return (ViewLinkImpl)findViewLink("XxupPerPSHeaderSubjLVL1");
-    }
-
     /**Container's getter for PerPSActivityTypeVO1
      */
     public PerPSActivityTypeVOImpl getPerPSActivityTypeVO1() {
@@ -695,5 +680,11 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
      */
     public XxupPerPSApprovedVOImpl getXxupPerPSApprovedVO1() {
         return (XxupPerPSApprovedVOImpl)findViewObject("XxupPerPSApprovedVO1");
+    }
+
+    /**Container's getter for XxupPerPSHeaderTrEOVO1
+     */
+    public XxupPerPSHeaderTrEOVOImpl getXxupPerPSHeaderTrEOVO1() {
+        return (XxupPerPSHeaderTrEOVOImpl)findViewObject("XxupPerPSHeaderTrEOVO1");
     }
 }

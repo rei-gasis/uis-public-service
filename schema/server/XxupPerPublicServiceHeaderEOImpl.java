@@ -38,17 +38,16 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
     public static final int COUNTRY = 18;
     public static final int POSTACTEVALRATING = 19;
     public static final int REMARKS = 20;
-    public static final int REQUESTSTATUS = 21;
-    public static final int ATTRIBUTE1 = 22;
-    public static final int ATTRIBUTE2 = 23;
-    public static final int ATTRIBUTE3 = 24;
-    public static final int ATTRIBUTE4 = 25;
-    public static final int ATTRIBUTE5 = 26;
-    public static final int LASTUPDATEDATE = 27;
-    public static final int LASTUPDATEDBY = 28;
-    public static final int LASTUPDATELOGIN = 29;
-    public static final int CREATEDBY = 30;
-    public static final int CREATIONDATE = 31;
+    public static final int ATTRIBUTE1 = 21;
+    public static final int ATTRIBUTE2 = 22;
+    public static final int ATTRIBUTE3 = 23;
+    public static final int ATTRIBUTE4 = 24;
+    public static final int ATTRIBUTE5 = 25;
+    public static final int LASTUPDATEDATE = 26;
+    public static final int LASTUPDATEDBY = 27;
+    public static final int LASTUPDATELOGIN = 28;
+    public static final int CREATEDBY = 29;
+    public static final int CREATIONDATE = 30;
 
 
     private static OAEntityDefImpl mDefinitionObject;
@@ -288,17 +287,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
         setAttributeInternal(REMARKS, value);
     }
 
-    /**Gets the attribute value for RequestStatus, using the alias name RequestStatus
-     */
-    public String getRequestStatus() {
-        return (String)getAttributeInternal(REQUESTSTATUS);
-    }
-
-    /**Sets <code>value</code> as the attribute value for RequestStatus
-     */
-    public void setRequestStatus(String value) {
-        setAttributeInternal(REQUESTSTATUS, value);
-    }
 
     /**Gets the attribute value for Attribute1, using the alias name Attribute1
      */
@@ -467,8 +455,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
             return getPostActEvalRating();
         case REMARKS:
             return getRemarks();
-        case REQUESTSTATUS:
-            return getRequestStatus();
         case ATTRIBUTE1:
             return getAttribute1();
         case ATTRIBUTE2:
@@ -561,9 +547,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
             return;
         case REMARKS:
             setRemarks((String)value);
-            return;
-        case REQUESTSTATUS:
-            setRequestStatus((String)value);
             return;
         case ATTRIBUTE1:
             setAttribute1((String)value);

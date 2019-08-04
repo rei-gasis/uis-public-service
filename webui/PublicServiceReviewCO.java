@@ -212,7 +212,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
             /*
             OAViewObject vo =
-                (OAViewObject)am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
+                (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
 
             Row row = vo.getCurrentRow();
 
@@ -253,7 +253,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
         } else if (pageContext.getParameter("Submit") != null) {
 
             OAViewObject vo = 
-                (OAViewObject)am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
+                (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
 
             Row row = vo.getCurrentRow();
 

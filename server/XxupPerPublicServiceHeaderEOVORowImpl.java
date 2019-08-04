@@ -17,6 +17,7 @@ import xxup.oracle.apps.per.publicservice.schema.server.XxupPerPublicServiceHead
 // ---------------------------------------------------------------------
 public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
     public static final int SEQUENCENO = 0;
+    public static final int REQUESTSTATUS = 21;
     public static final int POSITIONID = 1;
     public static final int PROJECTNAME = 2;
     public static final int PRIMARYROLE = 3;
@@ -37,24 +38,23 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
     public static final int COUNTRY = 18;
     public static final int POSTACTEVALRATING = 19;
     public static final int REMARKS = 20;
-    public static final int REQUESTSTATUS = 21;
-    public static final int ATTRIBUTE1 = 22;
-    public static final int ATTRIBUTE2 = 23;
-    public static final int ATTRIBUTE3 = 24;
-    public static final int ATTRIBUTE4 = 25;
-    public static final int ATTRIBUTE5 = 26;
-    public static final int LASTUPDATEDATE = 27;
-    public static final int LASTUPDATEDBY = 28;
-    public static final int LASTUPDATELOGIN = 29;
-    public static final int CREATEDBY = 30;
-    public static final int CREATIONDATE = 31;
-    public static final int POSITIONNAME = 32;
-    public static final int TYPEOFACTIVITYDISPLAY = 33;
-    public static final int SHOWHIDE = 34;
-    public static final int RENDERADDRESS = 35;
-    public static final int RENDERORGRN = 36;
-    public static final int XXUPPERPUBLICSERVICECATEOVO = 37;
-    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 38;
+    public static final int ATTRIBUTE1 = 21;
+    public static final int ATTRIBUTE2 = 22;
+    public static final int ATTRIBUTE3 = 23;
+    public static final int ATTRIBUTE4 = 24;
+    public static final int ATTRIBUTE5 = 25;
+    public static final int LASTUPDATEDATE = 26;
+    public static final int LASTUPDATEDBY = 27;
+    public static final int LASTUPDATELOGIN = 28;
+    public static final int CREATEDBY = 29;
+    public static final int CREATIONDATE = 30;
+    public static final int POSITIONNAME = 31;
+    public static final int TYPEOFACTIVITYDISPLAY = 32;
+    public static final int SHOWHIDE = 33;
+    public static final int RENDERADDRESS = 34;
+    public static final int RENDERORGRN = 35;
+    public static final int XXUPPERPUBLICSERVICECATEOVO = 36;
+    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 37;
 
     /**This is the default constructor (do not remove)
      */
@@ -319,18 +319,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         setAttributeInternal(REMARKS, value);
     }
 
-    /**Gets the attribute value for REQUEST_STATUS using the alias name RequestStatus
-     */
-    public String getRequestStatus() {
-        return (String) getAttributeInternal(REQUESTSTATUS);
-    }
-
-    /**Sets <code>value</code> as attribute value for REQUEST_STATUS using the alias name RequestStatus
-     */
-    public void setRequestStatus(String value) {
-        setAttributeInternal(REQUESTSTATUS, value);
-    }
-
     /**Gets the attribute value for ATTRIBUTE1 using the alias name Attribute1
      */
     public String getAttribute1() {
@@ -548,8 +536,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return getPostActEvalRating();
         case REMARKS:
             return getRemarks();
-        case REQUESTSTATUS:
-            return getRequestStatus();
         case ATTRIBUTE1:
             return getAttribute1();
         case ATTRIBUTE2:
@@ -656,9 +642,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return;
         case REMARKS:
             setRemarks((String)value);
-            return;
-        case REQUESTSTATUS:
-            setRequestStatus((String)value);
             return;
         case ATTRIBUTE1:
             setAttribute1((String)value);

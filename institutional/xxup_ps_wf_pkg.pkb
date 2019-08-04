@@ -42,6 +42,14 @@ IS
         AND pptr.sequence_no = p_seq_no;
     
     
+    EXCEPTION
+      WHEN no_data_found THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - data not found!');
+      WHEN too_many_rows THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - too many row fetched!');
+      WHEN OTHERS THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - ' || SUBSTR(SQLERRM0,200));
+
     END set_owner_details;
     
     PROCEDURE init_wf(p_sequence_no IN VARCHAR2)
@@ -73,22 +81,24 @@ IS
         
         wf_engine.startprocess(lv_item_type, lv_item_key);
         
-        UPDATE XXUP.XXUP_PER_PS_INSTITUTIONAL_TR
+        UPDATE xxup.xxup_per_ps_header_tr
         SET item_key = lv_item_key
         WHERE sequence_no = p_sequence_no;
         
         UPDATE xxup.xxup_per_ps_action_history hist
         SET action_date = SYSDATE
+           ,type = 'Individual'
         WHERE sequence_no = p_sequence_no
         AND action = 'Submit'; --employee submission
-        
         
         
         COMMIT;
         
         --UPDATE 
     
-    
+    EXCEPTION
+      WHEN OTHERS THEN
+        raise_application_error(-20101, 'Encountered error on Initializing workflow - ' || SUBSTR(SQLERRM(0,200)));
     END init_wf;
     
     
@@ -190,8 +200,7 @@ IS
             
             EXCEPTION 
                 WHEN OTHERS THEN
-                      NULL;
-                    
+                      raise_application_error(-20101, 'Encountered error on Setting attributes - ' || SUBSTR(SQLERRM(0,200)));
             END;
             
             
@@ -203,22 +212,30 @@ IS
                 WHERE sequence_no = lv_seq_no;
             EXCEPTION
                 WHEN OTHERS THEN
-                    NULL;
+                    raise_application_error(-20101, 'Encountered error on Setting attributes - unable to get Project Name');
             END;
             
             /*Set 1st approver notification attributes*/
             
-            SELECT full_name
-            INTO lv_approver_name
-            FROM hr.per_all_people_f papf
-            WHERE SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
-              AND person_type_id = 1126
-              AND papf.person_id = (SELECT to_employee_id
-                                    FROM xxup.xxup_per_ps_action_history
-                                    WHERE type = 'institutional'
-                                    AND sequence_no = lv_seq_no
-                                    AND action = 'Pending');
-            
+            BEGIN 
+              SELECT full_name
+              INTO lv_approver_name
+              FROM hr.per_all_people_f papf
+              WHERE SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
+                AND person_type_id = 1126
+                AND papf.person_id = (SELECT to_employee_id
+                                      FROM xxup.xxup_per_ps_action_history
+                                      WHERE type = 'institutional'
+                                      AND sequence_no = lv_seq_no
+                                      AND action = 'Pending');
+            EXCEPTION
+                WHEN no_data_found THEN
+                    raise_application_error(-20101, 'Encountered error on Setting attributes - Approver name not found!');
+                WHEN too_many_rows THEN
+                    raise_application_error(-20101, 'Encountered error on Setting attributes - too many Approver name fetched!');
+                WHEN OTHERS THEN
+                    raise_application_error(-20101, 'Encountered error on Setting attributes - ' || SUBSTR(SQLERRM,0,200));
+            END;
            
             
             BEGIN

@@ -18,6 +18,8 @@ import oracle.apps.fnd.framework.webui.beans.OAWebBean;
 
 import oracle.jbo.Row;
 
+import oracle.apps.fnd.framework.OAFwkConstants;
+
 /**
  * Controller for ...
  */
@@ -61,7 +63,7 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
             String lovInputId = pageContext.getLovInputSourceId();
             
             if("Country".equals(lovInputId)){
-                OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
+                OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
                 
                 Row row = vo.getCurrentRow();
                 if(row.getAttribute("Country")!=null && "Philippines".equals(row.getAttribute("Country").toString())){
@@ -84,7 +86,16 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         if("RenderOrganization".equals(pageContext.getParameter(OAWebBeanConstants.EVENT_PARAM))){
             //System.out.println(pageContext.getParameter("pUnitOfBeneficiary").toString());
             
-             OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
+             OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+
+             if(pageContext.isLoggingEnabled(OAFwkConstants.STATEMENT))  
+             {  
+                if(vo != null)
+                    pageContext.writeDiagnostics(this, "PS Main Transaction view - found" ,OAFwkConstants.STATEMENT);    
+                else
+                    pageContext.writeDiagnostics(this, "PS Main Transaction view - NOT found" ,OAFwkConstants.STATEMENT);    
+             }  
+
              
              Row row = vo.getCurrentRow();
              
