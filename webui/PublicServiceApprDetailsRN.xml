@@ -3,17 +3,17 @@
    <ui:contents>
       <oa:messageComponentLayout id="DetailsRN" width="70%">
          <ui:contents>
-            <oa:messageStyledText id="SequenceNo" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="SequenceNo" prompt="Sequence No" styleClass="OraDataText" dataType="NUMBER"/>
-            <oa:messageStyledText id="AssignmentPosition" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PositionName" prompt="Assignment Position" styleClass="OraDataText"/>
-            <oa:messageStyledText id="ProjectName" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="ProjectName" prompt="Project Name" styleClass="OraDataText"/>
-            <oa:messageStyledText id="PrimaryRole" prompt="Primary Role" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PrimaryRole" styleClass="OraDataText"/>
-            <oa:messageStyledText id="ProjectType" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="ProjectType" prompt="Project Type" styleClass="OraDataText"/>
-            <oa:messageStyledText id="RequestDate" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="RequestDate" styleClass="OraDataText" prompt="Request Date"/>
-            <oa:messageStyledText id="RespondedDate" prompt="Responded Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="RespondedDate" styleClass="OraDataText"/>
-            <oa:messageStyledText id="StartDate" prompt="Start Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="StartDate" styleClass="OraDataText"/>
-            <oa:messageStyledText id="EndDate" prompt="End Date" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="EndDate" styleClass="OraDataText"/>
-            <oa:messageStyledText id="DurationHours" prompt="Duration Hours" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="DurationHours" styleClass="OraDataText"/>
-            <oa:messageStyledText id="TypeOfActivity" prompt="Type of Activity" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="TypeOfActivityDisplay" styleClass="OraDataText"/>
+            <oa:messageStyledText id="SequenceNo" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SequenceNo" prompt="Sequence No" styleClass="OraDataText" dataType="NUMBER"/>
+            <oa:messageStyledText id="AssignmentPosition" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PositionName" prompt="Assignment Position" styleClass="OraDataText"/>
+            <oa:messageStyledText id="ProjectName" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectName" prompt="Project Name" styleClass="OraDataText"/>
+            <oa:messageStyledText id="PrimaryRole" prompt="Primary Role" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PrimaryRole" styleClass="OraDataText"/>
+            <oa:messageStyledText id="ProjectType" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectType" prompt="Project Type" styleClass="OraDataText"/>
+            <oa:messageStyledText id="RequestDate" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="RequestDate" styleClass="OraDataText" prompt="Request Date"/>
+            <oa:messageStyledText id="RespondedDate" prompt="Responded Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="RespondedDate" styleClass="OraDataText"/>
+            <oa:messageStyledText id="StartDate" prompt="Start Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="StartDate" styleClass="OraDataText"/>
+            <oa:messageStyledText id="EndDate" prompt="End Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="EndDate" styleClass="OraDataText"/>
+            <oa:messageStyledText id="DurationHours" prompt="Duration Hours" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="DurationHours" styleClass="OraDataText"/>
+            <oa:messageStyledText id="TypeOfActivity" prompt="Type of Activity" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfActivityDisplay" styleClass="OraDataText"/>
             <oa:messageLayout id="ObjCatML">
                <ui:contents>
                   <oa:advancedTable id="ObjCatAT" viewName="XxupPerPublicServiceCatEOVO1" width="30%">
@@ -54,12 +54,12 @@
                   </oa:advancedTable>
                </ui:contents>
             </oa:messageLayout>
-            <oa:messageStyledText id="SourceOfFund" prompt="Source Of Fund" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="SourceOfFund" styleClass="OraDataText"/>
-            <oa:messageStyledText id="PartnerOrgOrInst" prompt="Partner Organization/Institution" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PartnerOrgOrInst" styleClass="OraDataText"/>
-            <oa:messageStyledText id="BeneficiaryCategory" prompt="Beneficary Category" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="BeneficiaryCategory" styleClass="OraDataText"/>
-            <oa:messageStyledText id="TypeOfBeneficiary" prompt="Type Of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/>
-            <oa:messageStyledText id="UnitOfBeneficiary" prompt="Unit Of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="UnitOfBeneficiary" styleClass="OraDataText"/>
-            <oa:messageStyledText id="NoOfBeneficiary" prompt="No. Of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="NoOfBeneficiary" styleClass="OraDataText"/>
+            <oa:messageStyledText id="SourceOfFund" prompt="Source Of Fund" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SourceOfFund" styleClass="OraDataText"/>
+            <oa:messageStyledText id="PartnerOrgOrInst" prompt="Partner Organization/Institution" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PartnerOrgOrInst" styleClass="OraDataText"/>
+            <oa:messageStyledText id="BeneficiaryCategory" prompt="Beneficary Category" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="BeneficiaryCategory" styleClass="OraDataText"/>
+            <oa:messageStyledText id="TypeOfBeneficiary" prompt="Type Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/>
+            <oa:messageStyledText id="UnitOfBeneficiary" prompt="Unit Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="UnitOfBeneficiary" styleClass="OraDataText"/>
+            <oa:messageStyledText id="NoOfBeneficiary" prompt="No. Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="NoOfBeneficiary" styleClass="OraDataText"/>
             <oa:messageLayout id="BenefOrgML">
                <ui:contents>
                   <oa:advancedTable id="BenefOrgAT" viewName="XxupPerPublicServiceBenifEOVO1" width="30%">
@@ -84,7 +84,7 @@
                   </oa:advancedTable>
                </ui:contents>
             </oa:messageLayout>
-            <oa:messageStyledText id="Country" prompt="Country" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="Country" styleClass="OraDataText"/>
+            <oa:messageStyledText id="Country" prompt="Country" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="Country" styleClass="OraDataText"/>
             <oa:messageLayout id="AddressML">
                <ui:contents>
                   <oa:advancedTable id="AddressAT" viewName="XxupPerPublicServiceAddrEOVO1" width="30%">
@@ -101,8 +101,8 @@
                   </oa:advancedTable>
                </ui:contents>
             </oa:messageLayout>
-            <oa:messageStyledText id="PostActEvalRating" prompt="Post Activity Evaluation Rating" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PostActEvalRating" styleClass="OraDataText"/>
-            <oa:messageStyledText id="Remarks" prompt="Remarks" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="Remarks" styleClass="OraDataText"/>
+            <oa:messageStyledText id="PostActEvalRating" prompt="Post Activity Evaluation Rating" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PostActEvalRating" styleClass="OraDataText"/>
+            <oa:messageStyledText id="Remarks" prompt="Remarks" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="Remarks" styleClass="OraDataText"/>
             <oa:messageDownload id="Attachment" fileContentType="Contenttype" dataType="BLOB" viewName="PerPSAttachmentsVO1" viewAttr="FileName" contentViewAttributeName="FileData" prompt="Attachment" rendered="false"/>
          </ui:contents>
       </oa:messageComponentLayout>
