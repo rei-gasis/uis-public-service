@@ -34,14 +34,6 @@
       ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVO" >
    </ViewUsage>
    <ViewUsage
-      Name="XxupPerPublicServiceHeaderEOVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVO" >
-   </ViewUsage>
-   <ViewUsage
-      Name="XxupPerPSHeaderObjCatVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVO" >
-   </ViewUsage>
-   <ViewUsage
       Name="PerPSBeneficiaryTypeVO1"
       ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryTypeVO" >
    </ViewUsage>
@@ -66,10 +58,6 @@
       ViewObjectName="xxup.oracle.apps.per.publicservice.server.PerPSAttachmentsVO" >
    </ViewUsage>
    <ViewUsage
-      Name="XxupPerPSHeaderSubjVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceSubjEOVO" >
-   </ViewUsage>
-   <ViewUsage
       Name="PerPSActivityTypeVO1"
       ViewObjectName="xxup.oracle.apps.per.publicservice.lov.server.PerPSActivityTypeVO" >
    </ViewUsage>
@@ -77,24 +65,8 @@
       Name="XxupPerPSApprovedVO1"
       ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSApprovedVO" >
    </ViewUsage>
-   <ViewLinkUsage
-      Name="XxupPerPSHeaderObjCatVL1"
-      ViewLinkObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderObjCatVL"
-      SrcViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPublicServiceHeaderEOVO1"
-      DstViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPSHeaderObjCatVO1" >
-      <DesignTime>
-         <Attr Name="_isCodegen" Value="true" />
-         <Attr Name="_version" Value="10.1.3.41.57" />
-      </DesignTime>
-   </ViewLinkUsage>
-   <ViewLinkUsage
-      Name="XxupPerPSHeaderSubjLVL1"
-      ViewLinkObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderSubjLVL"
-      SrcViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPublicServiceHeaderEOVO1"
-      DstViewUsageName="xxup.oracle.apps.per.publicservice.server.PublicServiceAM.XxupPerPSHeaderSubjVO1" >
-      <DesignTime>
-         <Attr Name="_isCodegen" Value="true" />
-         <Attr Name="_version" Value="10.1.3.41.57" />
-      </DesignTime>
-   </ViewLinkUsage>
+   <ViewUsage
+      Name="XxupPerPSHeaderTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderTrEOVO" >
+   </ViewUsage>
 </AppModule>
