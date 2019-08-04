@@ -263,18 +263,6 @@
       </DesignTime>
    </Attribute>
    <Attribute
-      Name="RequestStatus"
-      Precision="10"
-      ColumnName="REQUEST_STATUS"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      SQLType="VARCHAR"
-      TableName="XXUP.XXUP_PER_PUBLIC_SERVICE_HEADER" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="10" />
-      </DesignTime>
-   </Attribute>
-   <Attribute
       Name="Attribute1"
       Precision="140"
       ColumnName="ATTRIBUTE1"
