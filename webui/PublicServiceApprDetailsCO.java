@@ -43,11 +43,15 @@ public class PublicServiceApprDetailsCO extends OAControllerImpl
       
       //pageContext.set
       
-      Serializable[] params = {sequenceNo};
+       Serializable[] reviewPSParam = {sequenceNo };
+//       reviewPSParam[0] = strSequenceNo;
+//       reviewPSParam[1] = actionFromURL;
       
-      am.invokeMethod("reviewPS", params);
+      
+        am.invokeMethod("reviewPS", reviewPSParam);
       
       /*OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
+
       
       String type = "";
       if(vo!=null){
@@ -67,7 +71,9 @@ public class PublicServiceApprDetailsCO extends OAControllerImpl
       
       pageContext.putDialogMessage(new OAException(type));*/
       
-      //am.invokeMethod("setDetails", params);
+//      OAViewObject pshVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+//      pshVO.executeQuery();
+      
     
   }
 
