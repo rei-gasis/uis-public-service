@@ -9,6 +9,14 @@ package xxup.oracle.apps.per.publicservice.webui;
 import com.sun.java.util.collections.HashMap;
 
 
+import java.io.Serializable;
+
+import java.sql.Connection;
+
+import java.sql.PreparedStatement;
+
+import java.sql.ResultSet;
+
 import java.util.Dictionary;
 
 import oracle.apps.fnd.common.VersionInfo;
@@ -42,10 +50,38 @@ public class PublicServiceSummaryCO extends OAControllerImpl {
     public void processRequest(OAPageContext pageContext, OAWebBean webBean) {
         super.processRequest(pageContext, webBean);
         
+        String access_level = "";
+        Serializable[] params = new String[1];
+        
         OAApplicationModule am = (OAApplicationModule) pageContext.getApplicationModule(webBean);
         
-        am.invokeMethod("showSummaryVO");
         
+        
+        try{  
+  
+            Connection conn = pageContext.getApplicationModule(webBean).getOADBTransaction().getJdbcConnection();  
+
+            String Query = "SELECT FND_PROFILE.value('XXUP_PER_PS_SUMMARY_ACCESS_LEVEL') access_level FROM DUAL";  
+
+            PreparedStatement stmt = conn.prepareStatement(Query);  
+            // stmt.setString(1, project_id);  
+            for(ResultSet resultset = stmt.executeQuery(); resultset.next();)  
+            {  
+                // pageContext.writeDiagnostics(this, "Query Executed", 1);  
+                access_level = resultset.getString("access_level");
+                // params[0] = access_level;
+                params[0] = access_level;
+                pageContext.writeDiagnostics(this, "Query Executed"+ access_level, 1);  
+
+                System.out.println(resultset.getString("access_level"));
+            }  
+            
+            am.invokeMethod("showSummaryVO", params);
+        
+        }catch(Exception exception) {   
+            throw new OAException("Error in Staffing Query"+exception, OAException.ERROR);  
+        }  
+            
         
         /*set Destination URI of View Image for Individual and Institutional*/
         
