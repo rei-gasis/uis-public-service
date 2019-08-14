@@ -8,8 +8,15 @@ package xxup.oracle.apps.per.publicservice.webui;
 
 import java.io.Serializable;
 
+import java.sql.Connection;
+
+import java.sql.PreparedStatement;
+
+import java.sql.ResultSet;
+
 import oracle.apps.fnd.common.VersionInfo;
 import oracle.apps.fnd.framework.OAApplicationModule;
+import oracle.apps.fnd.framework.OAException;
 import oracle.apps.fnd.framework.OAViewObject;
 import oracle.apps.fnd.framework.webui.OAControllerImpl;
 import oracle.apps.fnd.framework.webui.OAPageContext;
@@ -54,23 +61,51 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         super.processFormRequest(pageContext, webBean);
         
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
-        
+
+        Connection conn = pageContext.getApplicationModule(webBean).getOADBTransaction().getJdbcConnection();  
         
         
         /*Show address when Country is Philippines*/
         if(pageContext.isLovEvent()){
             
             String lovInputId = pageContext.getLovInputSourceId();
+            OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+            Row row = vo.getCurrentRow();
             
             if("Country".equals(lovInputId)){
-                OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
                 
-                Row row = vo.getCurrentRow();
                 if(row.getAttribute("Country")!=null && "Philippines".equals(row.getAttribute("Country").toString())){
                     row.setAttribute("RenderAddress", true);
                 }else {
                     row.setAttribute("RenderAddress", false);
                 }
+            }else if("PositionName".equals(lovInputId)){
+                String assignmentId = "";
+
+                try{
+                    System.out.println(row.getAttribute("PositionId").toString());
+                    String Query = "SELECT assignment_id " +
+                               "FROM per_all_assignments_f paaf " +
+                               "WHERE SYSDATE BETWEEN effective_start_date AND effective_end_date " +
+                               "AND person_id = fnd_global.employee_id " +
+                               "AND position_id = ?";
+
+                    PreparedStatement stmt = conn.prepareStatement(Query);  
+                    stmt.setString(1, row.getAttribute("PositionId").toString());
+                    // stmt.setString(1, project_id);  
+                    for(ResultSet resultset = stmt.executeQuery(); resultset.next();)  
+                    {  
+
+                        assignmentId = resultset.getString("assignment_id");
+
+                        System.out.println("assignment_id: " + resultset.getString("assignment_id"));
+                    }
+
+                    row.setAttribute("AssignmentId", assignmentId);
+                }catch(Exception ex){
+                    throw new OAException("Exception" + ex);
+                }
+                
             }
             
         }
