@@ -43,7 +43,8 @@ SELECT XxupPerPsHeaderTrEO.SEQUENCE_NO,
        XxupPerPsHeaderTrEO.TYPE_OF_BENEFICIARY, 
        XxupPerPsHeaderTrEO.ITEM_KEY,
        pp.name POSITION_NAME,
-       toa.activity_type ACTIVITY_TYPE_DISPLAY
+       toa.activity_type ACTIVITY_TYPE_DISPLAY,
+       asg.assignment_id
 FROM XXUP.XXUP_PER_PS_HEADER_TR XxupPerPsHeaderTrEO,
 per_positions pp,
   (SELECT flex_value_id activity_id ,
@@ -55,9 +56,19 @@ per_positions pp,
     WHERE flex_value_set_name = 'XXUP_PUBLIC_SERVICE_ACTIVITY_TYPES'
     )
   ORDER BY flex_value
-  ) toa
+  ) toa,
+  (SELECT paaf.assignment_id
+         ,paaf.position_id
+         ,fu.user_id
+   FROM per_all_assignments_f paaf
+       ,fnd_user fu
+   WHERE SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
+   AND fu.employee_id = paaf.person_id
+   ) asg
 WHERE pp.position_id                = XxupPerPSHeaderTrEO.POSITION_ID
 AND toa.activity_id (+)             = XxupPerPSHeaderTrEO.TYPE_OF_ACTIVITY
+AND asg.position_id                 = XxupPerPSHeaderTrEO.POSITION_ID
+AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
    ]]></SQLQuery>
    <DesignTime>
       <Attr Name="_isExpertMode" Value="true" />
@@ -296,6 +307,21 @@ AND toa.activity_id (+)             = XxupPerPSHeaderTrEO.TYPE_OF_ACTIVITY
       </DesignTime>
    </ViewAttribute>
    <ViewAttribute
+      Name="AssignmentId"
+      IsPersistent="false"
+      IsNotNull="true"
+      Precision="10"
+      Scale="0"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="ASSIGNMENT_ID"
+      Expression="ASSIGNMENT_ID"
+      SQLType="NUMERIC" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="22" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
       Name="ShowHide"
       IsSelected="false"
       IsPersistent="false"
@@ -324,7 +350,6 @@ AND toa.activity_id (+)             = XxupPerPSHeaderTrEO.TYPE_OF_ACTIVITY
       AliasName="VIEW_ATTR"
       SQLType="BIT" >
    </ViewAttribute>
-   
    <AttrArray Name="KeyAttributes">
       <Item Value="ItemKey" />
    </AttrArray>
