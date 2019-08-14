@@ -10,15 +10,15 @@
       </AppModuleConfig>
    </AppModuleConfigBag>
    <ConnectionDefinition name="UISDEV">
-      <ENTRY name="JDBC_PORT" value="1531"/>
+      <ENTRY name="JDBC_PORT" value="1541"/>
       <ENTRY name="ConnectionType" value="JDBC"/>
-      <ENTRY name="HOSTNAME" value="202.92.142.121"/>
+      <ENTRY name="HOSTNAME" value="202.92.141.58"/>
       <ENTRY name="user" value="apps"/>
       <ENTRY name="ConnectionName" value="UISDEV"/>
-      <ENTRY name="SID" value="UISDEV"/>
+      <ENTRY name="SID" value="PROD"/>
       <ENTRY name="JdbcDriver" value="oracle.jdbc.OracleDriver"/>
       <ENTRY name="password">
-         <![CDATA[{904}05D4BAEC5D499EC552B9F8C0C9B7DE8EBDC600E3729554BFDE]]>
+         <![CDATA[{904}054CC4887259D3A8E6D967C779E3F3CDE4]]>
       </ENTRY>
       <ENTRY name="ORACLE_JDBC_TYPE" value="thin"/>
       <ENTRY name="DeployPassword" value="true"/>
