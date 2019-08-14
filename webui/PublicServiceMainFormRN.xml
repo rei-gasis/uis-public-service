@@ -14,7 +14,7 @@
                         <lovMap id="lovMap2" lovItem="PositionId" resultTo="PositionId" requiredForLOV="false"/>
                      </lovMappings>
                   </oa:messageLovInput>
-                  <oa:messageTextInput id="ProjectName" dataType="VARCHAR2" prompt="* Project Name" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectName" maximumLength="140" required="no" translatableDefaultValue="test"/>
+                  <oa:messageTextInput id="ProjectName" dataType="VARCHAR2" prompt="* Project Name" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectName" maximumLength="140" required="no" translatableDefaultValue=""/>
                   <oa:messageTextInput id="PrimaryRole" dataType="VARCHAR2" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PrimaryRole" maximumLength="140" prompt="* Primary Role" required="no"/>
                   <oa:messageRadioGroup id="ProjectType" defaultValue="Initiated" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVO" pickListValAttr="ProjectTypeDisplay" pickListViewName="ProjectTypeDisplay" pickListDispAttr="ProjectTypeDisplay" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectType" prompt="Project Requested/Initiated" serverUnvalidated="false"/>
                   <oa:messageTextInput id="RequestDate" dataType="DATE" prompt="Request Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="RequestDate"/>
