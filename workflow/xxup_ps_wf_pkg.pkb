@@ -2,15 +2,20 @@ create or replace PACKAGE BODY xxup_ps_wf_pkg
 IS
 
 
-    PROCEDURE set_owner_details(p_seq_no       IN  VARCHAR2
+    PROCEDURE set_owner_details(p_assignment_id IN NUMBER
                                ,p_emp_id       OUT NUMBER
                                ,p_emp_name     OUT VARCHAR2
                                ,p_emp_pos_name OUT VARCHAR2
                                ,p_emp_org_name OUT VARCHAR2
                                )
     IS   
+      -- lv_owner fnd_user.user_id%TYPE;
     
     BEGIN
+
+      -- lv_owner := wf_engine.getitemattrnumber('XXUPPSWF'
+      --                                         ,p_seq_no
+      --                                         ,'OWNER');
 
       SELECT  papf.full_name
               ,papf.person_id
@@ -30,17 +35,14 @@ IS
             ,p_emp_id
             ,p_emp_pos_name
             ,p_emp_org_name
-        FROM xxup.xxup_per_ps_header_tr psh
-            ,per_all_assignments_f paaf
+        FROM per_all_assignments_f paaf
             ,per_all_people_f papf
-        WHERE psh.position_id = paaf.position_id
-        AND paaf.person_id = papf.person_id
+        WHERE paaf.person_id = papf.person_id
         AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
         AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
-        AND papf.person_id = (SELECT employee_id
-                              FROM fnd_user fu
-                              WHERE fu.user_id = psh.created_by)
-        AND psh.sequence_no = p_seq_no;
+        AND paaf.assignment_id = p_assignment_id;
+        
+        
 
 
     EXCEPTION
@@ -56,7 +58,7 @@ IS
     PROCEDURE init_wf(p_sequence_no IN VARCHAR2)
     IS
     lv_item_type VARCHAR2(100) := 'XXUPPSWF';
-    lv_item_key VARCHAR2(100) := p_sequence_no;
+    lv_item_key VARCHAR2(100) := 'INDIV-' || p_sequence_no;
     lv_process_name VARCHAR2(140) := 'XXUP_PS_PRC'; 
 
     BEGIN 
@@ -1197,9 +1199,7 @@ IS
                                     || ' and has been completed'
                                     );
 
-                          -- UPDATE xxup.xxup_per_public_service_header
-                          -- SET request_status = 'APPROVED'
-                          -- WHERE sequence_no = lv_seq_no;
+
 
 
                          INSERT INTO xxup_per_public_service_header
@@ -1263,11 +1263,16 @@ IS
                                 ,SYSDATE         
                                 ,fnd_global.user_id          
                                 ,null        
-                                ,fnd_global.user_id               
+                                ,created_by
                                 ,SYSDATE            
                                 ,project_type             
                                 ,type_of_beneficiary
                           FROM xxup_per_ps_header_tr
+                          WHERE sequence_no = lv_seq_no;
+
+
+                          UPDATE xxup.xxup_per_ps_header_tr
+                          SET request_status = 'APPROVED'
                           WHERE sequence_no = lv_seq_no;
 
 

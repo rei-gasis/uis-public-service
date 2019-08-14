@@ -6,7 +6,7 @@
             <oa:sortableHeader id="FullNameSH" prompt="Full Name"/>
          </ui:columnHeader>
          <ui:contents>
-            <oa:messageLovInput id="FullName" externalListOfValues="/xxup/oracle/apps/per/publicservice/institutional/lov/webui/PerPSInstMemberRN" viewAttr="FullName" columns="30" unvalidated="false" translatableDefaultValue="Gasis, Mr. Winson Rei Dalida">
+            <oa:messageLovInput id="FullName" externalListOfValues="/xxup/oracle/apps/per/publicservice/institutional/lov/webui/PerPSInstMemberRN" viewAttr="FullName" columns="30" unvalidated="false" translatableDefaultValue="">
                <lovMappings>
                   <lovMap id="FullNameLovMap" lovItem="FullName" resultTo="FullName" criteriaFrom="FullName" useForValidation="default"/>
                   <lovMap id="PositionLovMap" lovItem="Position" resultTo="Position" useForValidation="default"/>

@@ -26,6 +26,7 @@ SELECT ROWID
       ,to_org_name
       ,note
 FROM XXUP.XXUP_PER_PS_ACTION_HISTORY psah
+WHERE type = 'Individual'
 ORDER BY approver_no
    ]]></SQLQuery>
    <DesignTime>

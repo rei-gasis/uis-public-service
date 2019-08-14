@@ -65,14 +65,15 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     }
 
 
-    public void initApprovers(String sequenceNo) {
+    public void initApprovers(String assignmentId, String sequenceNo) {
         try{
             
             
             Connection conn = getOADBTransaction().getJdbcConnection();
-            CallableStatement stmt = conn.prepareCall("{call xxup_ps_wf_pkg.init_approvers(?)}");
+            CallableStatement stmt = conn.prepareCall("{call xxup_ps_wf_pkg.init_approvers(?,?)}");
             
-            stmt.setString(1, sequenceNo);
+            stmt.setString(1, assignmentId);
+            stmt.setString(2, sequenceNo);
             stmt.execute();
             stmt.close();
             
@@ -205,8 +206,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
         }
     }
     
-    
-    public void reviewPS(String paramSequenceNo) {
+     public void reviewPS(String paramSequenceNo) {
         
     
         try {
@@ -608,12 +608,12 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     
 
 
-    public void showSummaryVO() {
+    public void showSummaryVO(String accessLevel) {
         XxupPerPSApprovedVOImpl vo = 
             getXxupPerPSApprovedVO1();
 
         if (vo != null) {
-            vo.showSummaryVO();
+            vo.showSummaryVO(1);
         }
         
         
@@ -681,6 +681,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     public XxupPerPSApprovedVOImpl getXxupPerPSApprovedVO1() {
         return (XxupPerPSApprovedVOImpl)findViewObject("XxupPerPSApprovedVO1");
     }
+
 
     /**Container's getter for XxupPerPSHeaderTrEOVO1
      */

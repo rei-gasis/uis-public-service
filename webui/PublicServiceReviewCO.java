@@ -33,6 +33,8 @@ import oracle.apps.fnd.framework.webui.beans.table.OATableBean;
 
 import oracle.jbo.Row;
 
+import xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderTrEOVOImpl;
+
 
 /**
  * Controller for ...
@@ -47,7 +49,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
      * @param pageContext the current OA page context
      * @param webBean the web bean corresponding to the region
      */
-    public void processRequest(OAPageContext pageContext, OAWebBean webBean) {
+        public void processRequest(OAPageContext pageContext, OAWebBean webBean) {
         super.processRequest(pageContext, webBean);
 
         //throw new OAException("test");
@@ -71,19 +73,49 @@ public class PublicServiceReviewCO extends OAControllerImpl {
         //        }
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
+        String actionFromURL = pageContext.getParameter("urlParam");
 
 
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
 
-        Serializable[] params = { sequenceNo };
+        Serializable[] initApproversParams = new String[2];
+        Serializable[] reviewPSParams = { sequenceNo };
 
+        try{
+
+            OAViewObject pshVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+            Row row = null;
+            String assignmentId = "";
+
+            if(pshVO != null){
+                
+                row = pshVO.getCurrentRow();
+
+                if("Create".equals(actionFromURL)){
+                       if(row.getAttribute("AssignmentId") != null){
+                        assignmentId = row.getAttribute("AssignmentId").toString();
+                        initApproversParams[0] = assignmentId;
+
+                        // System.out.println("1assignmentId:" + assignmentId);
+                        // System.out.println("SequenceNo:" + row.getAttribute("SequenceNo").toString());
+                    }
+
+                    initApproversParams[1] = sequenceNo;
+                    am.invokeMethod("initApprovers", initApproversParams);
+                }
+            }
+
+            am.invokeMethod("reviewPS", reviewPSParams);
+
+        }catch(Exception ex){
+            throw new OAException("Unable to set approver list: " + ex);
+        }
 
         //pageContext.getPageLayoutBean() 
 
         //if(pageContext.isBackNavigationFired(true)){
-        am.invokeMethod("initApprovers", params);
-        am.invokeMethod("reviewPS", params);
+        
         //pageContext.putParameter("urlParam", null);
 
         //}
