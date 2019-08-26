@@ -3,7 +3,7 @@
 
 <ViewObject
    Name="XxupPerPublicServiceHeaderEOVO"
-   BindingStyle="OracleName"
+   BindingStyle="Oracle"
    CustomQuery="true"
    RowClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVORowImpl"
    ComponentClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVOImpl"
@@ -25,7 +25,6 @@ SELECT XxupPerPublicServiceHeaderEO.SEQUENCE_NO,
   XxupPerPublicServiceHeaderEO.START_DATE,
   XxupPerPublicServiceHeaderEO.END_DATE,
   XxupPerPublicServiceHeaderEO.DURATION_HOURS,
-  XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIVITY,
   XxupPerPublicServiceHeaderEO.SOURCE_OF_FUND,
   XxupPerPublicServiceHeaderEO.COST_OF_PARTICIPATION,
   XxupPerPublicServiceHeaderEO.PARTNER_ORG_OR_INST,
@@ -33,7 +32,6 @@ SELECT XxupPerPublicServiceHeaderEO.SEQUENCE_NO,
   XxupPerPublicServiceHeaderEO.TYPE_OF_BENEFICIARY,
   XxupPerPublicServiceHeaderEO.UNIT_OF_BENEFICIARY,
   XxupPerPublicServiceHeaderEO.NO_OF_BENEFICIARY,
-  XxupPerPublicServiceHeaderEO.COUNTRY,
   XxupPerPublicServiceHeaderEO.POST_ACT_EVAL_RATING,
   XxupPerPublicServiceHeaderEO.REMARKS,
   XxupPerPublicServiceHeaderEO.ATTRIBUTE1,
@@ -46,22 +44,10 @@ SELECT XxupPerPublicServiceHeaderEO.SEQUENCE_NO,
   XxupPerPublicServiceHeaderEO.LAST_UPDATE_LOGIN,
   XxupPerPublicServiceHeaderEO.CREATED_BY,
   XxupPerPublicServiceHeaderEO.CREATION_DATE,
-  pp.name POSITION_NAME,
-  toa.activity_type ACTIVITY_TYPE_DISPLAY
+  pp.name POSITION_NAME
 FROM XXUP.XXUP_PER_PUBLIC_SERVICE_HEADER XxupPerPublicServiceHeaderEO,
-  per_positions pp,
-  (SELECT flex_value_id activity_id ,
-    flex_value activity_type
-  FROM FND_FLEX_VALUES
-  WHERE flex_value_set_id =
-    (SELECT flex_value_set_id
-    FROM FND_FLEX_VALUE_SETS
-    WHERE flex_value_set_name = 'XXUP_PUBLIC_SERVICE_ACTIVITY_TYPES'
-    )
-  ORDER BY flex_value
-  ) toa
-WHERE pp.position_id                = XxupPerPublicServiceHeaderEO.POSITION_ID
-AND toa.activity_id (+)             = XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIVITY
+  per_positions pp
+WHERE pp.position_id (+) = XxupPerPublicServiceHeaderEO.POSITION_ID
    ]]></SQLQuery>
    <DesignTime>
       <Attr Name="_isCodegen" Value="true" />
@@ -137,12 +123,6 @@ AND toa.activity_id (+)             = XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIV
       AliasName="DURATION_HOURS" >
    </ViewAttribute>
    <ViewAttribute
-      Name="TypeOfActivity"
-      EntityAttrName="TypeOfActivity"
-      EntityUsage="XxupPerPublicServiceHeaderEO"
-      AliasName="TYPE_OF_ACTIVITY" >
-   </ViewAttribute>
-   <ViewAttribute
       Name="SourceOfFund"
       EntityAttrName="SourceOfFund"
       EntityUsage="XxupPerPublicServiceHeaderEO"
@@ -183,12 +163,6 @@ AND toa.activity_id (+)             = XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIV
       EntityAttrName="NoOfBeneficiary"
       EntityUsage="XxupPerPublicServiceHeaderEO"
       AliasName="NO_OF_BENEFICIARY" >
-   </ViewAttribute>
-   <ViewAttribute
-      Name="Country"
-      EntityAttrName="Country"
-      EntityUsage="XxupPerPublicServiceHeaderEO"
-      AliasName="COUNTRY" >
    </ViewAttribute>
    <ViewAttribute
       Name="PostActEvalRating"
@@ -273,19 +247,6 @@ AND toa.activity_id (+)             = XxupPerPublicServiceHeaderEO.TYPE_OF_ACTIV
       SQLType="VARCHAR" >
       <DesignTime>
          <Attr Name="_DisplaySize" Value="240" />
-      </DesignTime>
-   </ViewAttribute>
-   <ViewAttribute
-      Name="TypeOfActivityDisplay"
-      IsPersistent="false"
-      Precision="150"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      AliasName="ACTIVITY_TYPE_DISPLAY"
-      Expression="ACTIVITY_TYPE_DISPLAY"
-      SQLType="VARCHAR" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="150" />
       </DesignTime>
    </ViewAttribute>
    <ViewAttribute

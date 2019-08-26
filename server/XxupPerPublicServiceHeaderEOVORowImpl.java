@@ -18,6 +18,7 @@ import xxup.oracle.apps.per.publicservice.schema.server.XxupPerPublicServiceHead
 public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
     public static final int SEQUENCENO = 0;
     public static final int REQUESTSTATUS = 21;
+    public static final int TYPEOFACTIVITYDISPLAY = 30;
     public static final int POSITIONID = 1;
     public static final int PROJECTNAME = 2;
     public static final int PRIMARYROLE = 3;
@@ -27,34 +28,31 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
     public static final int STARTDATE = 7;
     public static final int ENDDATE = 8;
     public static final int DURATIONHOURS = 9;
-    public static final int TYPEOFACTIVITY = 10;
-    public static final int SOURCEOFFUND = 11;
-    public static final int COSTOFPARTICIPATION = 12;
-    public static final int PARTNERORGORINST = 13;
-    public static final int BENEFICIARYCATEGORY = 14;
-    public static final int TYPEOFBENEFICIARY = 15;
-    public static final int UNITOFBENEFICIARY = 16;
-    public static final int NOOFBENEFICIARY = 17;
-    public static final int COUNTRY = 18;
-    public static final int POSTACTEVALRATING = 19;
-    public static final int REMARKS = 20;
-    public static final int ATTRIBUTE1 = 21;
-    public static final int ATTRIBUTE2 = 22;
-    public static final int ATTRIBUTE3 = 23;
-    public static final int ATTRIBUTE4 = 24;
-    public static final int ATTRIBUTE5 = 25;
-    public static final int LASTUPDATEDATE = 26;
-    public static final int LASTUPDATEDBY = 27;
-    public static final int LASTUPDATELOGIN = 28;
-    public static final int CREATEDBY = 29;
-    public static final int CREATIONDATE = 30;
-    public static final int POSITIONNAME = 31;
-    public static final int TYPEOFACTIVITYDISPLAY = 32;
-    public static final int SHOWHIDE = 33;
-    public static final int RENDERADDRESS = 34;
-    public static final int RENDERORGRN = 35;
-    public static final int XXUPPERPUBLICSERVICECATEOVO = 36;
-    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 37;
+    public static final int SOURCEOFFUND = 10;
+    public static final int COSTOFPARTICIPATION = 11;
+    public static final int PARTNERORGORINST = 12;
+    public static final int BENEFICIARYCATEGORY = 13;
+    public static final int TYPEOFBENEFICIARY = 14;
+    public static final int UNITOFBENEFICIARY = 15;
+    public static final int NOOFBENEFICIARY = 16;
+    public static final int POSTACTEVALRATING = 17;
+    public static final int REMARKS = 18;
+    public static final int ATTRIBUTE1 = 19;
+    public static final int ATTRIBUTE2 = 20;
+    public static final int ATTRIBUTE3 = 21;
+    public static final int ATTRIBUTE4 = 22;
+    public static final int ATTRIBUTE5 = 23;
+    public static final int LASTUPDATEDATE = 24;
+    public static final int LASTUPDATEDBY = 25;
+    public static final int LASTUPDATELOGIN = 26;
+    public static final int CREATEDBY = 27;
+    public static final int CREATIONDATE = 28;
+    public static final int POSITIONNAME = 29;
+    public static final int SHOWHIDE = 30;
+    public static final int RENDERADDRESS = 31;
+    public static final int RENDERORGRN = 32;
+    public static final int XXUPPERPUBLICSERVICECATEOVO = 33;
+    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 34;
 
     /**This is the default constructor (do not remove)
      */
@@ -187,17 +185,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         setAttributeInternal(DURATIONHOURS, value);
     }
 
-    /**Gets the attribute value for TYPE_OF_ACTIVITY using the alias name TypeOfActivity
-     */
-    public Number getTypeOfActivity() {
-        return (Number) getAttributeInternal(TYPEOFACTIVITY);
-    }
-
-    /**Sets <code>value</code> as attribute value for TYPE_OF_ACTIVITY using the alias name TypeOfActivity
-     */
-    public void setTypeOfActivity(Number value) {
-        setAttributeInternal(TYPEOFACTIVITY, value);
-    }
 
     /**Gets the attribute value for SOURCE_OF_FUND using the alias name SourceOfFund
      */
@@ -283,17 +270,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         setAttributeInternal(NOOFBENEFICIARY, value);
     }
 
-    /**Gets the attribute value for COUNTRY using the alias name Country
-     */
-    public String getCountry() {
-        return (String) getAttributeInternal(COUNTRY);
-    }
-
-    /**Sets <code>value</code> as attribute value for COUNTRY using the alias name Country
-     */
-    public void setCountry(String value) {
-        setAttributeInternal(COUNTRY, value);
-    }
 
     /**Gets the attribute value for POST_ACT_EVAL_RATING using the alias name PostActEvalRating
      */
@@ -514,8 +490,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return getEndDate();
         case DURATIONHOURS:
             return getDurationHours();
-        case TYPEOFACTIVITY:
-            return getTypeOfActivity();
         case SOURCEOFFUND:
             return getSourceOfFund();
         case COSTOFPARTICIPATION:
@@ -530,8 +504,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return getUnitOfBeneficiary();
         case NOOFBENEFICIARY:
             return getNoOfBeneficiary();
-        case COUNTRY:
-            return getCountry();
         case POSTACTEVALRATING:
             return getPostActEvalRating();
         case REMARKS:
@@ -558,8 +530,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return getCreationDate();
         case POSITIONNAME:
             return getPositionName();
-        case TYPEOFACTIVITYDISPLAY:
-            return getTypeOfActivityDisplay();
         case SHOWHIDE:
             return getShowHide();
         case RENDERADDRESS:
@@ -610,9 +580,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         case DURATIONHOURS:
             setDurationHours((Number)value);
             return;
-        case TYPEOFACTIVITY:
-            setTypeOfActivity((Number)value);
-            return;
         case SOURCEOFFUND:
             setSourceOfFund((String)value);
             return;
@@ -633,9 +600,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return;
         case NOOFBENEFICIARY:
             setNoOfBeneficiary((Number)value);
-            return;
-        case COUNTRY:
-            setCountry((String)value);
             return;
         case POSTACTEVALRATING:
             setPostActEvalRating((String)value);
@@ -675,9 +639,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return;
         case POSITIONNAME:
             setPositionName((String)value);
-            return;
-        case TYPEOFACTIVITYDISPLAY:
-            setTypeOfActivityDisplay((String)value);
             return;
         case SHOWHIDE:
             setShowHide((String)value);

@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSCatTrEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCatTrEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCatTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsCatTr.SEQUENCE_NO, 
+       XxupPerPsCatTr.LINE_NUMBER, 
+       XxupPerPsCatTr.OBJECT_CATEGORY, 
+       XxupPerPsCatTr.SPECIFICS, 
+       XxupPerPsCatTr.ATTRIBUTE1, 
+       XxupPerPsCatTr.ATTRIBUTE2, 
+       XxupPerPsCatTr.ATTRIBUTE3, 
+       XxupPerPsCatTr.ATTRIBUTE4, 
+       XxupPerPsCatTr.ATTRIBUTE5, 
+       XxupPerPsCatTr.LAST_UPDATE_DATE, 
+       XxupPerPsCatTr.LAST_UPDATED_BY, 
+       XxupPerPsCatTr.LAST_UPDATE_LOGIN, 
+       XxupPerPsCatTr.CREATED_BY, 
+       XxupPerPsCatTr.CREATION_DATE, 
+       XxupPerPsCatTr.ITEM_KEY, 
+       XxupPerPsCatTr.ROWID
+FROM XXUP.XXUP_PER_PS_CAT_TR XxupPerPsCatTr
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsCatTr"
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsCatTr" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ObjectCategory"
+      EntityAttrName="ObjectCategory"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="OBJECT_CATEGORY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Specifics"
+      EntityAttrName="Specifics"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="SPECIFICS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsCatTr"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

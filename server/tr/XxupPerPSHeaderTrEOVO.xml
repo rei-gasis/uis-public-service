@@ -5,8 +5,8 @@
    Name="XxupPerPSHeaderTrEOVO"
    BindingStyle="Oracle"
    CustomQuery="true"
-   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
-   ComponentClass="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderTrEOVOImpl"
+   RowClass="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSHeaderTrEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSHeaderTrEOVOImpl"
    UseGlueCode="false" >
    <SQLQuery><![CDATA[
 SELECT XxupPerPsHeaderTrEO.SEQUENCE_NO, 
@@ -18,14 +18,12 @@ SELECT XxupPerPsHeaderTrEO.SEQUENCE_NO,
        XxupPerPsHeaderTrEO.START_DATE, 
        XxupPerPsHeaderTrEO.END_DATE, 
        XxupPerPsHeaderTrEO.DURATION_HOURS, 
-       XxupPerPsHeaderTrEO.TYPE_OF_ACTIVITY, 
        XxupPerPsHeaderTrEO.SOURCE_OF_FUND, 
        XxupPerPsHeaderTrEO.COST_OF_PARTICIPATION, 
        XxupPerPsHeaderTrEO.PARTNER_ORG_OR_INST, 
        XxupPerPsHeaderTrEO.BENEFICIARY_CATEGORY, 
        XxupPerPsHeaderTrEO.UNIT_OF_BENEFICIARY, 
        XxupPerPsHeaderTrEO.NO_OF_BENEFICIARY, 
-       XxupPerPsHeaderTrEO.COUNTRY, 
        XxupPerPsHeaderTrEO.POST_ACT_EVAL_RATING, 
        XxupPerPsHeaderTrEO.REMARKS, 
        XxupPerPsHeaderTrEO.REQUEST_STATUS, 
@@ -43,20 +41,9 @@ SELECT XxupPerPsHeaderTrEO.SEQUENCE_NO,
        XxupPerPsHeaderTrEO.TYPE_OF_BENEFICIARY, 
        XxupPerPsHeaderTrEO.ITEM_KEY,
        pp.name POSITION_NAME,
-       toa.activity_type ACTIVITY_TYPE_DISPLAY,
        asg.assignment_id
 FROM XXUP.XXUP_PER_PS_HEADER_TR XxupPerPsHeaderTrEO,
 per_positions pp,
-  (SELECT flex_value_id activity_id ,
-    flex_value activity_type
-  FROM FND_FLEX_VALUES
-  WHERE flex_value_set_id =
-    (SELECT flex_value_set_id
-    FROM FND_FLEX_VALUE_SETS
-    WHERE flex_value_set_name = 'XXUP_PUBLIC_SERVICE_ACTIVITY_TYPES'
-    )
-  ORDER BY flex_value
-  ) toa,
   (SELECT paaf.assignment_id
          ,paaf.position_id
          ,fu.user_id
@@ -66,18 +53,18 @@ per_positions pp,
    AND fu.employee_id = paaf.person_id
    ) asg
 WHERE pp.position_id                = XxupPerPSHeaderTrEO.POSITION_ID
-AND toa.activity_id (+)             = XxupPerPSHeaderTrEO.TYPE_OF_ACTIVITY
 AND asg.position_id                 = XxupPerPSHeaderTrEO.POSITION_ID
 AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
    ]]></SQLQuery>
    <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
       <Attr Name="_isExpertMode" Value="true" />
       <Attr Name="_version" Value="10.1.3.41.57" />
       <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
    </DesignTime>
    <EntityUsage
       Name="XxupPerPsHeaderTrEO"
-      Entity="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPsHeaderTrEO" >
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsHeaderTrEO" >
       <DesignTime>
          <Attr Name="_queryClause" Value="false" />
       </DesignTime>
@@ -137,12 +124,6 @@ AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
       AliasName="DURATION_HOURS" >
    </ViewAttribute>
    <ViewAttribute
-      Name="TypeOfActivity"
-      EntityAttrName="TypeOfActivity"
-      EntityUsage="XxupPerPsHeaderTrEO"
-      AliasName="TYPE_OF_ACTIVITY" >
-   </ViewAttribute>
-   <ViewAttribute
       Name="SourceOfFund"
       EntityAttrName="SourceOfFund"
       EntityUsage="XxupPerPsHeaderTrEO"
@@ -177,12 +158,6 @@ AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
       EntityAttrName="NoOfBeneficiary"
       EntityUsage="XxupPerPsHeaderTrEO"
       AliasName="NO_OF_BENEFICIARY" >
-   </ViewAttribute>
-   <ViewAttribute
-      Name="Country"
-      EntityAttrName="Country"
-      EntityUsage="XxupPerPsHeaderTrEO"
-      AliasName="COUNTRY" >
    </ViewAttribute>
    <ViewAttribute
       Name="PostActEvalRating"
@@ -294,19 +269,6 @@ AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
       </DesignTime>
    </ViewAttribute>
    <ViewAttribute
-      Name="TypeOfActivityDisplay"
-      IsPersistent="false"
-      Precision="150"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      AliasName="ACTIVITY_TYPE_DISPLAY"
-      Expression="ACTIVITY_TYPE_DISPLAY"
-      SQLType="VARCHAR" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="150" />
-      </DesignTime>
-   </ViewAttribute>
-   <ViewAttribute
       Name="AssignmentId"
       IsPersistent="false"
       IsNotNull="true"
@@ -349,6 +311,26 @@ AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
       ColumnType="NUMBER"
       AliasName="VIEW_ATTR"
       SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderSubjAreaOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="SubjAreaOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
    </ViewAttribute>
    <AttrArray Name="KeyAttributes">
       <Item Value="ItemKey" />

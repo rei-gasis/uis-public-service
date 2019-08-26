@@ -1,0 +1,135 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSTypeOfActivitiesEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="xxup.oracle.apps.per.publicservice.server.XxupPerPSTypeOfActivitiesEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.XxupPerPSTypeOfActivitiesEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPSTypeOfActivitiesEO.SEQUENCE_NO, 
+       XxupPerPSTypeOfActivitiesEO.LINE_NUMBER, 
+       XxupPerPSTypeOfActivitiesEO.TYPE_OF_ACTIVITY, 
+       XxupPerPSTypeOfActivitiesEO.ATTRIBUTE1, 
+       XxupPerPSTypeOfActivitiesEO.ATTRIBUTE2, 
+       XxupPerPSTypeOfActivitiesEO.ATTRIBUTE3, 
+       XxupPerPSTypeOfActivitiesEO.ATTRIBUTE4, 
+       XxupPerPSTypeOfActivitiesEO.ATTRIBUTE5, 
+       XxupPerPSTypeOfActivitiesEO.LAST_UPDATE_DATE, 
+       XxupPerPSTypeOfActivitiesEO.LAST_UPDATED_BY, 
+       XxupPerPSTypeOfActivitiesEO.LAST_UPDATE_LOGIN, 
+       XxupPerPSTypeOfActivitiesEO.CREATED_BY, 
+       XxupPerPSTypeOfActivitiesEO.CREATION_DATE, 
+       XxupPerPSTypeOfActivitiesEO.ROWID
+FROM XXUP.XXUP_PER_PS_TYPE_OF_ACTIVITIES XxupPerPSTypeOfActivitiesEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPSTypeOfActivitiesEO"
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPSTypeOfActivitiesEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfActivity"
+      EntityAttrName="TypeOfActivity"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="TYPE_OF_ACTIVITY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPSTypeOfActivitiesEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfActivityDisplay"
+      IsSelected="false"
+      IsPersistent="false"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
+   </ViewAttribute>
+</ViewObject>

@@ -10,6 +10,16 @@
       <Attr Name="_version" Value="10.1.3.41.57" />
    </DesignTime>
    <Containee
+      Name="XxupPerPSCountriesEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPSCountriesEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSTypeOfActivitiesEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPSTypeOfActivitiesEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
       Name="XxupPerPublicServiceAddrEO"
       FullName="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPublicServiceAddrEO"
       ObjectType="Entity" >

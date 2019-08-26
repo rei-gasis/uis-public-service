@@ -36,19 +36,22 @@ public class PublicServiceApprDetailsCO extends OAControllerImpl
   {
     super.processRequest(pageContext, webBean);
         
-      String sequenceNo = pageContext.getParameter("pSequenceNo");
-      //String sequenceNo = "1911";
-      
-      OAApplicationModule am = pageContext.getApplicationModule(webBean);
-      
-      //pageContext.set
-      
-       Serializable[] reviewPSParam = {sequenceNo };
-//       reviewPSParam[0] = strSequenceNo;
-//       reviewPSParam[1] = actionFromURL;
-      
-      
-        am.invokeMethod("reviewPS", reviewPSParam);
+
+    String sequenceNo = pageContext.getParameter("pSequenceNo");
+    String pItemKey = pageContext.getParameter("pItemKey");
+
+    // String pItemKey = "INDIV-317";
+
+    OAApplicationModule am = pageContext.getApplicationModule(webBean);
+
+    // System.out.println("ApprDetailsCO > Itemkey: " + pItemKey);
+    // Serializable[] initApproversParams = new String[2];
+    Serializable[] reviewPSParams = { pItemKey };
+
+    am.invokeMethod("reviewPS", reviewPSParams);
+
+
+  
       
       /*OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
 

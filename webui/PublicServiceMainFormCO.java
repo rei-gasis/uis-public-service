@@ -45,6 +45,20 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
         
+        /*on init, hide some fields*/
+        OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+        Row mRow = mainVO.getCurrentRow();
+
+
+        try{
+            mRow.setAttribute("RenderAddress", false);
+            mRow.setAttribute("RenderOrgRN", false);
+            mRow.setAttribute("RenderSubjAreaOthers", false);
+        }catch(Exception ex){
+            //throws null pointer exception when rendering Organization from ReviewPG to RequestPG
+            // throw new OAException("Exception " + ex);
+        }
+
         
         
         
@@ -63,7 +77,8 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
         Connection conn = pageContext.getApplicationModule(webBean).getOADBTransaction().getJdbcConnection();  
-        
+    
+        OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
         
         /*Show address when Country is Philippines*/
         if(pageContext.isLovEvent()){
@@ -72,18 +87,19 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
             OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
             Row row = vo.getCurrentRow();
             
-            if("Country".equals(lovInputId)){
+            // if("Country".equals(lovInputId)){
                 
-                if(row.getAttribute("Country")!=null && "Philippines".equals(row.getAttribute("Country").toString())){
-                    row.setAttribute("RenderAddress", true);
-                }else {
-                    row.setAttribute("RenderAddress", false);
-                }
-            }else if("PositionName".equals(lovInputId)){
+            //     if(row.getAttribute("Country")!=null && "Philippines".equals(row.getAttribute("Country").toString())){
+            //         row.setAttribute("RenderAddress", true);
+            //     }else {
+            //         row.setAttribute("RenderAddress", false);
+            //     }
+            // }else 
+            if("PositionName".equals(lovInputId)){
                 String assignmentId = "";
 
                 try{
-                    System.out.println(row.getAttribute("PositionId").toString());
+                    // System.out.println(row.getAttribute("PositionId").toString());
                     String Query = "SELECT assignment_id " +
                                "FROM per_all_assignments_f paaf " +
                                "WHERE SYSDATE BETWEEN effective_start_date AND effective_end_date " +
@@ -98,7 +114,7 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
 
                         assignmentId = resultset.getString("assignment_id");
 
-                        System.out.println("assignment_id: " + resultset.getString("assignment_id"));
+                        // System.out.println("assignment_id: " + resultset.getString("assignment_id"));
                     }
 
                     row.setAttribute("AssignmentId", assignmentId);
@@ -107,11 +123,37 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
                 }
                 
             }
-            
+            else if("Country".equals(lovInputId)){
+                OAViewObject couVO = (OAViewObject)am.findViewObject("XxupPerPSCountriesTrEOVO1");
+
+                
+
+                String showAddressRN = (String) am.invokeMethod("checkPhilippines", null);
+
+                if("Y".equals(showAddressRN))
+                    row.setAttribute("RenderAddress", true);
+                else
+                    row.setAttribute("RenderAddress", false);
+                // Serializable[] checkCountryParams = {  };
+
+
+                // Row countryRow = couVO.getCurrentRow();
+                
+                // if(couVO != null){
+                //     if(countryRow.getAttribute("Country")!=null && "Philippines".equals(countryRow.getAttribute("Country").toString())){
+                //         row.setAttribute("RenderAddress", true);
+                //     }else {
+                //        row.setAttribute("RenderAddress", false);
+                //     }
+                // }
+
+
+
+            }
         }
         
         
-            
+        
         
         
         
@@ -121,18 +163,18 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         if("RenderOrganization".equals(pageContext.getParameter(OAWebBeanConstants.EVENT_PARAM))){
             //System.out.println(pageContext.getParameter("pUnitOfBeneficiary").toString());
             
-             OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+             
 
              if(pageContext.isLoggingEnabled(OAFwkConstants.STATEMENT))  
              {  
-                if(vo != null)
+                if(mainVO != null)
                     pageContext.writeDiagnostics(this, "PS Main Transaction view - found" ,OAFwkConstants.STATEMENT);    
                 else
                     pageContext.writeDiagnostics(this, "PS Main Transaction view - NOT found" ,OAFwkConstants.STATEMENT);    
              }  
 
              
-             Row row = vo.getCurrentRow();
+             Row row = mainVO.getCurrentRow();
              
              if("Organization".equals(row.getAttribute("UnitOfBeneficiary").toString())){
                  //System.out.println(row.getAttribute("UnitOfBeneficiary").toString());
@@ -142,8 +184,30 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
              }   
                  
              
-            
-            
+        }
+
+        if ("RenderSubjAreaOthers".equals(pageContext.getParameter(OAWebBeanConstants.EVENT_PARAM))) {
+
+            String eventRowSourceParam = 
+                pageContext.getParameter(EVENT_SOURCE_ROW_REFERENCE);
+            Row row = am.findRowByRef(eventRowSourceParam);
+
+            //            System.out.println(eventRowSourceParam);
+
+            String selectedSubj = row.getAttribute("Attribute1").toString();
+            String isSelected = row.getAttribute("Selected").toString();
+
+            Row mainRow = mainVO.getCurrentRow();
+
+
+            if ("Y".equals(isSelected) && "Others".equals(selectedSubj)) {
+
+                mainRow.setAttribute("RenderSubjAreaOthers", Boolean.TRUE);
+
+            } else if ("N".equals(isSelected) && "Others".equals(selectedSubj)) {
+                mainRow.setAttribute("RenderSubjAreaOthers", Boolean.FALSE);
+            }
+
         }
         
 

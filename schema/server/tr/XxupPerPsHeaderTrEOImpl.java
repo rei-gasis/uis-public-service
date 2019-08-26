@@ -1,4 +1,4 @@
-package xxup.oracle.apps.per.publicservice.schema.server;
+package xxup.oracle.apps.per.publicservice.schema.server.tr;
 
 import oracle.apps.fnd.framework.server.OADBTransaction;
 import oracle.apps.fnd.framework.server.OAEntityDefImpl;
@@ -27,30 +27,28 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
     public static final int STARTDATE = 6;
     public static final int ENDDATE = 7;
     public static final int DURATIONHOURS = 8;
-    public static final int TYPEOFACTIVITY = 9;
-    public static final int SOURCEOFFUND = 10;
-    public static final int COSTOFPARTICIPATION = 11;
-    public static final int PARTNERORGORINST = 12;
-    public static final int BENEFICIARYCATEGORY = 13;
-    public static final int UNITOFBENEFICIARY = 14;
-    public static final int NOOFBENEFICIARY = 15;
-    public static final int COUNTRY = 16;
-    public static final int POSTACTEVALRATING = 17;
-    public static final int REMARKS = 18;
-    public static final int REQUESTSTATUS = 19;
-    public static final int ATTRIBUTE1 = 20;
-    public static final int ATTRIBUTE2 = 21;
-    public static final int ATTRIBUTE3 = 22;
-    public static final int ATTRIBUTE4 = 23;
-    public static final int ATTRIBUTE5 = 24;
-    public static final int LASTUPDATEDATE = 25;
-    public static final int LASTUPDATEDBY = 26;
-    public static final int LASTUPDATELOGIN = 27;
-    public static final int CREATEDBY = 28;
-    public static final int CREATIONDATE = 29;
-    public static final int PROJECTTYPE = 30;
-    public static final int TYPEOFBENEFICIARY = 31;
-    public static final int ITEMKEY = 32;
+    public static final int SOURCEOFFUND = 9;
+    public static final int COSTOFPARTICIPATION = 10;
+    public static final int PARTNERORGORINST = 11;
+    public static final int BENEFICIARYCATEGORY = 12;
+    public static final int UNITOFBENEFICIARY = 13;
+    public static final int NOOFBENEFICIARY = 14;
+    public static final int POSTACTEVALRATING = 15;
+    public static final int REMARKS = 16;
+    public static final int REQUESTSTATUS = 17;
+    public static final int ATTRIBUTE1 = 18;
+    public static final int ATTRIBUTE2 = 19;
+    public static final int ATTRIBUTE3 = 20;
+    public static final int ATTRIBUTE4 = 21;
+    public static final int ATTRIBUTE5 = 22;
+    public static final int LASTUPDATEDATE = 23;
+    public static final int LASTUPDATEDBY = 24;
+    public static final int LASTUPDATELOGIN = 25;
+    public static final int CREATEDBY = 26;
+    public static final int CREATIONDATE = 27;
+    public static final int PROJECTTYPE = 28;
+    public static final int TYPEOFBENEFICIARY = 29;
+    public static final int ITEMKEY = 30;
 
 
     private static OAEntityDefImpl mDefinitionObject;
@@ -66,7 +64,7 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
     public static synchronized EntityDefImpl getDefinitionObject() {
         if (mDefinitionObject == null) {
             mDefinitionObject = 
-                    (OAEntityDefImpl)EntityDefImpl.findDefObject("xxup.oracle.apps.per.publicservice.schema.server.XxupPerPsHeaderTrEO");
+                    (OAEntityDefImpl)EntityDefImpl.findDefObject("xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsHeaderTrEO");
         }
         return mDefinitionObject;
     }
@@ -213,17 +211,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
         setAttributeInternal(DURATIONHOURS, value);
     }
 
-    /**Gets the attribute value for TypeOfActivity, using the alias name TypeOfActivity
-     */
-    public Number getTypeOfActivity() {
-        return (Number)getAttributeInternal(TYPEOFACTIVITY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for TypeOfActivity
-     */
-    public void setTypeOfActivity(Number value) {
-        setAttributeInternal(TYPEOFACTIVITY, value);
-    }
 
     /**Gets the attribute value for SourceOfFund, using the alias name SourceOfFund
      */
@@ -297,17 +284,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
         setAttributeInternal(NOOFBENEFICIARY, value);
     }
 
-    /**Gets the attribute value for Country, using the alias name Country
-     */
-    public String getCountry() {
-        return (String)getAttributeInternal(COUNTRY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for Country
-     */
-    public void setCountry(String value) {
-        setAttributeInternal(COUNTRY, value);
-    }
 
     /**Gets the attribute value for PostActEvalRating, using the alias name PostActEvalRating
      */
@@ -525,8 +501,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
             return getEndDate();
         case DURATIONHOURS:
             return getDurationHours();
-        case TYPEOFACTIVITY:
-            return getTypeOfActivity();
         case SOURCEOFFUND:
             return getSourceOfFund();
         case COSTOFPARTICIPATION:
@@ -539,8 +513,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
             return getUnitOfBeneficiary();
         case NOOFBENEFICIARY:
             return getNoOfBeneficiary();
-        case COUNTRY:
-            return getCountry();
         case POSTACTEVALRATING:
             return getPostActEvalRating();
         case REMARKS:
@@ -610,9 +582,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
         case DURATIONHOURS:
             setDurationHours((Number)value);
             return;
-        case TYPEOFACTIVITY:
-            setTypeOfActivity((Number)value);
-            return;
         case SOURCEOFFUND:
             setSourceOfFund((String)value);
             return;
@@ -630,9 +599,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
             return;
         case NOOFBENEFICIARY:
             setNoOfBeneficiary((Number)value);
-            return;
-        case COUNTRY:
-            setCountry((String)value);
             return;
         case POSTACTEVALRATING:
             setPostActEvalRating((String)value);

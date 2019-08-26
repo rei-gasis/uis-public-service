@@ -8,7 +8,7 @@
    AliasName="XxupPerPsHeaderTrEO"
    BindingStyle="OracleName"
    UseGlueCode="false"
-   RowClass="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPsHeaderTrEOImpl"
+   RowClass="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsHeaderTrEOImpl"
    DefClass="oracle.apps.fnd.framework.server.OAEntityDefImpl"
    CollClass="oracle.apps.fnd.framework.server.OAEntityCache" >
    <DesignTime>
@@ -120,17 +120,6 @@
       </DesignTime>
    </Attribute>
    <Attribute
-      Name="TypeOfActivity"
-      ColumnName="TYPE_OF_ACTIVITY"
-      Type="oracle.jbo.domain.Number"
-      ColumnType="NUMBER"
-      SQLType="NUMERIC"
-      TableName="XXUP.XXUP_PER_PS_HEADER_TR" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="22" />
-      </DesignTime>
-   </Attribute>
-   <Attribute
       Name="SourceOfFund"
       Precision="200"
       ColumnName="SOURCE_OF_FUND"
@@ -199,18 +188,6 @@
       TableName="XXUP.XXUP_PER_PS_HEADER_TR" >
       <DesignTime>
          <Attr Name="_DisplaySize" Value="22" />
-      </DesignTime>
-   </Attribute>
-   <Attribute
-      Name="Country"
-      Precision="100"
-      ColumnName="COUNTRY"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      SQLType="VARCHAR"
-      TableName="XXUP.XXUP_PER_PS_HEADER_TR" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="100" />
       </DesignTime>
    </Attribute>
    <Attribute
@@ -410,7 +387,7 @@
    <Key
       Name="XxupperpsheadertreoPrimaryKey" >
       <AttrArray Name="Attributes">
-         <Item Value="xxup.oracle.apps.per.publicservice.schema.server.XxupPerPsHeaderTrEO.ItemKey" />
+         <Item Value="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsHeaderTrEO.ItemKey" />
       </AttrArray>
       <DesignTime>
          <Attr Name="_isPrimary" Value="true" />

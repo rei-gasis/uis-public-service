@@ -13,12 +13,12 @@ public class PerPSActionHistoryVOImpl extends OAViewObjectImpl {
     public PerPSActionHistoryVOImpl() {
     }
 
-    public void initApprovers(String sequenceNo) {
+    public void initApprovers(String itemKey) {
         //setMaxFetchSize(0);
     
         setWhereClauseParams(null);
-        setWhereClause("sequence_no = :1");
-        setWhereClauseParam(0, sequenceNo);
+        setWhereClause("item_key = :1");
+        setWhereClauseParam(0, itemKey);
         executeQuery();
     }
 }

@@ -13,10 +13,26 @@
             <oa:messageStyledText id="StartDate" prompt="Start Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="StartDate" styleClass="OraDataText"/>
             <oa:messageStyledText id="EndDate" prompt="End Date" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="EndDate" styleClass="OraDataText"/>
             <oa:messageStyledText id="DurationHours" prompt="Duration Hours" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="DurationHours" styleClass="OraDataText"/>
-            <oa:messageStyledText id="TypeOfActivity" prompt="Type of Activity" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfActivityDisplay" styleClass="OraDataText"/>
+            <!-- <oa:messageStyledText id="TypeOfActivity" prompt="Type of Activity" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfActivityDisplay" styleClass="OraDataText"/> -->
+            <oa:messageLayout id="TypeOfactivityML">
+               <ui:contents>
+                  <oa:advancedTable id="TypeOfactivityAT" viewName="XxupPerPSToaTrEOVO1" width="30%">
+                     <ui:contents>
+                        <oa:column id="TypeOfactivityCol">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="TypeOfActivitySH" prompt="Type of Activity"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="TypeOfActivity" viewAttr="Attribute1" styleClass="OraDataText"/>
+                           </ui:contents>
+                        </oa:column>
+                     </ui:contents>
+                  </oa:advancedTable>
+               </ui:contents>
+            </oa:messageLayout>
             <oa:messageLayout id="ObjCatML">
                <ui:contents>
-                  <oa:advancedTable id="ObjCatAT" viewName="XxupPerPublicServiceCatEOVO1" width="30%">
+                  <oa:advancedTable id="ObjCatAT" viewName="XxupPerPSCatTrEOVO1" width="30%">
                      <ui:contents>
                         <oa:column id="ObjCatCol">
                            <ui:columnHeader>
@@ -40,7 +56,7 @@
             </oa:messageLayout>
             <oa:messageLayout id="SubjAreaInterestML">
                <ui:contents>
-                  <oa:advancedTable id="SubjAreaInterestAT" viewName="XxupPerPublicServiceSubjEOVO1" width="30%">
+                  <oa:advancedTable id="SubjAreaInterestAT" viewName="XxupPerPSSubjTrEOVO1" width="30%">
                      <ui:contents>
                         <oa:column id="SubjAreaInterestCol">
                            <ui:columnHeader>
@@ -56,13 +72,13 @@
             </oa:messageLayout>
             <oa:messageStyledText id="SourceOfFund" prompt="Source Of Fund" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SourceOfFund" styleClass="OraDataText"/>
             <oa:messageStyledText id="PartnerOrgOrInst" prompt="Partner Organization/Institution" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PartnerOrgOrInst" styleClass="OraDataText"/>
-            <oa:messageStyledText id="BeneficiaryCategory" prompt="Beneficary Category" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="BeneficiaryCategory" styleClass="OraDataText"/>
+            <!-- <oa:messageStyledText id="BeneficiaryCategory" prompt="Beneficary Category" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="BeneficiaryCategory" styleClass="OraDataText"/> -->
             <oa:messageStyledText id="TypeOfBeneficiary" prompt="Type Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/>
             <oa:messageStyledText id="UnitOfBeneficiary" prompt="Unit Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="UnitOfBeneficiary" styleClass="OraDataText"/>
             <oa:messageStyledText id="NoOfBeneficiary" prompt="No. Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="NoOfBeneficiary" styleClass="OraDataText"/>
             <oa:messageLayout id="BenefOrgML">
                <ui:contents>
-                  <oa:advancedTable id="BenefOrgAT" viewName="XxupPerPublicServiceBenifEOVO1" width="30%">
+                  <oa:advancedTable id="BenefOrgAT" viewName="XxupPerPSBenifTrEOVO1" width="30%">
                      <ui:contents>
                         <oa:column id="BenefOrgNameCol">
                            <ui:columnHeader>
@@ -84,10 +100,26 @@
                   </oa:advancedTable>
                </ui:contents>
             </oa:messageLayout>
-            <oa:messageStyledText id="Country" prompt="Country" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="Country" styleClass="OraDataText"/>
+            <!-- <oa:messageStyledText id="Country" prompt="Country" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="Country" styleClass="OraDataText"/> -->
+            <oa:messageLayout id="CountryML">
+               <ui:contents>
+                  <oa:advancedTable id="CountryAT" viewName="XxupPerPSCountriesTrEOVO1" width="30%">
+                     <ui:contents>
+                        <oa:column id="CountryCol">
+                           <ui:columnHeader>
+                              <oa:sortableHeader id="CountrySH" prompt="Country"/>
+                           </ui:columnHeader>
+                           <ui:contents>
+                              <oa:messageStyledText id="Country" viewAttr="Country" styleClass="OraDataText"/>
+                           </ui:contents>
+                        </oa:column>
+                     </ui:contents>
+                  </oa:advancedTable>
+               </ui:contents>
+            </oa:messageLayout>
             <oa:messageLayout id="AddressML">
                <ui:contents>
-                  <oa:advancedTable id="AddressAT" viewName="XxupPerPublicServiceAddrEOVO1" width="30%">
+                  <oa:advancedTable id="AddressAT" viewName="XxupPerPSAddrTrEOVO1" width="30%">
                      <ui:contents>
                         <oa:column id="AddressCol">
                            <ui:columnHeader>

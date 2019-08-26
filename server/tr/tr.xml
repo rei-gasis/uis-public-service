@@ -1,0 +1,47 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE JboPackage SYSTEM "jbo_03_01.dtd">
+
+<JboPackage
+   Name="tr"
+   SeparateXMLFiles="true"
+   PackageName="xxup.oracle.apps.per.publicservice.server.tr" >
+   <DesignTime>
+      <Attr Name="_ejbPackage" Value="false" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+   </DesignTime>
+   <Containee
+      Name="XxupPerPSAddrTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSAddrTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSBenifTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenifTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSCatTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCatTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSCountriesTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCountriesTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSHeaderTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSHeaderTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSSubjTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSSubjTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSToaTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSToaTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+</JboPackage>

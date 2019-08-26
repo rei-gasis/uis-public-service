@@ -32,6 +32,7 @@ import oracle.apps.fnd.framework.webui.beans.message.OAMessageTextInputBean;
 import oracle.apps.fnd.framework.webui.beans.nav.OAPageButtonBarBean;
 
 import oracle.jbo.Row;
+import oracle.jbo.RowSetIterator;
 
 /**
  * Controller for ...
@@ -61,24 +62,70 @@ public class PublicServiceRequestCO extends OAControllerImpl {
              
          String actionFromURL = pageContext.getParameter("urlParam");
 
-         String sequenceNo = 
-             pageContext.getParameter("pSequenceNo");
+         String sequenceNo = pageContext.getParameter("pSequenceNo");
+
 
          //String sequenceNo = "1950";
          
          if ("Create".equals(actionFromURL) || actionFromURL == null) {
              am.invokeMethod("initVOForNewRequest");
 
-         } else if ("Update".equals(actionFromURL) 
-                || "RFC".equals(actionFromURL) 
+         }else if ("Update".equals(actionFromURL)){
+            
+             Serializable[] initTranRecordParams = { sequenceNo };
+             am.invokeMethod("initTranRecord", initTranRecordParams);
+
+
+             OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+
+            if(mainVO != null){
+                // mainVO.executeQuery();
+//                mainVO.reset();
+                // Row row = mainVO.getCurrentRow();
+
+                RowSetIterator rs = mainVO.createRowSetIterator(null);
+                rs.setRangeStart(0);
+                
+                while (rs.hasNext()) {
+                    Row r = rs.next();
+                    
+                    System.out.println(r.getAttribute("AssignmentId").toString());
+                }
+     
+   
+                rs.closeRowSetIterator();
+
+                
+
+            }
+
+         } else if ("RFC".equals(actionFromURL) 
                 || "Back".equals(actionFromURL) 
                 || actionFromURL == null
                 ) {
+
+            OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+
+            if(mainVO != null){
+//                mainVO.reset();
+                Row row = mainVO.getCurrentRow();
+
+                if(row.getAttribute("ItemKey") != null){
+                    String paramItemKey = row.getAttribute("ItemKey").toString();     
+
+                    Serializable[] updatePSParams = { paramItemKey };
+                    am.invokeMethod("updatePS", updatePSParams);
+                }
+
+            }
+            
              
-             Serializable[] params = { sequenceNo };
-             am.invokeMethod("updatePS", params);
 
          }
+//         else{
+////            pageContext.setParameter("urlParam", "Create");
+////            am.invokeMethod("initVOForNewRequest");
+//         }
     }
 
     /**
@@ -165,9 +212,9 @@ public class PublicServiceRequestCO extends OAControllerImpl {
                     errMsg.add(new OAException("Start Date is required",OAException.ERROR));
                 }
                 
-                if(row.getAttribute("TypeOfActivityDisplay") == null) {
-                    errMsg.add(new OAException("Type of Activity is required",OAException.ERROR));
-                }
+                // if(row.getAttribute("TypeOfActivityDisplay") == null) {
+                //     errMsg.add(new OAException("Type of Activity is required",OAException.ERROR));
+                // }
                 
                 if(row.getAttribute("SourceOfFund") == null) {
                     errMsg.add(new OAException("Source of Fund is required",OAException.ERROR));
@@ -181,9 +228,9 @@ public class PublicServiceRequestCO extends OAControllerImpl {
                     errMsg.add(new OAException("No of Beneficiary is required",OAException.ERROR));
                 }
                 
-                if(row.getAttribute("Country") == null) {
-                    errMsg.add(new OAException("Country is required",OAException.ERROR));
-                }
+                // if(row.getAttribute("Country") == null) {
+                //     errMsg.add(new OAException("Country is required",OAException.ERROR));
+                // }
                 
                 
                 
@@ -192,8 +239,11 @@ public class PublicServiceRequestCO extends OAControllerImpl {
             
             row = null;
             
+            // OAViewObject catVo = 
+            //     (OAViewObject)am.findViewObject("XxupPerPublicServiceCatEOVO1");
+
             OAViewObject catVo = 
-                (OAViewObject)am.findViewObject("XxupPerPublicServiceCatEOVO1");
+                (OAViewObject)am.findViewObject("XxupPerPSCatTrEOVO1");
             
             /*Validate if objective category is empty*/
             int objCatCount = 0;
@@ -205,9 +255,6 @@ public class PublicServiceRequestCO extends OAControllerImpl {
                     if (rowi.getAttribute("Attribute1") != null) {
                         objCatCount++;
                     }
-                
-                
-                
                 
                 }
                 
@@ -222,12 +269,37 @@ public class PublicServiceRequestCO extends OAControllerImpl {
             }
             
             
+            /*Validate if type of activities is empty*/
+            OAViewObject toaVO = 
+                (OAViewObject)am.findViewObject("XxupPerPSToaTrEOVO1");
             
+
+            int toaCount = 0;
+
+            if (toaVO != null) {
+                for (Row rowi: toaVO.getAllRowsInRange()) {
+                    
+                    if (rowi.getAttribute("TypeOfActivity") != null) {
+                        toaCount++;
+                        break;
+                    }
+                }
+                
+            //System.out.println(objCatCount);
+           
+            }
             
+            if(toaCount <= 0){
+               //error += "Please fill at least one Objective Category" + "<br/>";
+               errMsg.add(new OAException("Please fill at least one Type of Activity",OAException.ERROR));
+            }
+            
+
+
             
             /*Validate if subject area of interest is empty*/
             OAViewObject subjVo = 
-                (OAViewObject)am.findViewObject("XxupPerPublicServiceSubjEOVO1");
+                (OAViewObject)am.findViewObject("XxupPerPSSubjTrEOVO1");
             
             
             Row selectedRows [] = null;
@@ -247,7 +319,30 @@ public class PublicServiceRequestCO extends OAControllerImpl {
 
 
 
+            /*Validate if type of activities is empty*/
+            OAViewObject couVO = 
+                (OAViewObject)am.findViewObject("XxupPerPSCountriesTrEOVO1");
             
+
+            int couCount = 0;
+
+            if (couVO != null) {
+                for (Row rowi: couVO.getAllRowsInRange()) {
+                    
+                    if (rowi.getAttribute("Country") != null) {
+                        couCount++;
+                        break;
+                    }
+                }
+                
+            //System.out.println(objCatCount);
+           
+            }
+            
+            if(couCount <= 0){
+               //error += "Please fill at least one Objective Category" + "<br/>";
+               errMsg.add(new OAException("Please fill at least one Country",OAException.ERROR));
+            }
 
 
 
@@ -258,15 +353,83 @@ public class PublicServiceRequestCO extends OAControllerImpl {
                 OAException.raiseBundledOAException((List)errMsg);
                 //throw new OAException("XXUP", "UP_HR_PS_FORM_VALID_MSG", tokens, OAException.ERROR, null);
             }
+
+            //init approver list/approval history
+            
+            String itemKey = "";
+            try{
+
+                String assignmentId = "";
+                
+                String actionFromURL = pageContext.getParameter("urlParam");
+                // String sequenceNo = pageContext.getParameter("pSequenceNo");
+                String sequenceNo = "";
+
+
+                Serializable[] initApproversParams = new String[3];
+
+                OAViewObject mainVO = (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
+                row = null;
+
+                if(mainVO != null){
+                
+                    row = mainVO.getCurrentRow();
+//                    System.out.println("PublicServiceRequestCO > SubjAreaOthers: " + row.getAttribute("SubjAreaOthers").toString());
+
+                    //Item key will be initialize on creation of approver list
+                    //Only be created if not yet initialized
+                    if(row.getAttribute("ItemKey") == null){
+                            if(row.getAttribute("AssignmentId") != null){
+                                assignmentId = row.getAttribute("AssignmentId").toString();
+                                sequenceNo = row.getAttribute("SequenceNo").toString();
+                                initApproversParams[0] = assignmentId;
+                                initApproversParams[1] = sequenceNo;
+                                initApproversParams[2] = actionFromURL;
+
+                                // System.out.println("1assignmentId:" + assignmentId);
+                                // System.out.println("SequenceNo:" + row.getAttribute("SequenceNo").toString());
+                            }
+
+                            
+                            itemKey = (String)am.invokeMethod("initApprovers", initApproversParams);
+
+                            System.out.println("assignmentId: " + assignmentId);
+                            System.out.println("sequenceNo: " + sequenceNo);
+                            System.out.println("actionFromURL: " + actionFromURL);
+                            System.out.println("itemKey: " + itemKey);
+                            
+                            row.setAttribute("ItemKey", itemKey);
+                            
+                    }else{
+                        if(mainVO != null){
+                            row = mainVO.getCurrentRow();
+
+                            if(row.getAttribute("ItemKey") != null){
+                                itemKey = row.getAttribute("ItemKey").toString();
+                            }
+                            
+                        }
+                        
+                    }
+                }
+                
+                
+
+            }catch(Exception ex){
+                throw new OAException("Unable to set approver list: " + ex);
+            }
              
             
              //store child tables
             am.invokeMethod("saveDetails");
             am.invokeMethod("commitTransaction");
+
+
             
-             
             
-            pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceReviewPG&pSequenceNo=" + strSequenceNo + "&urlParam=" + actionParam, 
+             System.out.println("Request CO > forward URL: " + "OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceReviewPG&pSequenceNo=" + strSequenceNo + "&urlParam=" + actionParam + "&pItemKey=" + itemKey);
+            
+            pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceReviewPG&pSequenceNo=" + strSequenceNo + "&urlParam=" + actionParam + "&pItemKey=" + itemKey, 
                                            null, 
                                            OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                            null, null, true, 

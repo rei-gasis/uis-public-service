@@ -33,7 +33,7 @@ import oracle.apps.fnd.framework.webui.beans.table.OATableBean;
 
 import oracle.jbo.Row;
 
-import xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderTrEOVOImpl;
+import xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSHeaderTrEOVOImpl;
 
 
 /**
@@ -74,43 +74,26 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
         String actionFromURL = pageContext.getParameter("urlParam");
+        String pItemKey = "";
 
 
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
+        OAViewObject pshVO = (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
+
+        if(pshVO != null){
+            pItemKey = pshVO.getCurrentRow().getAttribute("ItemKey").toString();
+            System.out.println("ReviewCO > itemKey: " + pItemKey);
+            // pItemKey = "INDIV-317";
+        }
+
 
         Serializable[] initApproversParams = new String[2];
-        Serializable[] reviewPSParams = { sequenceNo };
+        Serializable[] reviewPSParams = { pItemKey };
 
-        try{
+        
 
-            OAViewObject pshVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
-            Row row = null;
-            String assignmentId = "";
-
-            if(pshVO != null){
-                
-                row = pshVO.getCurrentRow();
-
-                if("Create".equals(actionFromURL)){
-                       if(row.getAttribute("AssignmentId") != null){
-                        assignmentId = row.getAttribute("AssignmentId").toString();
-                        initApproversParams[0] = assignmentId;
-
-                        // System.out.println("1assignmentId:" + assignmentId);
-                        // System.out.println("SequenceNo:" + row.getAttribute("SequenceNo").toString());
-                    }
-
-                    initApproversParams[1] = sequenceNo;
-                    am.invokeMethod("initApprovers", initApproversParams);
-                }
-            }
-
-            am.invokeMethod("reviewPS", reviewPSParams);
-
-        }catch(Exception ex){
-            throw new OAException("Unable to set approver list: " + ex);
-        }
+        am.invokeMethod("reviewPS", reviewPSParams);
 
         //pageContext.getPageLayoutBean() 
 
@@ -212,6 +195,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
                                                      "PSCreateTxn");*/
                 pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceRequestPG" + 
                                                "&pSequenceNo=" + sequenceNo + 
+                                               // "&urlParam=" + actionParam, null, 
                                                "&urlParam=Back", null, 
                                                OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                                null, null, true, 
@@ -291,8 +275,13 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
             String projName = row.getAttribute("ProjectName").toString();
 
+            String pSequenceNo = row.getAttribute("SequenceNo").toString();
+            String pItemKey = row.getAttribute("ItemKey").toString();
 
-            am.invokeMethod("initWF", params);
+            Serializable[] initWFParams = { pSequenceNo, pItemKey };
+
+
+            am.invokeMethod("initWF", initWFParams);
 
 
             MessageToken[] tokens = 

@@ -306,6 +306,16 @@ FROM XXUP.XXUP_PER_PS_INSTITUTIONAL_TR XxupPerPsInstitutionalTrEO
       SQLType="VARCHAR" >
    </ViewAttribute>
    <ViewAttribute
+      Name="SubjAreaOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
+   </ViewAttribute>
+   <ViewAttribute
       Name="RenderActivityOthers"
       IsSelected="false"
       IsPersistent="false"

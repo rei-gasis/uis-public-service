@@ -30,5 +30,12 @@ public class PerPSAttachmentsVOImpl extends OAViewObjectImpl {
         insertRow(row);
         executeQuery();
     }
+
+    public void initTranPS(String itemKey) {
+        setWhereClauseParams(null);
+        setWhereClause("item_key = :1");
+        setWhereClauseParam(0, itemKey);
+        executeQuery();
+    }
     
 }
