@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstPartOrgTrEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstPartOrgTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstPartOrgTrEO.SEQUENCE_NO, 
+       XxupPerPsInstPartOrgTrEO.LINE_NUMBER, 
+       XxupPerPsInstPartOrgTrEO.ORGANIZATION_NAME, 
+       XxupPerPsInstPartOrgTrEO.LOCATION, 
+       XxupPerPsInstPartOrgTrEO.ATTRIBUTE1, 
+       XxupPerPsInstPartOrgTrEO.ATTRIBUTE2, 
+       XxupPerPsInstPartOrgTrEO.ATTRIBUTE3, 
+       XxupPerPsInstPartOrgTrEO.ATTRIBUTE4, 
+       XxupPerPsInstPartOrgTrEO.ATTRIBUTE5, 
+       XxupPerPsInstPartOrgTrEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstPartOrgTrEO.LAST_UPDATED_BY, 
+       XxupPerPsInstPartOrgTrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstPartOrgTrEO.CREATED_BY, 
+       XxupPerPsInstPartOrgTrEO.CREATION_DATE, 
+       XxupPerPsInstPartOrgTrEO.ITEM_KEY, 
+       XxupPerPsInstPartOrgTrEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_PART_ORG_TR XxupPerPsInstPartOrgTrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstPartOrgTrEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.tr.XxupPerPsInstPartOrgTrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="OrganizationName"
+      EntityAttrName="OrganizationName"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ORGANIZATION_NAME" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Location"
+      EntityAttrName="Location"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="LOCATION" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstPartOrgTrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

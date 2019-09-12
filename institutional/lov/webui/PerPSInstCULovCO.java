@@ -19,13 +19,12 @@ import oracle.apps.fnd.framework.webui.beans.OAWebBean;
 /**
  * Controller for ...
  */
-public class PerPSInstCULovCO extends OAControllerImpl
-{
-  public static final String RCS_ID="$Header$";
-  public static final boolean RCS_ID_RECORDED =
+public class PerPSInstCULovCO extends OAControllerImpl {
+    public static final String RCS_ID = "$Header$";
+    public static final boolean RCS_ID_RECORDED = 
         VersionInfo.recordClassVersion(RCS_ID, "%packagename%");
 
-  /**
+    /**
      * Layout and page setup logic for a region.
      * @param pageContext the current OA page context
      * @param webBean the web bean corresponding to the region
@@ -38,28 +37,27 @@ public class PerPSInstCULovCO extends OAControllerImpl
         String employeeId = Integer.toString(pageContext.getEmployeeId());
 
         Serializable[] params = { employeeId };
-        
 
-        try{
+
+        try {
             am.invokeMethod("initCUVO", params);
-        }catch(Exception ex){
+        } catch (Exception ex) {
             throw new OAException(ex.toString());
         }
-        
+
     }
 
-  /**
-   * Procedure to handle form submissions for form elements in
-   * a region.
-   * @param pageContext the current OA page context
-   * @param webBean the web bean corresponding to the region
-   */
-  public void processFormRequest(OAPageContext pageContext, OAWebBean webBean)
-  {
-    super.processFormRequest(pageContext, webBean);
-        
-        
-    
-  }
+    /**
+     * Procedure to handle form submissions for form elements in
+     * a region.
+     * @param pageContext the current OA page context
+     * @param webBean the web bean corresponding to the region
+     */
+    public void processFormRequest(OAPageContext pageContext, 
+                                   OAWebBean webBean) {
+        super.processFormRequest(pageContext, webBean);
+
+
+    }
 
 }

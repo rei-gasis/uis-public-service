@@ -63,6 +63,7 @@ public class PublicServiceRequestCO extends OAControllerImpl {
          String actionFromURL = pageContext.getParameter("urlParam");
 
          String sequenceNo = pageContext.getParameter("pSequenceNo");
+         String itemKey = pageContext.getParameter("pItemKey");
 
 
          //String sequenceNo = "1950";
@@ -76,48 +77,28 @@ public class PublicServiceRequestCO extends OAControllerImpl {
              am.invokeMethod("initTranRecord", initTranRecordParams);
 
 
-             OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
-
-            if(mainVO != null){
-                // mainVO.executeQuery();
-//                mainVO.reset();
-                // Row row = mainVO.getCurrentRow();
-
-                RowSetIterator rs = mainVO.createRowSetIterator(null);
-                rs.setRangeStart(0);
-                
-                while (rs.hasNext()) {
-                    Row r = rs.next();
-                    
-                    System.out.println(r.getAttribute("AssignmentId").toString());
-                }
-     
-   
-                rs.closeRowSetIterator();
-
-                
-
-            }
-
          } else if ("RFC".equals(actionFromURL) 
                 || "Back".equals(actionFromURL) 
                 || actionFromURL == null
                 ) {
 
-            OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+                Serializable[] updatePSParams = { itemKey };
+                am.invokeMethod("updatePS", updatePSParams);
 
-            if(mainVO != null){
-//                mainVO.reset();
-                Row row = mainVO.getCurrentRow();
+            // OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
 
-                if(row.getAttribute("ItemKey") != null){
-                    String paramItemKey = row.getAttribute("ItemKey").toString();     
+//             if(mainVO != null){
+// //                mainVO.reset();
+//                 Row row = mainVO.getCurrentRow();
 
-                    Serializable[] updatePSParams = { paramItemKey };
-                    am.invokeMethod("updatePS", updatePSParams);
-                }
+//                 if(row.getAttribute("ItemKey") != null){
+//                     String paramItemKey = row.getAttribute("ItemKey").toString();     
 
-            }
+//                     Serializable[] updatePSParams = { paramItemKey };
+//                     am.invokeMethod("updatePS", updatePSParams);
+//                 }
+
+//             }
             
              
 
@@ -285,7 +266,6 @@ public class PublicServiceRequestCO extends OAControllerImpl {
                     }
                 }
                 
-            //System.out.println(objCatCount);
            
             }
             
@@ -319,7 +299,7 @@ public class PublicServiceRequestCO extends OAControllerImpl {
 
 
 
-            /*Validate if type of activities is empty*/
+            /*Validate if countries is empty*/
             OAViewObject couVO = 
                 (OAViewObject)am.findViewObject("XxupPerPSCountriesTrEOVO1");
             
@@ -388,6 +368,8 @@ public class PublicServiceRequestCO extends OAControllerImpl {
 
                                 // System.out.println("1assignmentId:" + assignmentId);
                                 // System.out.println("SequenceNo:" + row.getAttribute("SequenceNo").toString());
+                            }else{
+                                throw new OAException("Position was not set properly. please fill again the Position Name field");
                             }
 
                             

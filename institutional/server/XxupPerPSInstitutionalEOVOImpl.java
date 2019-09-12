@@ -17,8 +17,12 @@ public class XxupPerPSInstitutionalEOVOImpl extends OAViewObjectImpl {
         setWhereClause("created_by = fnd_global.user_id");
         setOrderByClause("project_name");
         executeQuery();
-        
-        
+    }
     
+    public void initExistingPS(String sequenceNumber) {
+        setWhereClauseParams(null);
+        setWhereClause("sequence_no = :1");
+        setWhereClauseParam(0, sequenceNumber);
+        executeQuery();
     }
 }

@@ -52,17 +52,30 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
     public void processRequest(OAPageContext pageContext, OAWebBean webBean) {
 
         super.processRequest(pageContext, webBean);
-    
+
         String sequenceNo = pageContext.getParameter("pSequenceNo");
+        String actionFromURL = pageContext.getParameter("urlParam");
+        String pItemKey = "";
 
 
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
+        OAViewObject mainVO = 
+            (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
 
-        Serializable[] params = { sequenceNo };
+        //        if(mainVO != null){
+        //            pItemKey = mainVO.getCurrentRow().getAttribute("ItemKey").toString();
+        //            System.out.println("ReviewCO > itemKey: " + pItemKey);
+        //            // pItemKey = "INDIV-317";
+        //        }
 
-    
-        am.invokeMethod("initApprovers", params);
+        // pItemKey = "INST-96";
+
+        //        Serializable[] initApproversParams = new String[2];
+        Serializable[] reviewPSParams = { pItemKey };
+
+
+        am.invokeMethod("reviewPS", reviewPSParams);
 
 
         /*Handle RFC
@@ -76,9 +89,8 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
         OAHeaderBean attachmentRN = 
             (OAHeaderBean)rootWB.findChildRecursive("AttachmentHRN");
-            
-//        OAMessageCheckBoxBean checkbox =  (OAMessageCheckBoxBean) rootWB.findChildRecursive("SelectedMode");
-        
+
+        //        OAMessageCheckBoxBean checkbox =  (OAMessageCheckBoxBean) rootWB.findChildRecursive("SelectedMode");
 
 
         String actionParam = pageContext.getParameter("urlParam");
@@ -111,19 +123,18 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
                 webBean.addIndexedChild(1, attachmentReviewRN);
             }
 
-    
-            
-//            OAMessageAttachmentLinkBean attachmentLink = 
-//                (OAMessageAttachmentLinkBean)rootWB.findChildRecursive("PSInstitutionalAttachment");
-//
-//            if (attachmentLink != null) {
-//                Dictionary[] entityMaps = attachmentLink.getEntityMappings();
-//                entityMaps[0].remove("insertAllowed");
-//                entityMaps[0].put("insertAllowed", false);
-//                entityMaps[0].put("updatetAllowed", false);
-//                entityMaps[0].put("deleteAllowed", false);
-//            }
-//
+
+            //            OAMessageAttachmentLinkBean attachmentLink = 
+            //                (OAMessageAttachmentLinkBean)rootWB.findChildRecursive("PSInstitutionalAttachment");
+            //
+            //            if (attachmentLink != null) {
+            //                Dictionary[] entityMaps = attachmentLink.getEntityMappings();
+            //                entityMaps[0].remove("insertAllowed");
+            //                entityMaps[0].put("insertAllowed", false);
+            //                entityMaps[0].put("updatetAllowed", false);
+            //                entityMaps[0].put("deleteAllowed", false);
+            //            }
+            //
 
         }
 
@@ -178,7 +189,7 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
             } else {
 
                 am.invokeMethod("returnNonMemberVO", null);
-//                am.invokeMethod("returnNonMemberVO", null);
+                //                am.invokeMethod("returnNonMemberVO", null);
 
                 TransactionUnitHelper.endTransactionUnit(pageContext, 
                                                          "PSCreateTxn");
@@ -259,14 +270,21 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
             OAViewObject vo = 
                 (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
 
-            Row row = vo.getCurrentRow();
+            // vo.executeQuery();
+            //            Row row = vo.getCurrentRow();
+            vo.reset();
+            Row row = vo.next();
 
-            String projName = row.getAttribute("ProjectName").toString();
+            String pSequenceNo = row.getAttribute("SequenceNo").toString();
+            String pItemKey = row.getAttribute("ItemKey").toString();
+
+            Serializable[] initWFParams = { pSequenceNo, pItemKey };
 
             /*start workflow*/
-            am.invokeMethod("initWF", params);
+            am.invokeMethod("initWF", initWFParams);
 
 
+            String projName = row.getAttribute("ProjectName").toString();
             MessageToken[] tokens = 
             { new MessageToken("PROJ_NAME", projName) };
 

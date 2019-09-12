@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstCountriesEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstCountriesEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstCountriesEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstCountriesEO.SEQUENCE_NO, 
+       XxupPerPsInstCountriesEO.LINE_NUMBER, 
+       XxupPerPsInstCountriesEO.COUNTRY, 
+       XxupPerPsInstCountriesEO.ATTRIBUTE1, 
+       XxupPerPsInstCountriesEO.ATTRIBUTE2, 
+       XxupPerPsInstCountriesEO.ATTRIBUTE3, 
+       XxupPerPsInstCountriesEO.ATTRIBUTE4, 
+       XxupPerPsInstCountriesEO.ATTRIBUTE5, 
+       XxupPerPsInstCountriesEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstCountriesEO.LAST_UPDATED_BY, 
+       XxupPerPsInstCountriesEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstCountriesEO.CREATED_BY, 
+       XxupPerPsInstCountriesEO.CREATION_DATE, 
+       XxupPerPsInstCountriesEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_COUNTRIES XxupPerPsInstCountriesEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstCountriesEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstCountriesEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Country"
+      EntityAttrName="Country"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="COUNTRY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstCountriesEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

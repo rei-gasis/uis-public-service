@@ -1,0 +1,146 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstOfficeTrEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstOfficeTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstOfficeTrEO.SEQUENCE_NO, 
+       XxupPerPsInstOfficeTrEO.LINE_NUMBER, 
+       XxupPerPsInstOfficeTrEO.OFFICE, 
+       XxupPerPsInstOfficeTrEO.TEL_NO, 
+       XxupPerPsInstOfficeTrEO.EMAIL_ADDRESS, 
+       XxupPerPsInstOfficeTrEO.ATTRIBUTE1, 
+       XxupPerPsInstOfficeTrEO.ATTRIBUTE2, 
+       XxupPerPsInstOfficeTrEO.ATTRIBUTE3, 
+       XxupPerPsInstOfficeTrEO.ATTRIBUTE4, 
+       XxupPerPsInstOfficeTrEO.ATTRIBUTE5, 
+       XxupPerPsInstOfficeTrEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstOfficeTrEO.LAST_UPDATED_BY, 
+       XxupPerPsInstOfficeTrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstOfficeTrEO.CREATED_BY, 
+       XxupPerPsInstOfficeTrEO.CREATION_DATE, 
+       XxupPerPsInstOfficeTrEO.ITEM_KEY, 
+       XxupPerPsInstOfficeTrEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_OFFICE_TR XxupPerPsInstOfficeTrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstOfficeTrEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.tr.XxupPerPsInstOfficeTrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Office"
+      EntityAttrName="Office"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="OFFICE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TelNo"
+      EntityAttrName="TelNo"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="TEL_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="EmailAddress"
+      EntityAttrName="EmailAddress"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="EMAIL_ADDRESS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstOfficeTrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

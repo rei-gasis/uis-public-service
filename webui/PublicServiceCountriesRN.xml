@@ -1,12 +1,12 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<oa:advancedTable version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" viewName="XxupPerPSCountriesTrEOVO1" text="">
+<oa:advancedTable version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" text="">
 	<ui:contents>
 		<oa:column id="CountryCol">
 			<ui:columnHeader>
 				<oa:sortableHeader id="CountrySH" prompt="Country*"/>
 			</ui:columnHeader>
 			<ui:contents>
-				<oa:messageLovInput id="Country" dataType="VARCHAR2" prompt="* Country" viewAttr="Country" maximumLength="100" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSCountryRN" showRequired="false">
+				<oa:messageLovInput id="Country" dataType="VARCHAR2" prompt="* Country" viewAttr="Country" maximumLength="100" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSCountryRN" showRequired="false" lookAheadSearchType="contains">
                      <lovMappings>
                         <lovMap id="lovMap8" lovItem="Country" resultTo="Country" criteriaFrom="Country"/>
                      </lovMappings>

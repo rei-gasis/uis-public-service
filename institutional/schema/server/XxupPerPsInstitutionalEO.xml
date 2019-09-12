@@ -101,18 +101,6 @@
       </DesignTime>
    </Attribute>
    <Attribute
-      Name="TypeOfActivity"
-      Precision="50"
-      ColumnName="TYPE_OF_ACTIVITY"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      SQLType="VARCHAR"
-      TableName="XXUP.XXUP_PER_PS_INSTITUTIONAL" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="50" />
-      </DesignTime>
-   </Attribute>
-   <Attribute
       Name="FundingAgency"
       Precision="200"
       ColumnName="FUNDING_AGENCY"
@@ -157,18 +145,6 @@
       TableName="XXUP.XXUP_PER_PS_INSTITUTIONAL" >
       <DesignTime>
          <Attr Name="_DisplaySize" Value="22" />
-      </DesignTime>
-   </Attribute>
-   <Attribute
-      Name="Country"
-      Precision="100"
-      ColumnName="COUNTRY"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      SQLType="VARCHAR"
-      TableName="XXUP.XXUP_PER_PS_INSTITUTIONAL" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="100" />
       </DesignTime>
    </Attribute>
    <Attribute

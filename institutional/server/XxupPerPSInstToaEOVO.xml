@@ -1,0 +1,126 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstToaEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstToaEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstToaEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstToaEO.SEQUENCE_NO, 
+       XxupPerPsInstToaEO.LINE_NUMBER, 
+       XxupPerPsInstToaEO.TYPE_OF_ACTIVITY, 
+       XxupPerPsInstToaEO.ATTRIBUTE1, 
+       XxupPerPsInstToaEO.ATTRIBUTE2, 
+       XxupPerPsInstToaEO.ATTRIBUTE3, 
+       XxupPerPsInstToaEO.ATTRIBUTE4, 
+       XxupPerPsInstToaEO.ATTRIBUTE5, 
+       XxupPerPsInstToaEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstToaEO.LAST_UPDATED_BY, 
+       XxupPerPsInstToaEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstToaEO.CREATED_BY, 
+       XxupPerPsInstToaEO.CREATION_DATE, 
+       XxupPerPsInstToaEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_TOA XxupPerPsInstToaEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstToaEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.XxupPerPsInstToaEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfActivity"
+      EntityAttrName="TypeOfActivity"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="TYPE_OF_ACTIVITY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstToaEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

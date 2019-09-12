@@ -38,16 +38,8 @@
       ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOfficeEOVO" >
    </ViewUsage>
    <ViewUsage
-      Name="XxupPerPSInstOtherMembersVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOtherMembersVO" >
-   </ViewUsage>
-   <ViewUsage
       Name="XxupPerPSInstMembersEOVO1"
       ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstMembersEOVO" >
-   </ViewUsage>
-   <ViewUsage
-      Name="XxupPerPSInstPartnerOrgEOVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstPartnerOrgEOVO" >
    </ViewUsage>
    <ViewUsage
       Name="XxupPerPSInstDeliveryModeEOVO1"
@@ -75,7 +67,7 @@
    </ViewUsage>
    <ViewUsage
       Name="XxupPerPSInstTrEOVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstTrEOVO" >
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstTrEOVO" >
    </ViewUsage>
    <ViewUsage
       Name="XxupPerPSInstitutionalEOVO1"
@@ -92,5 +84,77 @@
    <ViewUsage
       Name="PerPSInstAdminSummaryVO1"
       ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.PerPSInstAdminSummaryVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstPartOrgEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstPartOrgEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstActTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstActTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstAddrTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstAddrTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstBenefOrgTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstBenefOrgTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstBenefTypeTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstBenefTypeTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstCountriesTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstCountriesTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstDelModeTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstDelModeTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstMembersTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstMembersTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstObjCatTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstObjCatTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstOfficeTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstOfficeTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstPartOrgTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstPartOrgTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstToaTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstToaTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSCountriesEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSCountriesEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstSubjTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstSubjTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstOtherMembersTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstOtherMembersTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstOtherMembersVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstOtherMembersVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstToaEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstToaEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstCountriesEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstCountriesEOVO" >
    </ViewUsage>
 </AppModule>

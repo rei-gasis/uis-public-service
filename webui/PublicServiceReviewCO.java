@@ -169,6 +169,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
+        String itemKey = pageContext.getParameter("pItemKey");
 
         String actionParam = pageContext.getParameter("urlParam");
 
@@ -195,6 +196,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
                                                      "PSCreateTxn");*/
                 pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceRequestPG" + 
                                                "&pSequenceNo=" + sequenceNo + 
+                                               "&pItemKey=" + itemKey +
                                                // "&urlParam=" + actionParam, null, 
                                                "&urlParam=Back", null, 
                                                OAWebBeanConstants.KEEP_MENU_CONTEXT, 

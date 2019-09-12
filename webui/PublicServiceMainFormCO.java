@@ -79,13 +79,17 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         Connection conn = pageContext.getApplicationModule(webBean).getOADBTransaction().getJdbcConnection();  
     
         OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
+
+
         
         /*Show address when Country is Philippines*/
         if(pageContext.isLovEvent()){
             
             String lovInputId = pageContext.getLovInputSourceId();
             OAViewObject vo = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
-            Row row = vo.getCurrentRow();
+            // Row row = vo.getCurrentRow();
+            vo.reset();
+            Row row = vo.next();
             
             // if("Country".equals(lovInputId)){
                 
@@ -96,6 +100,10 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
             //     }
             // }else 
             if("PositionName".equals(lovInputId)){
+                // if("".equals(row.getAttribute("PositionName"))){
+                //     return;
+                // }
+
                 String assignmentId = "";
 
                 try{
@@ -119,7 +127,8 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
 
                     row.setAttribute("AssignmentId", assignmentId);
                 }catch(Exception ex){
-                    throw new OAException("Exception" + ex);
+                    // throw new OAException("Exception" + ex);
+                    
                 }
                 
             }

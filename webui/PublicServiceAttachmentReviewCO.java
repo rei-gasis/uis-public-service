@@ -33,11 +33,11 @@ public class PublicServiceAttachmentReviewCO extends OAControllerImpl
   {
     super.processRequest(pageContext, webBean); 
     
-      String sequenceNo = pageContext.getParameter("pSequenceNo");
+      String itemKey = pageContext.getParameter("pItemKey");
       
       OAApplicationModule am = pageContext.getApplicationModule(webBean);
       
-      Serializable[] params = {sequenceNo};
+      Serializable[] params = {itemKey};
       
       am.invokeMethod("setAttachments", params); 
       

@@ -1,14 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
 <page xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:ui="http://xmlns.oracle.com/uix/ui" version="10.1.3_1312" xml:lang="en-US" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$">
    <content>
-      <oa:pageLayout id="PageLayoutRN" amDefName="xxup.oracle.apps.per.publicservice.institutional.server.PSInstitutionalAM" windowTitle="Public Service Summary Page" title="Public Service Institutional Summary Page" controllerClass="xxup.oracle.apps.per.publicservice.institutional.webui.PSInstitutionalSummaryCO">
+      <oa:pageLayout id="PageLayoutRN" amDefName="xxup.oracle.apps.per.publicservice.institutional.server.PSInstitutionalAM" windowTitle="Public Service Institutional Summary Page" title="Public Service Institutional Summary Page" controllerClass="xxup.oracle.apps.per.publicservice.institutional.webui.PSInstitutionalSummaryCO">
          <ui:corporateBranding>
             <oa:image id="corporateBrandingImage" source="/OA_MEDIA/FNDSSCORP.gif"/>
          </ui:corporateBranding>
          <ui:contents>
             <oa:query id="SummaryQRN" mode="resultsBasedSearch" dispCustomized="true" defaultPanel="simple" hideSaveSearch="true">
                <ui:contents>
-                  <oa:advancedTable id="SummaryRN" viewName="XxupPerPSInstitutionalEOVO1" width="100%" detailViewAttr="">
+                  <oa:advancedTable id="SummaryRN" viewName="PerPSInstAdminSummaryVO1" width="100%" detailViewAttr="">
                      <ui:contents>
                         <oa:column id="SequenceCol">
                            <ui:columnHeader>
@@ -95,7 +95,7 @@
                               <oa:sortableHeader id="ViewDetailsSH" prompt="View"/>
                            </ui:columnHeader>
                            <ui:contents>
-                              <oa:image id="ViewDetails" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalReviewPG&amp;urlParam=View&amp;viewFrom=institutional&amp;pSequenceNo={@SequenceNo}" source="detailsicon_enabled.gif"/>
+                              <oa:image id="ViewDetails" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalViewDetailsPG&amp;urlParam=View&amp;viewFrom=institutional&amp;pSequenceNo={@SequenceNo}" source="detailsicon_enabled.gif"/>
                            </ui:contents>
                         </oa:column>
                         <oa:column id="UpdatePSCol" rendered="true">

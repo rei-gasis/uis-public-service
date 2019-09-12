@@ -8,7 +8,7 @@
             <oa:messageComponentLayout id="FieldsCL">
                <ui:contents>
                   <oa:messageStyledText id="SequenceNo" dataType="NUMBER" prompt="Sequence No" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SequenceNo" styleClass="OraDataText"/>
-                  <oa:messageLovInput id="PositionName" dataType="VARCHAR2" prompt="* Assignment Position" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PositionName" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPositionLovRN" required="no" translatableDefaultValue="">
+                  <oa:messageLovInput id="PositionName" dataType="VARCHAR2" prompt="* Assignment Position" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PositionName" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPositionLovRN" required="no" translatableDefaultValue="" lookAheadSearchType="contains" lookAheadEnabled="true">
                      <lovMappings>
                         <lovMap id="lovMap1" lovItem="PositionName" resultTo="PositionName" criteriaFrom="PositionName"/>
                         <lovMap id="lovMap2" lovItem="PositionId" resultTo="PositionId" requiredForLOV="false"/>
@@ -35,7 +35,7 @@
                   </oa:messageLovInput> -->
                   <oa:messageLayout id="TypeOfActivitiesML">
                      <ui:contents>
-                        <oa:advancedTable id="TypeOfActivitiesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceTypeOfActivitiesRN"/>
+                        <oa:advancedTable id="TypeOfActivitiesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceTypeOfActivitiesRN" viewName="XxupPerPSToaTrEOVO1"/>
                      </ui:contents>
                   </oa:messageLayout>
                   <oa:messageLayout id="SubjectAreaML" prompt="* Subject Area of Interest">
@@ -79,7 +79,7 @@
                   <oa:messageTextInput id="SubjAreaOthers" dataType="VARCHAR2" prompt="Specify:" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SubjAreaOthers" maximumLength="255" rendered="${oa.XxupPerPSHeaderTrEOVO1.RenderSubjAreaOthers}"/>
                   <oa:messageTextInput id="SourceOfFund" dataType="VARCHAR2" prompt="* Funding agency" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SourceOfFund" maximumLength="200" required="no"/>
                   <oa:messageTextInput id="PartnerOrgOrInst" dataType="VARCHAR2" prompt="Partner Organization/Institution" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PartnerOrgOrInst" maximumLength="200"/>
-                  <oa:messageLovInput id="BeneficiaryCategory" dataType="VARCHAR2" prompt="Beneficiary Category" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="BeneficiaryCategory" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryCategoryLovRN" rendered="false" required="no">
+                  <oa:messageLovInput id="BeneficiaryCategory" dataType="VARCHAR2" prompt="Beneficiary Category" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="BeneficiaryCategory" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryCategoryLovRN" rendered="false" required="no" lookAheadSearchType="contains">
                      <lovMappings>
                         <lovMap id="lovMap6" lovItem="BeneficiaryCategoryDisplay" resultTo="BeneficiaryCategory" criteriaFrom="BeneficiaryCategory"/>
                      </lovMappings>
@@ -111,12 +111,12 @@
                   </oa:messageLovInput> -->
                   <oa:messageLayout id="CountriesML">
                      <ui:contents>
-                        <oa:advancedTable id="CountriesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceCountriesRN"/>
+                        <oa:advancedTable id="CountriesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceCountriesRN" viewName="XxupPerPSCountriesTrEOVO1"/>
                      </ui:contents>
                   </oa:messageLayout>
                   <oa:messageLayout id="AddressML" rendered="${oa.XxupPerPSHeaderTrEOVO1.RenderAddress}">
                      <ui:contents>
-                        <oa:advancedTable id="AddressAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceAddressRN"/>
+                        <oa:advancedTable id="AddressAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceAddressRN" viewName="XxupPerPSAddrTrEOVO1"/>
                      </ui:contents>
                   </oa:messageLayout>
                   <oa:messageTextInput id="PostActEvalRating" dataType="VARCHAR2" prompt="Post Activity Evaluation Rating (Good and Better rating)" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PostActEvalRating" maximumLength="100"/>

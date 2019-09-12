@@ -120,7 +120,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
         }
     }
     
-    public void resubmitPS(String sequenceNo) {
+    public void resubmitPS(String paramItemKey) {
         try{
             
             
@@ -128,7 +128,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             CallableStatement stmt = conn.prepareCall("{call xxup_ps_wf_pkg.resubmit(?)}");
             
             
-            stmt.setString(1, sequenceNo);
+            stmt.setString(1, paramItemKey);
             stmt.execute();
             stmt.close();
             
@@ -183,30 +183,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             getXxupPerPSCountriesTrEOVO1();
         couVO.initNewRecord();    
         
-        // XxupPerPublicServiceCatEOVOImpl ppscVO = 
-        //     getXxupPerPublicServiceCatEOVO1();
-        // ppscVO.initNewRecord();
 
-
-        // XxupPerPublicServiceBenifEOVOImpl ppsbVO =
-        //     getXxupPerPublicServiceBenifEOVO1();
-        // ppsbVO.initNewRecord();
-        
-        
-        // XxupPerPublicServiceAddrEOVOImpl addrVO =
-        //     getXxupPerPublicServiceAddrEOVO1();
-        // addrVO.initNewRecord();
-        
-        
-        // XxupPerPSTypeOfActivitiesEOVOImpl toaVO =
-        //     getXxupPerPSTypeOfActivitiesEOVO1();
-        // toaVO.initNewRecord();
-
-        // XxupPerPSCountriesEOVOImpl couVO =
-        //     getXxupPerPSCountriesEOVO1();
-        // couVO.initNewRecord();
-        
-        
 
         //
         LoadNewSubjectAreaOfInterestInTable();
@@ -215,7 +192,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     }
     
     
-    public void setAttachments(String paramSequenceNo) {
+    public void setAttachments(String paramItemKey) {
         try {
             
             // XxupPerPublicServiceHeaderEOVOImpl pshVO = 
@@ -224,7 +201,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             
             XxupPerPSHeaderTrEOVOImpl pshVO = 
                 getXxupPerPSHeaderTrEOVO1();
-            pshVO.initExistingPS(paramSequenceNo);
+            pshVO.initExistingPS(paramItemKey);
             
             /*
             PerPSAttachmentsVOImpl attVO = 
@@ -500,15 +477,6 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                         throw new OAException("Exception" + ex);
                     }
 
-                    //assign to TR record
-                    
-                    
-                    
-//                    for(Object obj : curRow.getAttributeNames()){
-//                        System.out.println((String)obj);
-//                    }
-                                        
-                    
                 }
                 
                 
@@ -1327,25 +1295,28 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
              
             String subjArea = row.getAttribute("SubjectAreaInterestDisplay").toString();
             //Set<String> alreadyExist = new HashSet<String>());
-            
+            newRowForSubArea = existVO.createRow();
             
             if(!Arrays.asList(arrExistSubj).contains(subjArea)){
-                newRowForSubArea = existVO.createRow();
+                
                 newRowForSubArea.setAttribute("SubjectAreaInterest", 
                                               row.getAttribute("SubjectAreaInterestId"));
                 newRowForSubArea.setAttribute("Attribute1", 
                                               row.getAttribute("SubjectAreaInterestDisplay"));
-                existVO.insertRow(newRowForSubArea);
                 
+            }else{
+                newRowForSubArea.setAttribute("Selected", "Y");
             }
+
+            existVO.insertRow(newRowForSubArea);
              
             
             //line = line - 1;
+            
         }
         
-        
-        existVO.setOrderByClause("Attribute1");
-        existVO.executeQuery();
+        existVO.setOrderByClause("ATTRIBUTE1");
+        // existVO.executeQuery();
         
         
         
@@ -1409,6 +1380,44 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             }
         }
         return result;
+    }
+
+
+    public void viewDetails(String paramSequenceNo){
+            System.out.println(paramSequenceNo);
+
+            XxupPerPublicServiceHeaderEOVOImpl pshVO = 
+                getXxupPerPublicServiceHeaderEOVO1();
+            pshVO.initExistingPS(paramSequenceNo);
+
+            XxupPerPublicServiceCatEOVOImpl ppscVO = 
+                getXxupPerPublicServiceCatEOVO1(); 
+            ppscVO.initExistingPS(paramSequenceNo);
+
+            XxupPerPublicServiceSubjEOVOImpl ppssVO =
+                getXxupPerPublicServiceSubjEOVO1(); 
+            ppssVO.initExistingPS(paramSequenceNo);
+
+            
+            XxupPerPublicServiceBenifEOVOImpl ppsbVO = 
+                getXxupPerPublicServiceBenifEOVO1();
+            ppsbVO.initExistingPS(paramSequenceNo);
+            
+            XxupPerPublicServiceAddrEOVOImpl addrVO = 
+                getXxupPerPublicServiceAddrEOVO1();
+            addrVO.initExistingPS(paramSequenceNo);    
+            
+               
+            
+            XxupPerPSCountriesEOVOImpl couVO = 
+                getXxupPerPSCountriesEOVO1();
+            couVO.initExistingPS(paramSequenceNo);    
+
+
+            XxupPerPSTypeOfActivitiesEOVOImpl toaVO =
+                getXxupPerPSTypeOfActivitiesEOVO1();
+            toaVO.initExistingPS(paramSequenceNo);
+
     }
 
     /**Container's getter for PerPSBeneficiaryCategoryVO1
