@@ -42,7 +42,7 @@ public class PerPSInstAdminSummaryVOImpl extends OAViewObjectImpl {
 
     void execWhereClause(){
     	setWhereClause(null);
-        setWhereClause("person_id = fnd_global.employee_id");
+//        setWhereClause("person_id = fnd_global.employee_id");
         executeQuery();
     }
 }

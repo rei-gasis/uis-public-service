@@ -44,6 +44,13 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
         OAApplicationModule am = 
             (OAApplicationModule)pageContext.getApplicationModule(webBean);
 
+
+        String backUsed = pageContext.getParameter("backUsed");
+
+        if("yes".equals(backUsed)){
+            return; 
+        }
+
         String actionFromURL = pageContext.getParameter("urlParam");
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
@@ -51,6 +58,7 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
         //        System.out.println(actionFromURL);
 
         Serializable[] params = { sequenceNo };
+
 
         if ("Create".equals(actionFromURL) || actionFromURL == null) {
             am.invokeMethod("initVOForNewRequest");
@@ -192,26 +200,36 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
 
 
 
-        } else if ("RFC".equals(actionFromURL) || 
-                   "Back".equals(actionFromURL) || actionFromURL == null) {
+        } else if ("Back".equals(actionFromURL)) {
 
-            OAViewObject mainVO = 
-                (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
+            // OAViewObject mainVO = 
+            //     (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
 
-            if (mainVO != null) {
-                mainVO.reset();
-                Row row = mainVO.next();
-                // Row row = mainVO.getCurrentRow();
+            // if (mainVO != null) {
+            //     mainVO.reset();
+            //     Row row = mainVO.next();
+            //     // Row row = mainVO.getCurrentRow();
 
-                if (row.getAttribute("ItemKey") != null) {
-                    String paramItemKey = 
-                        row.getAttribute("ItemKey").toString();
+            //     System.out.println("rowcount: " + mainVO.getRowCount());
 
-                    Serializable[] updatePSParams = { paramItemKey };
-                    am.invokeMethod("updatePS", updatePSParams);
-                }
+            //     String paramItemKey = "";
+            //     if (row.getAttribute("ItemKey") != null) {
+            //         paramItemKey = 
+            //             row.getAttribute("ItemKey").toString();
+            //     }
 
-            }
+            //     // String paramItemKey = row.getAttribute("ItemKey") != null ? currRow.getAttribute("SequenceNo").toString() : "";
+
+            //     Serializable[] updatePSParams = { paramItemKey };
+            //     am.invokeMethod("updatePS", updatePSParams);
+                
+
+            // }
+        }else if("RFC".equals(actionFromURL)){
+            String pItemKey = pageContext.getParameter("pItemKey");
+            Serializable[] updatePSParams = { pItemKey };
+            am.invokeMethod("updatePS", updatePSParams);
+
         }
 
 
@@ -300,7 +318,7 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
                 }
 
 
-                if (row.getAttribute("DurationHours") == null) {
+                if (row.getAttribute("Duration") == null) {
                     errMsg.add(new OAException("Duration is required", 
                                                OAException.ERROR));
                 }
@@ -517,8 +535,7 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
                                 row = mainVO.getCurrentRow();
 
                                 if (row.getAttribute("ItemKey") != null) {
-                                    itemKey = 
-                                            row.getAttribute("ItemKey").toString();
+                                    itemKey = row.getAttribute("ItemKey").toString();
                                 }
 
                             }

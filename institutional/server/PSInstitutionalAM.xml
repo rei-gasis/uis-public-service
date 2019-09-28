@@ -66,10 +66,6 @@
       ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstBenefOrgEOVO" >
    </ViewUsage>
    <ViewUsage
-      Name="XxupPerPSInstTrEOVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstTrEOVO" >
-   </ViewUsage>
-   <ViewUsage
       Name="XxupPerPSInstitutionalEOVO1"
       ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstitutionalEOVO" >
    </ViewUsage>
@@ -156,5 +152,9 @@
    <ViewUsage
       Name="XxupPerPSInstCountriesEOVO1"
       ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstCountriesEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSInstTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstTrEOVO" >
    </ViewUsage>
 </AppModule>

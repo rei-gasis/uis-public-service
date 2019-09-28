@@ -14,7 +14,8 @@ SELECT XxupPerPsInstitutionalEO.SEQUENCE_NO,
        XxupPerPsInstitutionalEO.PROJECT_NAME, 
        XxupPerPsInstitutionalEO.IMPLEMENTATION_START_DATE, 
        XxupPerPsInstitutionalEO.IMPLEMENTATION_END_DATE, 
-       XxupPerPsInstitutionalEO.DURATION_HOURS, 
+       XxupPerPsInstitutionalEO.DURATION, 
+       XxupPerPsInstitutionalEO.DURATION_UNIT, 
        XxupPerPsInstitutionalEO.IMPLEMENTATION_FREQUENCY, 
        XxupPerPsInstitutionalEO.FUNDING_AGENCY, 
        XxupPerPsInstitutionalEO.COST_OF_PARTICIPATION, 
@@ -86,10 +87,16 @@ FROM XXUP.XXUP_PER_PS_INSTITUTIONAL XxupPerPsInstitutionalEO
       AliasName="IMPLEMENTATION_END_DATE" >
    </ViewAttribute>
    <ViewAttribute
-      Name="DurationHours"
-      EntityAttrName="DurationHours"
+      Name="Duration"
+      EntityAttrName="Duration"
       EntityUsage="XxupPerPsInstitutionalEO"
-      AliasName="DURATION_HOURS" >
+      AliasName="DURATION" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="DurationUnit"
+      EntityAttrName="DurationUnit"
+      EntityUsage="XxupPerPsInstitutionalEO"
+      AliasName="DURATION_UNIT" >
    </ViewAttribute>
    <ViewAttribute
       Name="ImplementationFrequency"

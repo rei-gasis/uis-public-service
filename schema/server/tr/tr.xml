@@ -15,6 +15,11 @@
       ObjectType="Entity" >
    </Containee>
    <Containee
+      Name="XxupPerPsBenefTypeTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsBenefTypeTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
       Name="XxupPerPsBenifTrEO"
       FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsBenifTrEO"
       ObjectType="Entity" >

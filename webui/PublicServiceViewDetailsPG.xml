@@ -80,7 +80,7 @@
 			            <oa:messageStyledText id="SourceOfFund" prompt="Source Of Fund" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="SourceOfFund" styleClass="OraDataText"/>
 			            <oa:messageStyledText id="PartnerOrgOrInst" prompt="Partner Organization/Institution" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="PartnerOrgOrInst" styleClass="OraDataText"/>
 			            <!-- <oa:messageStyledText id="BeneficiaryCategory" prompt="Beneficary Category" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="BeneficiaryCategory" styleClass="OraDataText"/> -->
-			            <oa:messageStyledText id="TypeOfBeneficiary" prompt="Type Of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/>
+			            <!-- <oa:messageStyledText id="TypeOfBeneficiary" prompt="Type Of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/> -->
 			            <oa:messageStyledText id="UnitOfBeneficiary" prompt="Unit Of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="UnitOfBeneficiary" styleClass="OraDataText"/>
 			            <oa:messageStyledText id="NoOfBeneficiary" prompt="No. Of Beneficiary" viewName="XxupPerPublicServiceHeaderEOVO1" viewAttr="NoOfBeneficiary" styleClass="OraDataText"/>
 			            <oa:messageLayout id="BenefOrgML">

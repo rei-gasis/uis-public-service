@@ -42,6 +42,8 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
     public static final int MALEBENEFCOUNT = 24;
     public static final int FEMALEBENEFCOUNT = 25;
     public static final int PROJECTLEADER = 26;
+    public static final int DURATION = 27;
+    public static final int DURATIONUNIT = 28;
 
 
     private static OAEntityDefImpl mDefinitionObject;
@@ -466,6 +468,10 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
             return getFemaleBenefCount();
         case PROJECTLEADER:
             return getProjectLeader();
+        case DURATION:
+            return getDuration();
+        case DURATIONUNIT:
+            return getDurationUnit();
         default:
             return super.getAttrInvokeAccessor(index, attrDef);
         }
@@ -557,10 +563,40 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
         case PROJECTLEADER:
             setProjectLeader((Number)value);
             return;
+        case DURATION:
+            setDuration((Number)value);
+            return;
+        case DURATIONUNIT:
+            setDurationUnit((String)value);
+            return;
         default:
             super.setAttrInvokeAccessor(index, value, attrDef);
             return;
         }
+    }
+
+    /**Gets the attribute value for Duration, using the alias name Duration
+     */
+    public Number getDuration() {
+        return (Number)getAttributeInternal(DURATION);
+    }
+
+    /**Sets <code>value</code> as the attribute value for Duration
+     */
+    public void setDuration(Number value) {
+        setAttributeInternal(DURATION, value);
+    }
+
+    /**Gets the attribute value for DurationUnit, using the alias name DurationUnit
+     */
+    public String getDurationUnit() {
+        return (String)getAttributeInternal(DURATIONUNIT);
+    }
+
+    /**Sets <code>value</code> as the attribute value for DurationUnit
+     */
+    public void setDurationUnit(String value) {
+        setAttributeInternal(DURATIONUNIT, value);
     }
 
     /**Creates a Key object based on given key constituents

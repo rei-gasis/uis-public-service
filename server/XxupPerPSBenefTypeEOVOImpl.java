@@ -1,4 +1,4 @@
-package xxup.oracle.apps.per.publicservice.institutional.server.tr;
+package xxup.oracle.apps.per.publicservice.server;
 
 import oracle.apps.fnd.framework.server.OAViewObjectImpl;
 
@@ -8,34 +8,25 @@ import oracle.jbo.Row;
 // ---    Custom code may be added to this class.
 // ---    Warning: Do not modify method signatures of generated methods.
 // ---------------------------------------------------------------------
-public class XxupPerPSInstTrEOVOImpl extends OAViewObjectImpl {
+public class XxupPerPSBenefTypeEOVOImpl extends OAViewObjectImpl {
     /**This is the default constructor (do not remove)
      */
-    public XxupPerPSInstTrEOVOImpl() {
+    public XxupPerPSBenefTypeEOVOImpl() {
     }
     
+    
     public void initExistingPS(String sequenceNumber) {
-        
         setWhereClauseParams(null);
         setWhereClause("sequence_no = :1");
         setWhereClauseParam(0, sequenceNumber);
         executeQuery();
     }
 
-     public void initNewRecord() {
-         
+    public void initNewRecord() {
         setMaxFetchSize(0);
         executeQuery();
         Row row = createRow();
         insertRow(row);
         row.setNewRowState(Row.STATUS_INITIALIZED);
-
-    }
-    
-    public void initTranPS(String itemKey) {
-        setWhereClauseParams(null);
-        setWhereClause("item_key = :1");
-        setWhereClauseParam(0, itemKey);
-        executeQuery();
     }
 }

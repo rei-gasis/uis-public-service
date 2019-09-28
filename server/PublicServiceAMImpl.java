@@ -19,6 +19,7 @@ import oracle.jbo.RowSetIterator;
 import oracle.jbo.Transaction;
 import oracle.jbo.server.ViewLinkImpl;
 
+import xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstBenefTypeEOVORowImpl;
 import xxup.oracle.apps.per.publicservice.lov.server.PerPSActivityTypeVOImpl;
 import xxup.oracle.apps.per.publicservice.lov.server.PerPSAddressVOImpl;
 import xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryCategoryVOImpl;
@@ -27,6 +28,7 @@ import xxup.oracle.apps.per.publicservice.lov.server.PerPSCountryVOImpl;
 import xxup.oracle.apps.per.publicservice.lov.server.PerPSProjectTypeVOImpl;
 import xxup.oracle.apps.per.publicservice.lov.server.PerPSSubjectAreaInterestVOImpl;
 import xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSAddrTrEOVOImpl;
+import xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenefTypeTrEOVOImpl;
 import xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenifTrEOVOImpl;
 import xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCatTrEOVOImpl;
 import xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCountriesTrEOVOImpl;
@@ -184,9 +186,14 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
         couVO.initNewRecord();    
         
 
+        // XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = 
+        //     getXxupPerPSBenefTypeTrEOVO1();
+        // benefTypeVO.initNewRecord();    
 
         //
         LoadNewSubjectAreaOfInterestInTable();
+        
+        LoadNewBenefTypeInTable();
         // testLoad("2502");
 
     }
@@ -283,6 +290,10 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                 getXxupPerPSToaTrEOVO1();
             toaVO.initTranPS(paramItemKey);
 
+            XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = 
+                getXxupPerPSBenefTypeTrEOVO1();
+            benefTypeVO.initTranPS(paramItemKey);
+            
 
             
             
@@ -352,6 +363,17 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                 toaVO.initNewRecord();
             }
 
+
+            XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = 
+                getXxupPerPSBenefTypeTrEOVO1();
+            // ppssVO.initExistingPS(paramSequenceNo);
+            
+            if(benefTypeVO.getRowCount() <= 0){
+                LoadNewBenefTypeInTable();
+            }else if (benefTypeVO.getRowCount() >= 1){
+                LoadExistBenefTypeInTable(paramItemKey);
+            }
+
             
         } catch (Exception ex) {
             throw OAException.wrapperException(ex);
@@ -396,7 +418,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                     String strCostOfParticipation = currRow.getAttribute("CostOfParticipation") != null ? currRow.getAttribute("CostOfParticipation").toString() : "";
                     String strPartnerOrgOrInst = currRow.getAttribute("PartnerOrgOrInst") != null ? currRow.getAttribute("PartnerOrgOrInst").toString() : "";
                     String strBeneficiaryCategory = currRow.getAttribute("BeneficiaryCategory") != null ? currRow.getAttribute("BeneficiaryCategory").toString() : "";
-                    String strTypeOfBeneficiary = currRow.getAttribute("TypeOfBeneficiary") != null ? currRow.getAttribute("TypeOfBeneficiary").toString() : "";
+                    // String strTypeOfBeneficiary = currRow.getAttribute("TypeOfBeneficiary") != null ? currRow.getAttribute("TypeOfBeneficiary").toString() : "";
                     String strUnitOfBeneficiary = currRow.getAttribute("UnitOfBeneficiary") != null ? currRow.getAttribute("UnitOfBeneficiary").toString() : "";
                     String strNoOfBeneficiary = currRow.getAttribute("NoOfBeneficiary") != null ? currRow.getAttribute("NoOfBeneficiary").toString() : "";
                     String strPostActEvalRating = currRow.getAttribute("PostActEvalRating") != null ? currRow.getAttribute("PostActEvalRating").toString() : "";
@@ -433,7 +455,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                      trRow.setAttribute("CostOfParticipation", strCostOfParticipation);
                      trRow.setAttribute("PartnerOrgOrInst", strPartnerOrgOrInst);
                      trRow.setAttribute("BeneficiaryCategory", strBeneficiaryCategory);
-                     trRow.setAttribute("TypeOfBeneficiary", strTypeOfBeneficiary);
+                     // trRow.setAttribute("TypeOfBeneficiary", strTypeOfBeneficiary);
                      trRow.setAttribute("UnitOfBeneficiary", strUnitOfBeneficiary);
                      trRow.setAttribute("NoOfBeneficiary", strNoOfBeneficiary);
                      trRow.setAttribute("PostActEvalRating", strPostActEvalRating);
@@ -778,6 +800,60 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                 }
 
 
+                /*Start copy - Benef Type*/
+                 XxupPerPSBenefTypeEOVOImpl benefTypeVO = 
+                    getXxupPerPSBenefTypeEOVO1();   
+
+                benefTypeVO.reset();
+
+                XxupPerPSBenefTypeTrEOVOImpl benefTypeTrVO =
+                    getXxupPerPSBenefTypeTrEOVO1();
+
+                benefTypeTrVO.setMaxFetchSize(0);
+                benefTypeTrVO.executeQuery();
+
+                if(benefTypeVO != null){
+                    benefTypeVO.initExistingPS(paramSequenceNo);
+                    
+                    while(benefTypeVO.hasNext()){
+                        XxupPerPSBenefTypeEOVORowImpl currRow = (XxupPerPSBenefTypeEOVORowImpl)
+                            benefTypeVO.next();
+
+                        String strSequenceNo = currRow.getAttribute("SequenceNo")  != null ? currRow.getAttribute("SequenceNo").toString() : "";
+                        String strTypeOfBeneficiary = currRow.getAttribute("TypeOfBeneficiary") != null ? currRow.getAttribute("TypeOfBeneficiary").toString() : "";
+                        String strSelected = currRow.getAttribute("Selected") != null  ? currRow.getAttribute("Selected").toString() : "";
+                        String strAttribute1 = currRow.getAttribute("Attribute1")  != null ? currRow.getAttribute("Attribute1").toString() : "";
+                        String strAttribute2 = currRow.getAttribute("Attribute2")  != null ? currRow.getAttribute("Attribute2").toString() : "";
+                        String strAttribute3 = currRow.getAttribute("Attribute3")  != null ? currRow.getAttribute("Attribute3").toString() : "";
+                        String strAttribute4 = currRow.getAttribute("Attribute4")  != null ? currRow.getAttribute("Attribute4").toString() : "";
+                        String strAttribute5 = currRow.getAttribute("Attribute5")  != null ? currRow.getAttribute("Attribute5").toString() : "";
+
+
+                        Row trRow = benefTypeTrVO.createRow();
+                        benefTypeTrVO.insertRow(trRow);
+                        trRow.setNewRowState(Row.STATUS_INITIALIZED);
+
+                        trRow.setAttribute("SequenceNo", strSequenceNo);
+                        trRow.setAttribute("TypeOfBeneficiary", strTypeOfBeneficiary);
+                        trRow.setAttribute("Selected", strSelected);
+                        trRow.setAttribute("Attribute1", strAttribute1);
+                        trRow.setAttribute("Attribute2", strAttribute2);
+                        trRow.setAttribute("Attribute3", strAttribute3);
+                        trRow.setAttribute("Attribute4", strAttribute4);
+                        trRow.setAttribute("Attribute5", strAttribute5);
+
+
+                    }
+                }
+
+
+                if(benefTypeVO.getRowCount() >= 1){
+                    LoadExistBenefTypeInTable(benefTypeTrVO);
+                }else{
+                    LoadNewBenefTypeInTable();
+                }
+
+
 
 
                 /*Start copy - Country*/
@@ -1014,6 +1090,38 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             for (Row rowi: ppssVO.getAllRowsInRange()) {
                 //System.out.println(rowi.getAttribute("Attribute1").toString());
                 if(rowi.getAttribute("Selected") == null) {
+                    rowi.remove();
+                }
+            }
+
+            lineNumber = 1;
+
+            /*Type of Beneficiary*/
+
+            XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = 
+                getXxupPerPSBenefTypeTrEOVO1();
+
+
+            Row selectedBTRows[] = 
+                benefTypeVO.getFilteredRows("Selected", "Y");
+            Row deselectedBTRows[] = 
+                benefTypeVO.getFilteredRows("Selected", null);
+
+            for (Row rowi: selectedBTRows) {
+
+                rowi.setAttribute("SequenceNo", sequenceNo);
+                rowi.setAttribute("LineNumber", lineNumber);
+                rowi.setAttribute("ItemKey", itemKey);
+
+                lineNumber += 1;
+
+            }
+
+
+            for (Row rowi: benefTypeVO.getAllRowsInRange()) {
+
+
+                if (rowi.getAttribute("Selected") == null) {
                     rowi.remove();
                 }
             }
@@ -1344,7 +1452,135 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
     
     
 
+    public void LoadNewBenefTypeInTable() {
+        XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = 
+            getXxupPerPSBenefTypeTrEOVO1();
+//        benefTypeVO.initNewRecord();
 
+        benefTypeVO.setMaxFetchSize(0);
+
+        if (benefTypeVO.getRowCount() < 1) {
+            PerPSBeneficiaryTypeVOImpl sourceVO = getPerPSBeneficiaryTypeVO1();
+            sourceVO.setWhereClause(null);
+            sourceVO.setOrderByClause("TYPE_OF_BENEFICIARY DESC");
+            sourceVO.executeQuery();
+
+            for (Row row = sourceVO.first(); row != null; 
+                 row = sourceVO.next()) {
+                Row destinationRow = benefTypeVO.createRow();
+                destinationRow.setAttribute("TypeOfBeneficiary", 
+                                            row.getAttribute("TypeOfBeneficiary"));
+                benefTypeVO.insertRow(destinationRow);
+            }
+        }
+
+        benefTypeVO.setOrderByClause("TYPE_OF_BENEFICIARY");
+
+    }
+
+
+    public void LoadExistBenefTypeInTable(XxupPerPSBenefTypeTrEOVOImpl pTrVO) {
+        XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = pTrVO;
+//        benefTypeVO.initTranPS(paramItemKey);
+
+
+        PerPSBeneficiaryTypeVOImpl sourceVO = getPerPSBeneficiaryTypeVO1();
+        sourceVO.executeQuery();
+
+        Integer line = sourceVO.getRowCount();
+        Row rowBenefType = null;
+        Row row = null;
+
+
+        RowSetIterator rs = benefTypeVO.createRowSetIterator(null);
+        String[] arrExistBenefType = new String[rs.getRowCount()];
+        rs.reset();
+
+
+        int ctr = 0;
+        while (rs.hasNext()) {
+            Row r = rs.next();
+            arrExistBenefType[ctr] = 
+                    r.getAttribute("TypeOfBeneficiary").toString();
+            ctr++;
+        }
+
+
+        rs.closeRowSetIterator();
+
+        for (row = (OAViewRowImpl)sourceVO.first(); row != null; 
+             row = (OAViewRowImpl)sourceVO.next()) {
+
+
+            String strTypeOfBeneficiary = 
+                row.getAttribute("TypeOfBeneficiary").toString();
+
+
+            if (!Arrays.asList(arrExistBenefType).contains(strTypeOfBeneficiary)) {
+                rowBenefType = benefTypeVO.createRow();
+                rowBenefType.setAttribute("TypeOfBeneficiary", 
+                                          row.getAttribute("TypeOfBeneficiary"));
+                benefTypeVO.insertRow(rowBenefType);
+            }
+            //line = line - 1;
+        }
+
+        benefTypeVO.setOrderByClause("TYPE_OF_BENEFICIARY");
+        //        benefTypeVO.executeQuery();
+
+    }
+    
+     public void LoadExistBenefTypeInTable(String paramItemKey) {
+         XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = 
+             getXxupPerPSBenefTypeTrEOVO1();
+         benefTypeVO.initTranPS(paramItemKey);
+
+
+         PerPSBeneficiaryTypeVOImpl sourceVO = getPerPSBeneficiaryTypeVO1();
+         sourceVO.executeQuery();
+
+         Integer line = sourceVO.getRowCount();
+         Row rowBenefType = null;
+         Row row = null;
+
+
+         RowSetIterator rs = benefTypeVO.createRowSetIterator(null);
+         String[] arrExistBenefType = new String[rs.getRowCount()];
+         rs.reset();
+
+
+         int ctr = 0;
+         while (rs.hasNext()) {
+             Row r = rs.next();
+             arrExistBenefType[ctr] = 
+                     r.getAttribute("TypeOfBeneficiary").toString();
+             ctr++;
+         }
+
+
+         rs.closeRowSetIterator();
+
+         for (row = (OAViewRowImpl)sourceVO.first(); row != null; 
+              row = (OAViewRowImpl)sourceVO.next()) {
+
+
+             String strTypeOfBeneficiary = 
+                 row.getAttribute("TypeOfBeneficiary").toString();
+
+
+             if (!Arrays.asList(arrExistBenefType).contains(strTypeOfBeneficiary)) {
+                 rowBenefType = benefTypeVO.createRow();
+                 rowBenefType.setAttribute("TypeOfBeneficiary", 
+                                           row.getAttribute("TypeOfBeneficiary"));
+                 benefTypeVO.insertRow(rowBenefType);
+             }
+             //line = line - 1;
+         }
+
+         benefTypeVO.setOrderByClause("TYPE_OF_BENEFICIARY");
+         //        benefTypeVO.executeQuery();
+
+     }
 
     
 
@@ -1542,5 +1778,17 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
      */
     public XxupPerPSToaTrEOVOImpl getXxupPerPSToaTrEOVO1() {
         return (XxupPerPSToaTrEOVOImpl)findViewObject("XxupPerPSToaTrEOVO1");
+    }
+
+    /**Container's getter for XxupPerPSBenefTypeEOVO1
+     */
+    public XxupPerPSBenefTypeEOVOImpl getXxupPerPSBenefTypeEOVO1() {
+        return (XxupPerPSBenefTypeEOVOImpl)findViewObject("XxupPerPSBenefTypeEOVO1");
+    }
+
+    /**Container's getter for XxupPerPSBenefTypeTrEOVO1
+     */
+    public XxupPerPSBenefTypeTrEOVOImpl getXxupPerPSBenefTypeTrEOVO1() {
+        return (XxupPerPSBenefTypeTrEOVOImpl)findViewObject("XxupPerPSBenefTypeTrEOVO1");
     }
 }

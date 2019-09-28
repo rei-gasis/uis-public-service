@@ -38,7 +38,6 @@ SELECT XxupPerPsHeaderTrEO.SEQUENCE_NO,
        XxupPerPsHeaderTrEO.CREATED_BY, 
        XxupPerPsHeaderTrEO.CREATION_DATE, 
        XxupPerPsHeaderTrEO.PROJECT_TYPE, 
-       XxupPerPsHeaderTrEO.TYPE_OF_BENEFICIARY, 
        XxupPerPsHeaderTrEO.ITEM_KEY,
        pp.name POSITION_NAME,
        asg.assignment_id
@@ -242,12 +241,6 @@ AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
       EntityAttrName="ProjectType"
       EntityUsage="XxupPerPsHeaderTrEO"
       AliasName="PROJECT_TYPE" >
-   </ViewAttribute>
-   <ViewAttribute
-      Name="TypeOfBeneficiary"
-      EntityAttrName="TypeOfBeneficiary"
-      EntityUsage="XxupPerPsHeaderTrEO"
-      AliasName="TYPE_OF_BENEFICIARY" >
    </ViewAttribute>
    <ViewAttribute
       Name="ItemKey"

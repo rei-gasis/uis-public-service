@@ -77,12 +77,10 @@ public class PublicServiceRequestCO extends OAControllerImpl {
              am.invokeMethod("initTranRecord", initTranRecordParams);
 
 
-         } else if ("RFC".equals(actionFromURL) 
-                || "Back".equals(actionFromURL) 
-                || actionFromURL == null
-                ) {
+         } else if ("RFC".equals(actionFromURL)) {
 
-                Serializable[] updatePSParams = { itemKey };
+                String pItemKey = pageContext.getParameter("pItemKey");
+                Serializable[] updatePSParams = { pItemKey };
                 am.invokeMethod("updatePS", updatePSParams);
 
             // OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
@@ -201,9 +199,29 @@ public class PublicServiceRequestCO extends OAControllerImpl {
                     errMsg.add(new OAException("Source of Fund is required",OAException.ERROR));
                 }
                 
-                if(row.getAttribute("TypeOfBeneficiary") == null) {
-                    errMsg.add(new OAException("Type of Beneficiary is required",OAException.ERROR));
+                // if(row.getAttribute("TypeOfBeneficiary") == null) {
+                //     errMsg.add(new OAException("Type of Beneficiary is required",OAException.ERROR));
+                // }
+
+                /*Validate if type of beneficiary is empty*/
+                OAViewObject benefTypeVO = 
+                    (OAViewObject)am.findViewObject("XxupPerPSBenefTypeTrEOVO1");
+
+
+                Row selectedBenefTypeRow[] = null;
+
+                int benefTypeCount = 0;
+                if (benefTypeVO != null) {
+                    selectedBenefTypeRow = 
+                            benefTypeVO.getFilteredRows("Selected", "Y");
                 }
+
+                if (selectedBenefTypeRow.length <= 0) {
+                    errMsg.add(new OAException("Please select at least one Type of Beneficiary", 
+                                               OAException.ERROR));
+                }
+
+
                 
                 if(row.getAttribute("NoOfBeneficiary") == null) {
                     errMsg.add(new OAException("No of Beneficiary is required",OAException.ERROR));

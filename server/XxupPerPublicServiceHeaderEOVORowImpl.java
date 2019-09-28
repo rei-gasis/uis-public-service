@@ -32,27 +32,26 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
     public static final int COSTOFPARTICIPATION = 11;
     public static final int PARTNERORGORINST = 12;
     public static final int BENEFICIARYCATEGORY = 13;
-    public static final int TYPEOFBENEFICIARY = 14;
-    public static final int UNITOFBENEFICIARY = 15;
-    public static final int NOOFBENEFICIARY = 16;
-    public static final int POSTACTEVALRATING = 17;
-    public static final int REMARKS = 18;
-    public static final int ATTRIBUTE1 = 19;
-    public static final int ATTRIBUTE2 = 20;
-    public static final int ATTRIBUTE3 = 21;
-    public static final int ATTRIBUTE4 = 22;
-    public static final int ATTRIBUTE5 = 23;
-    public static final int LASTUPDATEDATE = 24;
-    public static final int LASTUPDATEDBY = 25;
-    public static final int LASTUPDATELOGIN = 26;
-    public static final int CREATEDBY = 27;
-    public static final int CREATIONDATE = 28;
-    public static final int POSITIONNAME = 29;
-    public static final int SHOWHIDE = 30;
-    public static final int RENDERADDRESS = 31;
-    public static final int RENDERORGRN = 32;
-    public static final int XXUPPERPUBLICSERVICECATEOVO = 33;
-    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 34;
+    public static final int UNITOFBENEFICIARY = 14;
+    public static final int NOOFBENEFICIARY = 15;
+    public static final int POSTACTEVALRATING = 16;
+    public static final int REMARKS = 17;
+    public static final int ATTRIBUTE1 = 18;
+    public static final int ATTRIBUTE2 = 19;
+    public static final int ATTRIBUTE3 = 20;
+    public static final int ATTRIBUTE4 = 21;
+    public static final int ATTRIBUTE5 = 22;
+    public static final int LASTUPDATEDATE = 23;
+    public static final int LASTUPDATEDBY = 24;
+    public static final int LASTUPDATELOGIN = 25;
+    public static final int CREATEDBY = 26;
+    public static final int CREATIONDATE = 27;
+    public static final int POSITIONNAME = 28;
+    public static final int SHOWHIDE = 29;
+    public static final int RENDERADDRESS = 30;
+    public static final int RENDERORGRN = 31;
+    public static final int XXUPPERPUBLICSERVICECATEOVO = 32;
+    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 33;
 
     /**This is the default constructor (do not remove)
      */
@@ -234,17 +233,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         setAttributeInternal(BENEFICIARYCATEGORY, value);
     }
 
-    /**Gets the attribute value for TYPE_OF_BENEFICIARY using the alias name TypeOfBeneficiary
-     */
-    public String getTypeOfBeneficiary() {
-        return (String) getAttributeInternal(TYPEOFBENEFICIARY);
-    }
-
-    /**Sets <code>value</code> as attribute value for TYPE_OF_BENEFICIARY using the alias name TypeOfBeneficiary
-     */
-    public void setTypeOfBeneficiary(String value) {
-        setAttributeInternal(TYPEOFBENEFICIARY, value);
-    }
 
     /**Gets the attribute value for UNIT_OF_BENEFICIARY using the alias name UnitOfBeneficiary
      */
@@ -498,8 +486,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return getPartnerOrgOrInst();
         case BENEFICIARYCATEGORY:
             return getBeneficiaryCategory();
-        case TYPEOFBENEFICIARY:
-            return getTypeOfBeneficiary();
         case UNITOFBENEFICIARY:
             return getUnitOfBeneficiary();
         case NOOFBENEFICIARY:
@@ -591,9 +577,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return;
         case BENEFICIARYCATEGORY:
             setBeneficiaryCategory((String)value);
-            return;
-        case TYPEOFBENEFICIARY:
-            setTypeOfBeneficiary((String)value);
             return;
         case UNITOFBENEFICIARY:
             setUnitOfBeneficiary((String)value);

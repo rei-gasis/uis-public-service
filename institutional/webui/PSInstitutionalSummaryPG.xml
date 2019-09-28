@@ -8,7 +8,7 @@
          <ui:contents>
             <oa:query id="SummaryQRN" mode="resultsBasedSearch" dispCustomized="true" defaultPanel="simple" hideSaveSearch="true">
                <ui:contents>
-                  <oa:advancedTable id="SummaryRN" viewName="PerPSInstAdminSummaryVO1" width="100%" detailViewAttr="">
+                  <oa:advancedTable id="SummaryRN" viewName="XxupPerPSInstitutionalEOVO1" width="100%" detailViewAttr="">
                      <ui:contents>
                         <oa:column id="SequenceCol">
                            <ui:columnHeader>

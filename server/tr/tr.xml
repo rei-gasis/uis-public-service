@@ -15,6 +15,11 @@
       ObjectType="ViewObject" >
    </Containee>
    <Containee
+      Name="XxupPerPSBenefTypeTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenefTypeTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
       Name="XxupPerPSBenifTrEOVO"
       FullName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenifTrEOVO"
       ObjectType="ViewObject" >

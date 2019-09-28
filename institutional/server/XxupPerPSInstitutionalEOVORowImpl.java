@@ -18,29 +18,30 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
     public static final int PROJECTNAME = 2;
     public static final int IMPLEMENTATIONSTARTDATE = 3;
     public static final int IMPLEMENTATIONENDDATE = 4;
-    public static final int DURATIONHOURS = 5;
-    public static final int IMPLEMENTATIONFREQUENCY = 6;
-    public static final int FUNDINGAGENCY = 7;
-    public static final int COSTOFPARTICIPATION = 8;
-    public static final int UNITOFBENEFICIARY = 9;
-    public static final int NOOFBENEFICIARY = 10;
-    public static final int POSTACTEVALRATING = 11;
-    public static final int REMARKS = 12;
-    public static final int ATTRIBUTE1 = 13;
-    public static final int ATTRIBUTE2 = 14;
-    public static final int ATTRIBUTE3 = 15;
-    public static final int ATTRIBUTE4 = 16;
-    public static final int ATTRIBUTE5 = 17;
-    public static final int LASTUPDATEDATE = 18;
-    public static final int LASTUPDATEDBY = 19;
-    public static final int LASTUPDATELOGIN = 20;
-    public static final int CREATEDBY = 21;
-    public static final int CREATIONDATE = 22;
-    public static final int STATUS = 23;
-    public static final int MALEBENEFCOUNT = 24;
-    public static final int FEMALEBENEFCOUNT = 25;
-    public static final int PROJECTLEADER = 26;
-    public static final int PROJECTLEADERDISPLAY = 27;
+    public static final int DURATION = 5;
+    public static final int DURATIONUNIT = 6;
+    public static final int IMPLEMENTATIONFREQUENCY = 7;
+    public static final int FUNDINGAGENCY = 8;
+    public static final int COSTOFPARTICIPATION = 9;
+    public static final int UNITOFBENEFICIARY = 10;
+    public static final int NOOFBENEFICIARY = 11;
+    public static final int POSTACTEVALRATING = 12;
+    public static final int REMARKS = 13;
+    public static final int ATTRIBUTE1 = 14;
+    public static final int ATTRIBUTE2 = 15;
+    public static final int ATTRIBUTE3 = 16;
+    public static final int ATTRIBUTE4 = 17;
+    public static final int ATTRIBUTE5 = 18;
+    public static final int LASTUPDATEDATE = 19;
+    public static final int LASTUPDATEDBY = 20;
+    public static final int LASTUPDATELOGIN = 21;
+    public static final int CREATEDBY = 22;
+    public static final int CREATIONDATE = 23;
+    public static final int STATUS = 24;
+    public static final int MALEBENEFCOUNT = 25;
+    public static final int FEMALEBENEFCOUNT = 26;
+    public static final int PROJECTLEADER = 27;
+    public static final int PROJECTLEADERDISPLAY = 28;
 
     /**This is the default constructor (do not remove)
      */
@@ -113,17 +114,6 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
         setAttributeInternal(IMPLEMENTATIONENDDATE, value);
     }
 
-    /**Gets the attribute value for DURATION_HOURS using the alias name DurationHours
-     */
-    public String getDurationHours() {
-        return (String) getAttributeInternal(DURATIONHOURS);
-    }
-
-    /**Sets <code>value</code> as attribute value for DURATION_HOURS using the alias name DurationHours
-     */
-    public void setDurationHours(String value) {
-        setAttributeInternal(DURATIONHOURS, value);
-    }
 
     /**Gets the attribute value for IMPLEMENTATION_FREQUENCY using the alias name ImplementationFrequency
      */
@@ -394,8 +384,10 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
             return getImplementationStartDate();
         case IMPLEMENTATIONENDDATE:
             return getImplementationEndDate();
-        case DURATIONHOURS:
-            return getDurationHours();
+        case DURATION:
+            return getDuration();
+        case DURATIONUNIT:
+            return getDurationUnit();
         case IMPLEMENTATIONFREQUENCY:
             return getImplementationFrequency();
         case FUNDINGAGENCY:
@@ -465,8 +457,11 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
         case IMPLEMENTATIONENDDATE:
             setImplementationEndDate((Date)value);
             return;
-        case DURATIONHOURS:
-            setDurationHours((String)value);
+        case DURATION:
+            setDuration((Number)value);
+            return;
+        case DURATIONUNIT:
+            setDurationUnit((String)value);
             return;
         case IMPLEMENTATIONFREQUENCY:
             setImplementationFrequency((String)value);
@@ -550,5 +545,29 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
      */
     public void setProjectLeaderDisplay(String value) {
         setAttributeInternal(PROJECTLEADERDISPLAY, value);
+    }
+
+    /**Gets the attribute value for the calculated attribute Duration
+     */
+    public Number getDuration() {
+        return (Number) getAttributeInternal(DURATION);
+    }
+
+    /**Sets <code>value</code> as the attribute value for the calculated attribute Duration
+     */
+    public void setDuration(Number value) {
+        setAttributeInternal(DURATION, value);
+    }
+
+    /**Gets the attribute value for the calculated attribute DurationUnit
+     */
+    public String getDurationUnit() {
+        return (String) getAttributeInternal(DURATIONUNIT);
+    }
+
+    /**Sets <code>value</code> as the attribute value for the calculated attribute DurationUnit
+     */
+    public void setDurationUnit(String value) {
+        setAttributeInternal(DURATIONUNIT, value);
     }
 }

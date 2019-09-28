@@ -170,7 +170,6 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
         String itemKey = pageContext.getParameter("pItemKey");
-
         String actionParam = pageContext.getParameter("urlParam");
 
         Serializable[] params = { sequenceNo };
@@ -197,8 +196,8 @@ public class PublicServiceReviewCO extends OAControllerImpl {
                 pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceRequestPG" + 
                                                "&pSequenceNo=" + sequenceNo + 
                                                "&pItemKey=" + itemKey +
-                                               // "&urlParam=" + actionParam, null, 
-                                               "&urlParam=Back", null, 
+                                               "&urlParam=" + actionParam,
+                                               null, 
                                                OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                                null, null, true, 
                                                OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
@@ -226,7 +225,9 @@ public class PublicServiceReviewCO extends OAControllerImpl {
                    (!"oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) && 
                    (!"oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM)))) {
 
-            am.invokeMethod("resubmitPS", params);
+            
+            Serializable[] resubmitParams = { itemKey };
+            am.invokeMethod("resubmitPS", resubmitParams);
 
             /*
             OAViewObject vo =
@@ -243,6 +244,17 @@ public class PublicServiceReviewCO extends OAControllerImpl {
             { new MessageToken("PROJ_NAME", projName) };
 
              */
+
+            OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
+
+            vo.reset();
+            Row row = vo.next();
+
+            String projName = row.getAttribute("ProjectName").toString();
+
+            MessageToken[] tokens = { new MessageToken("PROJ_NAME", projName) };
+
+                     
 
             OAException resubmitMessage = 
                 new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", null, 

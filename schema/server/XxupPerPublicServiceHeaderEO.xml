@@ -181,18 +181,6 @@
       </DesignTime>
    </Attribute>
    <Attribute
-      Name="TypeOfBeneficiary"
-      Precision="100"
-      ColumnName="TYPE_OF_BENEFICIARY"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      SQLType="VARCHAR"
-      TableName="XXUP.XXUP_PER_PUBLIC_SERVICE_HEADER" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="100" />
-      </DesignTime>
-   </Attribute>
-   <Attribute
       Name="UnitOfBeneficiary"
       Precision="200"
       ColumnName="UNIT_OF_BENEFICIARY"

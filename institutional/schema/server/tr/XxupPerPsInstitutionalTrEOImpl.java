@@ -44,10 +44,11 @@ public class XxupPerPsInstitutionalTrEOImpl extends OAEntityImpl {
     public static final int CREATEDBY = 22;
     public static final int CREATIONDATE = 23;
     public static final int ITEMKEY = 24;
-    public static final int DURATIONHOURS = 25;
-    public static final int FEMALEBENEFCOUNT = 26;
-    public static final int MALEBENEFCOUNT = 27;
-    public static final int PROJECTLEADER = 28;
+    public static final int FEMALEBENEFCOUNT = 25;
+    public static final int MALEBENEFCOUNT = 26;
+    public static final int PROJECTLEADER = 27;
+    public static final int DURATION = 28;
+    public static final int DURATIONUNIT = 29;
 
 
     private static OAEntityDefImpl mDefinitionObject;
@@ -416,14 +417,16 @@ public class XxupPerPsInstitutionalTrEOImpl extends OAEntityImpl {
             return getCreationDate();
         case ITEMKEY:
             return getItemKey();
-        case DURATIONHOURS:
-            return getDurationHours();
         case FEMALEBENEFCOUNT:
             return getFemaleBenefCount();
         case MALEBENEFCOUNT:
             return getMaleBenefCount();
         case PROJECTLEADER:
             return getProjectLeader();
+        case DURATION:
+            return getDuration();
+        case DURATIONUNIT:
+            return getDurationUnit();
         default:
             return super.getAttrInvokeAccessor(index, attrDef);
         }
@@ -509,9 +512,6 @@ public class XxupPerPsInstitutionalTrEOImpl extends OAEntityImpl {
         case ITEMKEY:
             setItemKey((String)value);
             return;
-        case DURATIONHOURS:
-            setDurationHours((String)value);
-            return;
         case FEMALEBENEFCOUNT:
             setFemaleBenefCount((Number)value);
             return;
@@ -521,23 +521,16 @@ public class XxupPerPsInstitutionalTrEOImpl extends OAEntityImpl {
         case PROJECTLEADER:
             setProjectLeader((Number)value);
             return;
+        case DURATION:
+            setDuration((Number)value);
+            return;
+        case DURATIONUNIT:
+            setDurationUnit((String)value);
+            return;
         default:
             super.setAttrInvokeAccessor(index, value, attrDef);
             return;
         }
-    }
-
-
-    /**Gets the attribute value for DurationHours, using the alias name DurationHours
-     */
-    public String getDurationHours() {
-        return (String)getAttributeInternal(DURATIONHOURS);
-    }
-
-    /**Sets <code>value</code> as the attribute value for DurationHours
-     */
-    public void setDurationHours(String value) {
-        setAttributeInternal(DURATIONHOURS, value);
     }
 
 
@@ -612,6 +605,30 @@ public class XxupPerPsInstitutionalTrEOImpl extends OAEntityImpl {
      */
     public void setProjectLeader(Number value) {
         setAttributeInternal(PROJECTLEADER, value);
+    }
+
+    /**Gets the attribute value for Duration, using the alias name Duration
+     */
+    public Number getDuration() {
+        return (Number)getAttributeInternal(DURATION);
+    }
+
+    /**Sets <code>value</code> as the attribute value for Duration
+     */
+    public void setDuration(Number value) {
+        setAttributeInternal(DURATION, value);
+    }
+
+    /**Gets the attribute value for DurationUnit, using the alias name DurationUnit
+     */
+    public String getDurationUnit() {
+        return (String)getAttributeInternal(DURATIONUNIT);
+    }
+
+    /**Sets <code>value</code> as the attribute value for DurationUnit
+     */
+    public void setDurationUnit(String value) {
+        setAttributeInternal(DURATIONUNIT, value);
     }
 
     /**Creates a Key object based on given key constituents

@@ -360,18 +360,6 @@
       </DesignTime>
    </Attribute>
    <Attribute
-      Name="TypeOfBeneficiary"
-      Precision="100"
-      ColumnName="TYPE_OF_BENEFICIARY"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      SQLType="VARCHAR"
-      TableName="XXUP.XXUP_PER_PS_HEADER_TR" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="100" />
-      </DesignTime>
-   </Attribute>
-   <Attribute
       Name="ItemKey"
       Precision="20"
       ColumnName="ITEM_KEY"

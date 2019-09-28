@@ -73,7 +73,23 @@
             <oa:messageStyledText id="SourceOfFund" prompt="Source Of Fund" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SourceOfFund" styleClass="OraDataText"/>
             <oa:messageStyledText id="PartnerOrgOrInst" prompt="Partner Organization/Institution" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PartnerOrgOrInst" styleClass="OraDataText"/>
             <!-- <oa:messageStyledText id="BeneficiaryCategory" prompt="Beneficary Category" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="BeneficiaryCategory" styleClass="OraDataText"/> -->
-            <oa:messageStyledText id="TypeOfBeneficiary" prompt="Type Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/>
+            <!-- <oa:messageStyledText id="TypeOfBeneficiary" prompt="Type Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/> -->
+            <oa:messageLayout id="TypeOfBeneficiaryML" prompt="Type Of Beneficiary">
+                  <ui:contents>
+                     <oa:advancedTable id="TypeOfBeneficiaryAT" viewName="XxupPerPSBenefTypeTrEOVO1" width="50%">
+                        <ui:contents>
+                           <oa:column id="BenefTypeCol">
+                              <ui:columnHeader>
+                                 <oa:sortableHeader id="BenefTypeSH" prompt="Type"/>
+                              </ui:columnHeader>
+                              <ui:contents>
+                                 <oa:messageStyledText id="TypeOfBeneficiary" viewAttr="TypeOfBeneficiary" styleClass="OraDataText"/>
+                              </ui:contents>
+                           </oa:column>
+                        </ui:contents>
+                     </oa:advancedTable>
+                  </ui:contents>
+               </oa:messageLayout>
             <oa:messageStyledText id="UnitOfBeneficiary" prompt="Unit Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="UnitOfBeneficiary" styleClass="OraDataText"/>
             <oa:messageStyledText id="NoOfBeneficiary" prompt="No. Of Beneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="NoOfBeneficiary" styleClass="OraDataText"/>
             <oa:messageLayout id="BenefOrgML">

@@ -84,11 +84,21 @@
                         <lovMap id="lovMap6" lovItem="BeneficiaryCategoryDisplay" resultTo="BeneficiaryCategory" criteriaFrom="BeneficiaryCategory"/>
                      </lovMappings>
                   </oa:messageLovInput>
-                  <oa:messageLovInput id="TypeOfBeneficiary" viewAttr="TypeOfBeneficiary" viewName="XxupPerPSHeaderTrEOVO1" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryTypeRN" prompt="* Type of Beneficiary" maximumLength="100">
+                  <!-- <oa:messageLovInput id="TypeOfBeneficiary" viewAttr="TypeOfBeneficiary" viewName="XxupPerPSHeaderTrEOVO1" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSBeneficiaryTypeRN" prompt="* Type of Beneficiary" maximumLength="100">
                      <lovMappings>
                         <lovMap id="lovMap7" lovItem="TypeOfBeneficiary" resultTo="TypeOfBeneficiary" criteriaFrom="TypeOfBeneficiary"/>
                      </lovMappings>
-                  </oa:messageLovInput>
+                  </oa:messageLovInput> -->
+                  <oa:messageLayout id="BenefTypeML" prompt="* Type of Beneficiary">
+                     <ui:contents>
+                        <oa:table id="BenefTypeTbl">
+                           <ui:contents>
+                              <oa:messageCheckBox id="SelectedBenefType" dataType="VARCHAR2" text="Selected" prompt="Selected" viewName="XxupPerPSBenefTypeTrEOVO1" viewAttr="Selected" checkedValue="Y"/>
+                              <oa:messageStyledText id="TypeOfBeneficiary" dataType="VARCHAR2" prompt="Type of Beneficiary" viewName="XxupPerPSBenefTypeTrEOVO1" viewAttr="TypeOfBeneficiary" maximumLength="200"/>
+                           </ui:contents>
+                        </oa:table>
+                     </ui:contents>
+                  </oa:messageLayout>
                   <oa:messageRadioGroup id="UnitOfBeneficiary" defaultValue="Individual" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryUnitVO" pickListViewName="UnitOfBeneficiary" pickListDispAttr="UnitOfBeneficiary" pickListValAttr="UnitOfBeneficiary" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="UnitOfBeneficiary" prompt="* Unit of Beneficiary">
                      <ui:primaryClientAction>
                         <ui:firePartialAction event="RenderOrganization">

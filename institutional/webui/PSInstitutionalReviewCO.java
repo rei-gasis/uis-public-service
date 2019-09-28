@@ -188,7 +188,7 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
             } else {
 
-                am.invokeMethod("returnNonMemberVO", null);
+                am.invokeMethod("returnNonMemberVO");
                 //                am.invokeMethod("returnNonMemberVO", null);
 
                 TransactionUnitHelper.endTransactionUnit(pageContext, 
@@ -196,7 +196,9 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
                 pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalRequestPG" + 
                                                "&pSequenceNo=" + sequenceNo + 
-                                               "&urlParam=Back", null, 
+                                               "&urlParam=" + actionParam +
+                                               "&backUsed=" + "yes",
+                                               null, 
                                                OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                                null, null, true, 
                                                OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
@@ -223,15 +225,17 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
                    (!"oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) && 
                    (!"oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM)))) {
 
-            am.invokeMethod("resubmitPS", params);
+            String itemKey = pageContext.getParameter("pItemKey");
+            Serializable[] resubmitParams = { itemKey };
+            am.invokeMethod("resubmitPS", resubmitParams);
 
-            /*
-                    OAViewObject vo =
-                        (OAViewObject)am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
+            
+            OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
 
-                    Row row = vo.getCurrentRow();
+            vo.reset();
+            Row row = vo.next();
 
-                    String projName = row.getAttribute("ProjectName").toString();
+            String projName = row.getAttribute("ProjectName").toString();
 
 
 
@@ -239,7 +243,7 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
                     MessageToken[] tokens =
                     { new MessageToken("PROJ_NAME", projName) };
 
-                     */
+                     
 
             OAException resubmitMessage = 
                 new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", null, 

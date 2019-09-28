@@ -82,7 +82,8 @@
             <oa:messageStyledText id="ImplementationStartDate" prompt="Start date of Implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationStartDate" styleClass="OraDataText"/>
             <oa:messageStyledText id="ImplementationEndDate" prompt="End date of Implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationEndDate" styleClass="OraDataText"/>
             <oa:messageStyledText id="Status" prompt="Status" viewName="XxupPerPSInstTrEOVO1" viewAttr="Status" styleClass="OraDataText"/>
-            <oa:messageStyledText id="DurationHours" prompt="Duration" viewName="XxupPerPSInstTrEOVO1" viewAttr="DurationHours" styleClass="OraDataText"/>
+            <oa:messageStyledText id="Duration" prompt="Duration" viewName="XxupPerPSInstTrEOVO1" viewAttr="Duration" styleClass="OraDataText"/>
+            <oa:messageStyledText id="DurationUnit" prompt="Unit of Duration" viewName="XxupPerPSInstTrEOVO1" viewAttr="DurationUnit" styleClass="OraDataText"/>
             <oa:messageStyledText id="ImplementationFrequency" prompt="Frequency of Implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationFrequency" styleClass="OraDataText"/>
             <oa:messageLayout id="ObjCatML" prompt="Objective Category">
                <ui:contents>

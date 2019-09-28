@@ -47,8 +47,7 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
     public static final int CREATEDBY = 26;
     public static final int CREATIONDATE = 27;
     public static final int PROJECTTYPE = 28;
-    public static final int TYPEOFBENEFICIARY = 29;
-    public static final int ITEMKEY = 30;
+    public static final int ITEMKEY = 29;
 
 
     private static OAEntityDefImpl mDefinitionObject;
@@ -453,17 +452,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
         setAttributeInternal(PROJECTTYPE, value);
     }
 
-    /**Gets the attribute value for TypeOfBeneficiary, using the alias name TypeOfBeneficiary
-     */
-    public String getTypeOfBeneficiary() {
-        return (String)getAttributeInternal(TYPEOFBENEFICIARY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for TypeOfBeneficiary
-     */
-    public void setTypeOfBeneficiary(String value) {
-        setAttributeInternal(TYPEOFBENEFICIARY, value);
-    }
 
     /**Gets the attribute value for ItemKey, using the alias name ItemKey
      */
@@ -541,8 +529,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
             return getCreationDate();
         case PROJECTTYPE:
             return getProjectType();
-        case TYPEOFBENEFICIARY:
-            return getTypeOfBeneficiary();
         case ITEMKEY:
             return getItemKey();
         default:
@@ -641,9 +627,6 @@ public class XxupPerPsHeaderTrEOImpl extends OAEntityImpl {
             return;
         case PROJECTTYPE:
             setProjectType((String)value);
-            return;
-        case TYPEOFBENEFICIARY:
-            setTypeOfBeneficiary((String)value);
             return;
         case ITEMKEY:
             setItemKey((String)value);

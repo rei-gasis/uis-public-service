@@ -46,6 +46,9 @@ public class PSInstitutionalApprDetailsCO extends OAControllerImpl {
 
         Serializable[] reviewPSParams = { pItemKey };
 
+        pageContext.writeDiagnostics(this, "PSInstitutionalApprDetailsCO:" + pItemKey, 1);
+        
+        
         am.invokeMethod("reviewPS", reviewPSParams);
 
 

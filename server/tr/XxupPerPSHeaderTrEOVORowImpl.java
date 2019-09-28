@@ -42,15 +42,14 @@ public class XxupPerPSHeaderTrEOVORowImpl extends OAViewRowImpl {
     public static final int CREATEDBY = 26;
     public static final int CREATIONDATE = 27;
     public static final int PROJECTTYPE = 28;
-    public static final int TYPEOFBENEFICIARY = 29;
-    public static final int ITEMKEY = 30;
-    public static final int POSITIONNAME = 31;
-    public static final int ASSIGNMENTID = 32;
-    public static final int SHOWHIDE = 33;
-    public static final int RENDERADDRESS = 34;
-    public static final int RENDERORGRN = 35;
-    public static final int RENDERSUBJAREAOTHERS = 36;
-    public static final int SUBJAREAOTHERS = 37;
+    public static final int ITEMKEY = 29;
+    public static final int POSITIONNAME = 30;
+    public static final int ASSIGNMENTID = 31;
+    public static final int SHOWHIDE = 32;
+    public static final int RENDERADDRESS = 33;
+    public static final int RENDERORGRN = 34;
+    public static final int RENDERSUBJAREAOTHERS = 35;
+    public static final int SUBJAREAOTHERS = 36;
 
     /**This is the default constructor (do not remove)
      */
@@ -411,17 +410,6 @@ public class XxupPerPSHeaderTrEOVORowImpl extends OAViewRowImpl {
         setAttributeInternal(PROJECTTYPE, value);
     }
 
-    /**Gets the attribute value for TYPE_OF_BENEFICIARY using the alias name TypeOfBeneficiary
-     */
-    public String getTypeOfBeneficiary() {
-        return (String) getAttributeInternal(TYPEOFBENEFICIARY);
-    }
-
-    /**Sets <code>value</code> as attribute value for TYPE_OF_BENEFICIARY using the alias name TypeOfBeneficiary
-     */
-    public void setTypeOfBeneficiary(String value) {
-        setAttributeInternal(TYPEOFBENEFICIARY, value);
-    }
 
     /**Gets the attribute value for ITEM_KEY using the alias name ItemKey
      */
@@ -558,8 +546,6 @@ public class XxupPerPSHeaderTrEOVORowImpl extends OAViewRowImpl {
             return getCreationDate();
         case PROJECTTYPE:
             return getProjectType();
-        case TYPEOFBENEFICIARY:
-            return getTypeOfBeneficiary();
         case ITEMKEY:
             return getItemKey();
         case POSITIONNAME:
@@ -672,9 +658,6 @@ public class XxupPerPSHeaderTrEOVORowImpl extends OAViewRowImpl {
             return;
         case PROJECTTYPE:
             setProjectType((String)value);
-            return;
-        case TYPEOFBENEFICIARY:
-            setTypeOfBeneficiary((String)value);
             return;
         case ITEMKEY:
             setItemKey((String)value);

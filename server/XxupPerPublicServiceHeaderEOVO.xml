@@ -29,7 +29,6 @@ SELECT XxupPerPublicServiceHeaderEO.SEQUENCE_NO,
   XxupPerPublicServiceHeaderEO.COST_OF_PARTICIPATION,
   XxupPerPublicServiceHeaderEO.PARTNER_ORG_OR_INST,
   XxupPerPublicServiceHeaderEO.BENEFICIARY_CATEGORY,
-  XxupPerPublicServiceHeaderEO.TYPE_OF_BENEFICIARY,
   XxupPerPublicServiceHeaderEO.UNIT_OF_BENEFICIARY,
   XxupPerPublicServiceHeaderEO.NO_OF_BENEFICIARY,
   XxupPerPublicServiceHeaderEO.POST_ACT_EVAL_RATING,
@@ -145,12 +144,6 @@ WHERE pp.position_id (+) = XxupPerPublicServiceHeaderEO.POSITION_ID
       EntityAttrName="BeneficiaryCategory"
       EntityUsage="XxupPerPublicServiceHeaderEO"
       AliasName="BENEFICIARY_CATEGORY" >
-   </ViewAttribute>
-   <ViewAttribute
-      Name="TypeOfBeneficiary"
-      EntityAttrName="TypeOfBeneficiary"
-      EntityUsage="XxupPerPublicServiceHeaderEO"
-      AliasName="TYPE_OF_BENEFICIARY" >
    </ViewAttribute>
    <ViewAttribute
       Name="UnitOfBeneficiary"

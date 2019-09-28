@@ -12,4 +12,9 @@ public class PerPSObjCatVOImpl extends OAViewObjectImpl {
      */
     public PerPSObjCatVOImpl() {
     }
+
+    public void showList(){
+    	setWhereClause("1=1");  
+        executeQuery();
+    }
 }
