@@ -26,7 +26,6 @@ SELECT ROWID
       ,to_org_name
       ,note
 FROM XXUP.XXUP_PER_PS_ACTION_HISTORY psah
-WHERE type = 'Individual'
 ORDER BY approver_no
    ]]></SQLQuery>
    <DesignTime>
@@ -234,18 +233,6 @@ ORDER BY approver_no
       SQLType="VARCHAR" >
       <DesignTime>
          <Attr Name="_DisplaySize" Value="2000" />
-      </DesignTime>
-   </ViewAttribute>
-   <ViewAttribute
-      Name="Rowid1_1"
-      IsPersistent="false"
-      IsNotNull="true"
-      Type="oracle.jbo.domain.RowID"
-      ColumnType="ROWID"
-      AliasName="ROWID1"
-      SQLType="ROWID" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="1" />
       </DesignTime>
    </ViewAttribute>
 </ViewObject>

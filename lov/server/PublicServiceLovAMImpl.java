@@ -85,6 +85,14 @@ public class PublicServiceLovAMImpl extends OAApplicationModuleImpl {
         
     }
 
+
+    public void showObjCatList(){
+        PerPSObjCatVOImpl objCatVO =
+          getPerPSObjCatVO1();
+
+        objCatVO.showList();
+    }
+
     /**Container's getter for PerPSActivityTypeVO1
      */
     public PerPSActivityTypeVOImpl getPerPSActivityTypeVO1() {

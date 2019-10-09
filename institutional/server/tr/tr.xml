@@ -1,0 +1,82 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE JboPackage SYSTEM "jbo_03_01.dtd">
+
+<JboPackage
+   Name="tr"
+   SeparateXMLFiles="true"
+   PackageName="xxup.oracle.apps.per.publicservice.institutional.server.tr" >
+   <DesignTime>
+      <Attr Name="_ejbPackage" Value="false" />
+      <Attr Name="_version" Value="10.1.3.43.6" />
+   </DesignTime>
+   <Containee
+      Name="XxupPerPSInstActTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstActTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstAddrTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstAddrTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstBenefOrgTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstBenefOrgTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstBenefTypeTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstBenefTypeTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstCountriesTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstCountriesTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstDelModeTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstDelModeTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstMembersTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstMembersTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstObjCatTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstObjCatTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstOfficeTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstOfficeTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstOtherMembersTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstOtherMembersTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstPartOrgTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstPartOrgTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstSubjTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstSubjTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstToaTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstToaTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSInstTrEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstTrEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+</JboPackage>

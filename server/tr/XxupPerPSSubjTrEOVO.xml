@@ -1,0 +1,140 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSSubjTrEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSSubjTrEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSSubjTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsSubjTrEO.SEQUENCE_NO, 
+       XxupPerPsSubjTrEO.LINE_NUMBER, 
+       XxupPerPsSubjTrEO.SUBJECT_AREA_INTEREST, 
+       XxupPerPsSubjTrEO.ATTRIBUTE1, 
+       XxupPerPsSubjTrEO.ATTRIBUTE2, 
+       XxupPerPsSubjTrEO.ATTRIBUTE3, 
+       XxupPerPsSubjTrEO.ATTRIBUTE4, 
+       XxupPerPsSubjTrEO.ATTRIBUTE5, 
+       XxupPerPsSubjTrEO.LAST_UPDATE_DATE, 
+       XxupPerPsSubjTrEO.LAST_UPDATED_BY, 
+       XxupPerPsSubjTrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsSubjTrEO.CREATED_BY, 
+       XxupPerPsSubjTrEO.CREATION_DATE, 
+       XxupPerPsSubjTrEO.SELECTED, 
+       XxupPerPsSubjTrEO.ITEM_KEY, 
+       XxupPerPsSubjTrEO.ROWID
+FROM XXUP.XXUP_PER_PS_SUBJ_TR XxupPerPsSubjTrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsSubjTrEO"
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsSubjTrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="SubjectAreaInterest"
+      EntityAttrName="SubjectAreaInterest"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="SUBJECT_AREA_INTEREST" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Selected"
+      EntityAttrName="Selected"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="SELECTED" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsSubjTrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

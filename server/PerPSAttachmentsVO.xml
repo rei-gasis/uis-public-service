@@ -3,7 +3,7 @@
 
 <ViewObject
    Name="PerPSAttachmentsVO"
-   BindingStyle="OracleName"
+   BindingStyle="Oracle"
    CustomQuery="true"
    RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
    ComponentClass="xxup.oracle.apps.per.publicservice.server.PerPSAttachmentsVOImpl"
@@ -13,6 +13,7 @@ SELECT fl.file_name
       ,fl.file_content_type
       ,fl.file_data
       ,fad.pk1_value sequence_no
+      ,fad.pk2_value item_key
 FROM fnd_attached_documents fad
     ,fnd_documents fd
     ,fnd_lobs fl

@@ -30,6 +30,16 @@
       ObjectType="ViewObject" >
    </Containee>
    <Containee
+      Name="XxupPerPSBenefTypeEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSBenefTypeEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
+      Name="XxupPerPSCountriesEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSCountriesEOVO"
+      ObjectType="ViewObject" >
+   </Containee>
+   <Containee
       Name="XxupPerPSHeaderObjCatVL"
       FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderObjCatVL"
       ObjectType="ViewLink" >
@@ -40,8 +50,8 @@
       ObjectType="ViewLink" >
    </Containee>
    <Containee
-      Name="XxupPerPSHeaderTrEOVO"
-      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderTrEOVO"
+      Name="XxupPerPSTypeOfActivitiesEOVO"
+      FullName="xxup.oracle.apps.per.publicservice.server.XxupPerPSTypeOfActivitiesEOVO"
       ObjectType="ViewObject" >
    </Containee>
    <Containee

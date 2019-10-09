@@ -1,6 +1,92 @@
 create or replace PACKAGE BODY xxup_ps_wf_pkg
 IS
 
+    FUNCTION create_item_key(p_seq_no        IN VARCHAR2
+                            ,p_action        IN VARCHAR2                
+                            )
+    RETURN VARCHAR2
+    IS
+        lv_item_key wf_notifications.item_key%TYPE;
+
+        lv_exist VARCHAR2(1) := 'N';
+        e_exists EXCEPTION;
+
+        lv_last_update_item_key wf_notifications.item_key%TYPE;
+        ln_last_update_ctr VARCHAR2(1000);
+        lv_action_prefix VARCHAR2(1) := '';
+
+    BEGIN
+        IF p_action = 'Create' THEN
+
+            lv_item_key := 'INDIV-' || p_seq_no;
+
+--            BEGIN
+--                SELECT 'Y'
+--                INTO lv_exist
+--                FROM xxup.xxup_per_ps_action_history
+--                WHERE item_key = lv_item_key
+--                AND sequence_no = p_seq_no
+--                AND type = 'Individual'
+--                AND ROWNUM = 1;
+--                
+--                raise e_exists;
+--                
+--             EXCEPTION 
+--                WHEN OTHERS THEN
+--                    raise_application_error(-20101, 'Unable to create item key for this transaction');
+--             END;
+
+            RETURN lv_item_key;
+
+        ELSIF p_action = 'Update' THEN
+            /*Get last update transaction's item key*/
+
+            BEGIN
+                SELECT item_key
+                INTO lv_last_update_item_key
+                FROM xxup_per_ps_action_history
+                WHERE sequence_no = p_seq_no
+                AND type = 'Individual'
+                AND ROWNUM = 1;
+
+                SELECT SUBSTR(lv_last_update_item_key,1,1)
+                INTO lv_action_prefix
+                FROM DUAL;
+
+                IF lv_action_prefix = 'U' THEN
+                    /*increment update item key*/
+                    SELECT MAX(SUBSTR(lv_last_update_item_key,-1,1))
+                    INTO ln_last_update_ctr
+                    FROM xxup_per_ps_action_history
+                    WHERE sequence_no = p_seq_no
+                    AND type = 'Individual'
+                    AND ROWNUM = 1;
+
+
+                    RETURN 'U-INDIV-' || p_seq_no || '-' || to_char(ln_last_update_ctr + 1);
+                ELSE --no last update transaction
+                    RETURN 'U-INDIV-' || p_seq_no || '-1';
+                END IF;
+
+            EXCEPTION 
+                WHEN OTHERS THEN
+                    --no last update 
+                    NULL;
+--                    raise_application_error(-20101, 'Unable to create item key for this transaction');
+             END;
+
+             RETURN 'U-INDIV-' || p_seq_no || '-1';
+
+
+--            lv_item_key := 'INDIV-' || lv_item_key || p_seq_no;
+        END IF;
+
+    EXCEPTION
+--        WHEN e_exists THEN
+--            raise_application_error(-20101, 'Unable to create item key for this transaction');
+        WHEN OTHERS THEN
+            raise_application_error(-20101, 'Unable to create item key for this transaction');
+    END create_item_key;
 
     PROCEDURE set_owner_details(p_assignment_id IN NUMBER
                                ,p_emp_id       OUT NUMBER
@@ -9,15 +95,9 @@ IS
                                ,p_emp_org_name OUT VARCHAR2
                                )
     IS   
-      -- lv_owner fnd_user.user_id%TYPE;
-    
+
     BEGIN
-
-      -- lv_owner := wf_engine.getitemattrnumber('XXUPPSWF'
-      --                                         ,p_seq_no
-      --                                         ,'OWNER');
-
-      SELECT  papf.full_name
+        SELECT  papf.full_name
               ,papf.person_id
               ,(SELECT ppd.segment1
                 FROM per_position_definitions ppd
@@ -41,8 +121,57 @@ IS
         AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
         AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
         AND paaf.assignment_id = p_assignment_id;
-        
-        
+
+
+    EXCEPTION
+      WHEN no_data_found THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - data not found!');
+      WHEN too_many_rows THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - too many row fetched!');
+      WHEN OTHERS THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - ' || SUBSTR(SQLERRM,0,200));
+    END;
+
+
+    PROCEDURE set_owner_details(p_itemkey      IN  VARCHAR2
+                               ,p_emp_id       OUT NUMBER
+                               ,p_emp_name     OUT VARCHAR2
+                               ,p_emp_pos_name OUT VARCHAR2
+                               ,p_emp_org_name OUT VARCHAR2
+                               )
+    IS  
+
+    BEGIN
+
+      SELECT  papf.full_name
+              ,papf.person_id
+              ,(SELECT ppd.segment1
+                FROM per_position_definitions ppd
+                    ,per_all_positions pap
+                 WHERE pap.position_id = paaf.position_id
+                 AND   ppd.position_definition_id = pap.position_definition_id) POSITION_NAME
+              ,(SELECT haou.name
+                FROM per_position_definitions ppd
+                    ,per_all_positions pap
+                    ,hr_all_organization_units haou
+                 WHERE pap.position_id = paaf.position_id
+                 AND   ppd.position_definition_id = pap.position_definition_id
+                 AND   haou.organization_id = ppd.segment2) ORGANIZATION_NAME
+        INTO p_emp_name
+            ,p_emp_id
+            ,p_emp_pos_name
+            ,p_emp_org_name
+        FROM xxup.xxup_per_ps_header_tr psh
+            ,per_all_assignments_f paaf
+            ,per_all_people_f papf
+        WHERE psh.position_id = paaf.position_id
+        AND paaf.person_id = papf.person_id
+        AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
+        AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
+        AND papf.person_id = (SELECT employee_id
+                              FROM fnd_user fu
+                              WHERE fu.user_id = psh.created_by)
+        AND psh.item_key = p_itemkey;
 
 
     EXCEPTION
@@ -55,10 +184,11 @@ IS
 
     END set_owner_details;
 
-    PROCEDURE init_wf(p_sequence_no IN VARCHAR2)
+    PROCEDURE init_wf(p_sequence_no IN VARCHAR2
+                     ,p_item_key    IN VARCHAR2)
     IS
     lv_item_type VARCHAR2(100) := 'XXUPPSWF';
-    lv_item_key VARCHAR2(100) := 'INDIV-' || p_sequence_no;
+    lv_item_key VARCHAR2(100) := p_item_key;
     lv_process_name VARCHAR2(140) := 'XXUP_PS_PRC'; 
 
     BEGIN 
@@ -85,15 +215,15 @@ IS
         wf_engine.startprocess(lv_item_type, lv_item_key);
 
 
-        UPDATE xxup.xxup_per_ps_header_tr
-        SET item_key = lv_item_key
-        WHERE sequence_no = p_sequence_no;
+--        UPDATE xxup.xxup_per_ps_header_tr
+--        SET item_key = lv_item_key
+--        WHERE sequence_no = p_sequence_no;
 
-        UPDATE xxup.xxup_per_ps_action_history hist
-        SET action_date = SYSDATE
-           ,type = 'Individual'
-        WHERE sequence_no = p_sequence_no
-        AND action = 'Submit'; --employee submission
+--        UPDATE xxup.xxup_per_ps_action_history hist
+--        SET action_date = SYSDATE
+--        WHERE item_key = lv_item_key
+--        AND action = 'Submit'
+--        AND type = 'Individual'; --employee submission
 
 
         COMMIT;
@@ -210,7 +340,8 @@ IS
                 SELECT project_name
                 INTO lv_project_name
                 FROM xxup.xxup_per_ps_header_tr psh
-                WHERE sequence_no = lv_seq_no;
+--                WHERE sequence_no = lv_seq_no;
+                WHERE item_key = l_itemkey;
             EXCEPTION
                 WHEN no_data_found THEN
                     raise_application_error(-20101, 'Encountered error on Setting attributes - Project name not found!');
@@ -238,7 +369,7 @@ IS
                                              WHERE psh.position_id = paaf.position_id
                                              AND paaf.person_id = fnd_global.employee_id
                                              AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
-                                             AND psh.sequence_no = lv_seq_no);
+                                             AND item_key = l_itemkey);
 
             EXCEPTION
                 WHEN no_data_found THEN
@@ -262,7 +393,7 @@ IS
                     WHERE employee_id = (SELECT to_employee_id
                                          FROM xxup.xxup_per_ps_action_history
                                          WHERE approver_no = 1
-                                         AND sequence_no = lv_seq_no);
+                                         AND item_key = l_itemkey);
 
                     wf_engine.setitemattrtext(itemtype
                                         ,l_itemkey
@@ -285,7 +416,7 @@ IS
 
 
                 /*Set employee details*/
-                set_owner_details(p_seq_no       => lv_seq_no
+                set_owner_details(p_itemkey      => l_itemkey
                                  ,p_emp_id       => ln_emp_id
                                  ,p_emp_name     => lv_emp_name
                                  ,p_emp_pos_name => lv_emp_pos_name
@@ -306,8 +437,12 @@ IS
                 wf_engine.setitemattrtext(itemtype
                                         ,l_itemkey
                                         ,'APPR_BODY_RN'
-                                        ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_DETAILS_RN&pSequenceNo='
-                                      || lv_seq_no
+                                        ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_DETAILS_RN&pSequenceNo=' 
+                                        || lv_seq_no
+                                        || '&urlParam=Approval'
+                                        || '&pItemKey='
+                                        || l_itemkey
+
                                         );
 
                 wf_engine.setitemattrtext(itemtype
@@ -362,6 +497,8 @@ IS
                                          ,'FYI_BODY_RN'
                                          ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_DETAILS_RN&pSequenceNo=' 
                                         || lv_seq_no
+                                        || '&pItemKey='
+                                        || l_itemkey
                                         );
 
 
@@ -389,8 +526,13 @@ IS
           raise_application_error(-20101, 'Encountered error on Setting attributes' || SUBSTR(SQLERRM,0,200));
     END set_attributes;
 
-    PROCEDURE init_approvers(p_sequence_no VARCHAR2)
+    PROCEDURE init_approvers(p_assignment_id IN VARCHAR2
+                            ,p_seq_no        IN VARCHAR2
+                            ,p_action        IN VARCHAR2
+                            ,p_item_key      OUT VARCHAR2)
     IS
+        ln_assignment_id NUMBER := 0;
+
         lv_sup_name per_all_people_f.full_name%TYPE;
         ln_sup_person_id per_all_people_f.person_id%TYPE;
         ln_sup_assignment_id per_all_assignments_f.assignment_id%TYPE;
@@ -427,18 +569,30 @@ IS
         ln_ps_recipient_id per_people_f.person_id%TYPE;
 
         lv_exist VARCHAR2(1) := 'N';
+
+        lv_item_key wf_notifications.item_key%TYPE;
     BEGIN
 
-        /*prevent duplicate inserts*/
+        ln_assignment_id := to_number(p_assignment_id);
+
 
         BEGIN 
+
+          /*create item key*/
+
+          lv_item_key := create_item_key(p_seq_no        => p_seq_no
+                                        ,p_action        => p_action
+                         );
+
+          p_item_key :=  lv_item_key; 
 
           SELECT 'Y'
           INTO lv_exist
           FROM xxup.xxup_per_ps_action_history
           WHERE ROWNUM = 1
           AND type = 'Individual'
-          AND sequence_no = p_sequence_no;
+          AND item_key = lv_item_key;
+--          AND sequence_no = p_seq_no;
 
         EXCEPTION
           WHEN OTHERS THEN
@@ -446,24 +600,34 @@ IS
         END ;
 
         IF lv_exist = 'Y' THEN
-          RETURN;
+--          RETURN;
+            DELETE
+              FROM xxup.xxup_per_ps_action_history
+              WHERE type = 'Individual'
+              AND item_key = lv_item_key;
+
         END IF;
 
         BEGIN
 
         /*Set employee details*/
-        set_owner_details(p_seq_no       => p_sequence_no
+        set_owner_details(p_assignment_id  => p_assignment_id
                          ,p_emp_id       => ln_emp_id
                          ,p_emp_name     => lv_emp_name
                          ,p_emp_pos_name => lv_emp_pos_name
                          ,p_emp_org_name => lv_emp_org_name
         );
 
+--        INSERT INTO tbl_log
+--        VALUES(1, lv_emp_org_name);
+--
+--        COMMIT;
+
 
 
         EXCEPTION
             WHEN OTHERS THEN
-                NULL;
+                raise_application_error(-20101, 'Unable to set owner details');
         END;
 
             --1. get first approver and insert into history
@@ -505,13 +669,12 @@ IS
                    WHERE paaf.assignment_type = 'E'
                      AND TRUNC(SYSDATE) BETWEEN paaf.effective_start_date AND paaf.effective_end_date
                      AND paaf.assignment_status_type_id = 1
-                     AND paaf.assignment_id = (SELECT assignment_id
-                                               FROM xxup.xxup_per_ps_header_tr psh
-                                                   ,per_all_assignments_f paaf
-                                               WHERE psh.position_id = paaf.position_id
-                                               AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
-                                               AND paaf.person_id = ln_emp_id
-                                               AND psh.sequence_no = p_sequence_no);
+                     AND paaf.assignment_id = ln_assignment_id;
+
+--                    INSERT INTO tbl_log
+--                    VALUES(2, ln_sup_person_id);
+--
+--                    COMMIT;
 
                 EXCEPTION
                   WHEN no_data_found THEN
@@ -539,8 +702,9 @@ IS
                                                         ,to_org_name
                                                         ,action
                                                         ,type
+                                                        ,item_key
                                                         )
-                                                VALUES(p_sequence_no
+                                                VALUES(p_seq_no
                                                       ,ln_approver_ctr
                                                       ,ln_emp_id
                                                       ,lv_emp_name
@@ -552,6 +716,7 @@ IS
                                                       ,lv_sup_org_name
                                                       ,'Pending'
                                                       ,'Individual'
+                                                      ,lv_item_key
                                                       );
 
             EXCEPTION
@@ -637,6 +802,11 @@ IS
                     lv_to_pos_name := lv_sup_pos_name;
                     lv_to_org_name := lv_sup_org_name;
 
+--                    INSERT INTO tbl_log
+--                    VALUES(2, ln_to_id);
+--
+--                    COMMIT;
+
 
                     INSERT INTO xxup.xxup_per_ps_action_history (
                         sequence_no,
@@ -650,9 +820,10 @@ IS
                         to_position_name,
                         to_org_name,
                         action,
-                        type
+                        type,
+                        item_key
                     ) VALUES (
-                        p_sequence_no,
+                        p_seq_no,
                         ln_approver_ctr,
                         ln_from_id,
                         lv_from_name,
@@ -663,7 +834,9 @@ IS
                         lv_to_pos_name,
                         lv_to_org_name,
                         'Pending',
-                        'Individual'
+                        'Individual',
+                        lv_item_key
+
                     );
 
 
@@ -697,6 +870,11 @@ IS
 
             ln_approver_ctr := ln_approver_ctr + 1;
 
+--            INSERT INTO tbl_log
+--            VALUES(4, lv_emp_org_name);
+--
+--            COMMIT;
+
             --get PS recipient
             BEGIN 
               SELECT apps.xxup_hrms_utilities_pkg.get_up_approver(lv_emp_org_name,
@@ -705,6 +883,11 @@ IS
                                                                   trunc(sysdate)) hr
                INTO ln_ps_recipient_id
                FROM DUAL;
+
+--               INSERT INTO tbl_log
+--               VALUES(3, ln_ps_recipient_id);
+--
+--               COMMIT;
 
                SELECT papf.full_name
                      ,papf.person_id
@@ -734,10 +917,13 @@ IS
 
             EXCEPTION
                 WHEN no_data_found THEN
+                    ROLLBACK;
                     raise_application_error(-20101, 'Encountered error on Initializing approvers - PS Recipient data not found!');
                 WHEN too_many_rows THEN
+                    ROLLBACK;
                     raise_application_error(-20101, 'Encountered error on Initializing approvers - too many PS Recipient data fetched!');
                 WHEN OTHERS THEN
+                    ROLLBACK;
                     raise_application_error(-20101, 'Encountered error on Initializing approvers - ' || SUBSTR(SQLERRM,0,200));
             END;
 
@@ -755,9 +941,10 @@ IS
                         to_position_name,
                         to_org_name,
                         action,
-                        type
+                        type,
+                        item_key
                     ) VALUES (
-                        p_sequence_no,
+                        p_seq_no,
                         ln_approver_ctr,
                         ln_from_id,
                         lv_from_name,
@@ -768,11 +955,13 @@ IS
                         lv_to_pos_name,
                         lv_to_org_name,
                         'Pending',
-                        'Individual'
+                        'Individual',
+                        lv_item_key
                     );
 
         EXCEPTION 
             WHEN OTHERS THEN
+                ROLLBACK;
                 raise_application_error(-20101, 'Encountered error on Initializing approvers - ' || SUBSTR(SQLERRM,0,200));
         END;
 
@@ -800,16 +989,19 @@ IS
       ln_total_approver_count NUMBER;
 
       lv_error VARCHAR2(2000);
+
+      lv_itemkey wf_notifications.item_key%TYPE;
     BEGIN
 
 
       --get notification id
-
       BEGIN
       SELECT notification_id
             ,recipient_role
+            ,item_key
       INTO ln_nid
           ,lv_owner
+          ,lv_itemkey
       FROM wf_notifications
       WHERE message_type LIKE 'XXUPPSWF'
       AND message_name LIKE 'RFC_MSG'
@@ -822,7 +1014,9 @@ IS
       END;
 
       BEGIN
-      set_owner_details(p_seq_no       => p_sequence_no
+
+
+      set_owner_details(p_itemkey       => lv_itemkey
                        ,p_emp_id       => ln_emp_id
                        ,p_emp_name     => lv_emp_name
                        ,p_emp_pos_name => lv_emp_pos_name
@@ -1011,7 +1205,7 @@ IS
     lv_emp_pos_name per_all_positions.name%TYPE;
     lv_emp_org_name hr_all_organization_units.name%TYPE;
 
-
+    lv_action_prefix VARCHAR2(1) := 'C'; --C=create, U=Update
     BEGIN
     /*
         BEGIN
@@ -1055,7 +1249,7 @@ IS
         BEGIN
 
           /*Set employee details*/
-          set_owner_details(p_seq_no       => lv_seq_no
+          set_owner_details(p_itemkey       => l_itemkey
                            ,p_emp_id       => ln_emp_id
                            ,p_emp_name     => lv_emp_name
                            ,p_emp_pos_name => lv_emp_pos_name
@@ -1082,8 +1276,10 @@ IS
                       FROM fnd_user
                       WHERE employee_id = (SELECT to_employee_id
                                            FROM xxup.xxup_per_ps_action_history pah
-                                           WHERE sequence_no = lv_seq_no
-                                           AND approver_no = ln_approver_counter);
+                                           WHERE type = 'Individual'
+                                           AND approver_no = ln_approver_counter
+                                           AND item_key = l_itemkey
+                                           );
                 EXCEPTION
                     WHEN no_data_found THEN
                         raise_application_error(-20101, 'Encountered error on Update status - Approver data not found!');
@@ -1098,7 +1294,8 @@ IS
                 SELECT COUNT(1)
                 INTO ln_total_approver_count
                 FROM xxup.xxup_per_ps_action_history
-                WHERE sequence_no = lv_seq_no
+--                WHERE sequence_no = lv_seq_no
+                WHERE item_key = l_itemkey
                 AND type = 'Individual';
 
 
@@ -1128,7 +1325,7 @@ IS
                             SET action = 'Return for correction'
                                ,action_date = SYSDATE
                                ,note = wf_engine.context_user_comment
-                            WHERE sequence_no = lv_seq_no
+                            WHERE item_key = l_itemkey
                             AND type = 'Individual'
                             AND approver_no = ln_approver_counter;
 
@@ -1144,7 +1341,8 @@ IS
                       SET approver_no = approver_no + 1
                       WHERE action = 'Pending'
                       AND type = 'Individual'
-                      AND sequence_no = lv_seq_no;
+--                      AND sequence_no = lv_seq_no;
+                      AND item_key = l_itemkey;
 
 
                       INSERT INTO xxup.xxup_per_ps_action_history(sequence_no,
@@ -1158,7 +1356,8 @@ IS
                                                                   to_position_name,
                                                                   to_org_name,
                                                                   action,
-                                                                  type
+                                                                  type,
+                                                                  item_key
                                                                  )
                       SELECT sequence_no
                             ,to_number(approver_no) + 1
@@ -1172,9 +1371,10 @@ IS
                             ,lv_emp_org_name
                             ,'Pending'
                             ,'Individual'
+                            ,item_key
                       FROM xxup.xxup_per_ps_action_history
-                      WHERE sequence_no = lv_seq_no
-                      AND approver_no = ln_approver_counter;
+                      WHERE approver_no = ln_approver_counter
+                      AND item_key = l_itemkey;
                   EXCEPTION
                     WHEN OTHERS THEN
                       raise_application_error(-20101, 'Encountered error on Update status - return for correction: ' || SUBSTR(SQLERRM,0,200));
@@ -1199,90 +1399,389 @@ IS
                                     || ' and has been completed'
                                     );
 
+                        BEGIN
+                            SELECT SUBSTR(l_itemkey,1,1)
+                            INTO lv_action_prefix
+                            FROM DUAL;
+                        EXCEPTION
+                            WHEN OTHERS THEN
+                                raise_application_error(-20101, 'Unable to get Transaction action');
+                        END;
+
+                        BEGIN
+
+                            IF lv_action_prefix = 'U' THEN
+
+                                UPDATE xxup_per_public_service_header main
+                                SET (sequence_no              
+                                    ,position_id              
+                                    ,project_name             
+                                    ,primary_role             
+                                    ,request_date             
+                                    ,responded_date           
+                                    ,start_date               
+                                    ,end_date                 
+                                    ,duration_hours           
+            --                        ,type_of_activity         
+                                    ,source_of_fund           
+                                    ,cost_of_participation    
+                                    ,partner_org_or_inst      
+                                    ,beneficiary_category     
+                                    ,unit_of_beneficiary      
+                                    ,no_of_beneficiary        
+            --                        ,country                  
+                                    ,post_act_eval_rating     
+                                    ,remarks                  
+                                    ,attribute1               
+                                    ,attribute2               
+                                    ,attribute3               
+                                    ,attribute4               
+                                    ,attribute5               
+                                    ,last_update_date         
+                                    ,last_updated_by          
+                                    ,last_update_login        
+                                    ,created_by               
+                                    ,creation_date            
+                                    ,project_type             
+                                    ,type_of_beneficiary
+                                ) = (SELECT sequence_no              
+                                        ,position_id              
+                                        ,project_name             
+                                        ,primary_role             
+                                        ,request_date             
+                                        ,responded_date           
+                                        ,start_date               
+                                        ,end_date                 
+                                        ,duration_hours           
+        --                                ,type_of_activity         
+                                        ,source_of_fund           
+                                        ,cost_of_participation    
+                                        ,partner_org_or_inst      
+                                        ,beneficiary_category     
+                                        ,unit_of_beneficiary      
+                                        ,no_of_beneficiary        
+        --                                ,country                  
+                                        ,post_act_eval_rating     
+                                        ,remarks                  
+                                        ,attribute1               
+                                        ,attribute2               
+                                        ,attribute3               
+                                        ,attribute4               
+                                        ,attribute5               
+                                        ,SYSDATE         
+                                        ,fnd_global.user_id          
+                                        ,null        
+                                        ,created_by
+                                        ,SYSDATE            
+                                        ,project_type             
+                                        ,type_of_beneficiary
+                                  FROM xxup_per_ps_header_tr tr
+                                  WHERE tr.item_key = l_itemkey)
+                                WHERE main.sequence_no = lv_seq_no;
 
 
+                             ELSE --create
+                                 INSERT INTO xxup_per_public_service_header
+                                     (
+                                     sequence_no              
+                                    ,position_id              
+                                    ,project_name             
+                                    ,primary_role             
+                                    ,request_date             
+                                    ,responded_date           
+                                    ,start_date               
+                                    ,end_date                 
+                                    ,duration_hours           
+            --                        ,type_of_activity         
+                                    ,source_of_fund           
+                                    ,cost_of_participation    
+                                    ,partner_org_or_inst      
+                                    ,beneficiary_category     
+                                    ,unit_of_beneficiary      
+                                    ,no_of_beneficiary        
+            --                        ,country                  
+                                    ,post_act_eval_rating     
+                                    ,remarks                  
+                                    ,attribute1               
+                                    ,attribute2               
+                                    ,attribute3               
+                                    ,attribute4               
+                                    ,attribute5               
+                                    ,last_update_date         
+                                    ,last_updated_by          
+                                    ,last_update_login        
+                                    ,created_by               
+                                    ,creation_date            
+                                    ,project_type             
+                                    ,type_of_beneficiary      
+                                     )
+                                     SELECT sequence_no              
+                                            ,position_id              
+                                            ,project_name             
+                                            ,primary_role             
+                                            ,request_date             
+                                            ,responded_date           
+                                            ,start_date               
+                                            ,end_date                 
+                                            ,duration_hours           
+            --                                ,type_of_activity         
+                                            ,source_of_fund           
+                                            ,cost_of_participation    
+                                            ,partner_org_or_inst      
+                                            ,beneficiary_category     
+                                            ,unit_of_beneficiary      
+                                            ,no_of_beneficiary        
+            --                                ,country                  
+                                            ,post_act_eval_rating     
+                                            ,remarks                  
+                                            ,attribute1               
+                                            ,attribute2               
+                                            ,attribute3               
+                                            ,attribute4               
+                                            ,attribute5               
+                                            ,SYSDATE         
+                                            ,fnd_global.user_id          
+                                            ,null        
+                                            ,created_by
+                                            ,SYSDATE            
+                                            ,project_type             
+                                            ,type_of_beneficiary
+                                      FROM xxup_per_ps_header_tr
+                                      WHERE item_key = l_itemkey;
 
-                         INSERT INTO xxup_per_public_service_header
-                         (
-                         sequence_no              
-                        ,position_id              
-                        ,project_name             
-                        ,primary_role             
-                        ,request_date             
-                        ,responded_date           
-                        ,start_date               
-                        ,end_date                 
-                        ,duration_hours           
-                        ,type_of_activity         
-                        ,source_of_fund           
-                        ,cost_of_participation    
-                        ,partner_org_or_inst      
-                        ,beneficiary_category     
-                        ,unit_of_beneficiary      
-                        ,no_of_beneficiary        
-                        ,country                  
-                        ,post_act_eval_rating     
-                        ,remarks                  
-                        ,attribute1               
-                        ,attribute2               
-                        ,attribute3               
-                        ,attribute4               
-                        ,attribute5               
-                        ,last_update_date         
-                        ,last_updated_by          
-                        ,last_update_login        
-                        ,created_by               
-                        ,creation_date            
-                        ,project_type             
-                        ,type_of_beneficiary      
-                         )
-                         SELECT sequence_no              
-                                ,position_id              
-                                ,project_name             
-                                ,primary_role             
-                                ,request_date             
-                                ,responded_date           
-                                ,start_date               
-                                ,end_date                 
-                                ,duration_hours           
-                                ,type_of_activity         
-                                ,source_of_fund           
-                                ,cost_of_participation    
-                                ,partner_org_or_inst      
-                                ,beneficiary_category     
-                                ,unit_of_beneficiary      
-                                ,no_of_beneficiary        
-                                ,country                  
-                                ,post_act_eval_rating     
-                                ,remarks                  
-                                ,attribute1               
-                                ,attribute2               
-                                ,attribute3               
-                                ,attribute4               
-                                ,attribute5               
-                                ,SYSDATE         
-                                ,fnd_global.user_id          
-                                ,null        
-                                ,created_by
-                                ,SYSDATE            
-                                ,project_type             
-                                ,type_of_beneficiary
-                          FROM xxup_per_ps_header_tr
-                          WHERE sequence_no = lv_seq_no;
+                            END IF;
+                                /*create child records*/
+
+                                /*Subject area */
+                                DELETE FROM xxup_per_public_service_subj
+                                WHERE sequence_no = lv_seq_no;
+
+                                INSERT INTO xxup_per_public_service_subj(sequence_no
+                                                                        ,line_number
+                                                                        ,subject_area_interest
+                                                                        ,selected
+                                                                        ,attribute1               
+                                                                        ,attribute2               
+                                                                        ,attribute3               
+                                                                        ,attribute4               
+                                                                        ,attribute5               
+                                                                        ,last_update_date         
+                                                                        ,last_updated_by          
+                                                                        ,last_update_login        
+                                                                        ,created_by               
+                                                                        ,creation_date     
+                                                                        )
+                                  SELECT sequence_no
+                                        ,line_number
+                                        ,subject_area_interest
+                                        ,selected
+                                        ,attribute1               
+                                        ,attribute2               
+                                        ,attribute3               
+                                        ,attribute4               
+                                        ,attribute5               
+                                        ,last_update_date         
+                                        ,last_updated_by          
+                                        ,last_update_login        
+                                        ,created_by               
+                                        ,creation_date
+                                 FROM xxup_per_ps_subj_tr
+                                 WHERE item_key = l_itemkey;
+
+                                /*Type of activity */
+                                DELETE FROM xxup_per_ps_type_of_activities
+                                WHERE sequence_no = lv_seq_no;
+
+                                INSERT INTO xxup_per_ps_type_of_activities(sequence_no
+                                                                        ,line_number
+                                                                        ,type_of_activity
+                                                                        ,attribute1               
+                                                                        ,attribute2               
+                                                                        ,attribute3               
+                                                                        ,attribute4               
+                                                                        ,attribute5               
+                                                                        ,last_update_date         
+                                                                        ,last_updated_by          
+                                                                        ,last_update_login        
+                                                                        ,created_by               
+                                                                        ,creation_date     
+                                                                        )
+                                  SELECT sequence_no
+                                        ,line_number
+                                        ,type_of_activity
+                                        ,attribute1               
+                                        ,attribute2               
+                                        ,attribute3               
+                                        ,attribute4               
+                                        ,attribute5               
+                                        ,last_update_date         
+                                        ,last_updated_by          
+                                        ,last_update_login        
+                                        ,created_by               
+                                        ,creation_date
+                                 FROM xxup_per_ps_toa_tr
+                                 WHERE item_key = l_itemkey;
+
+                                /*Object category */
+                                DELETE FROM xxup_per_public_service_cat
+                                WHERE sequence_no = lv_seq_no;
+
+                                INSERT INTO xxup_per_public_service_cat(sequence_no
+                                                                        ,line_number
+                                                                        ,object_category
+                                                                        ,specifics
+                                                                        ,attribute1               
+                                                                        ,attribute2               
+                                                                        ,attribute3               
+                                                                        ,attribute4               
+                                                                        ,attribute5               
+                                                                        ,last_update_date         
+                                                                        ,last_updated_by          
+                                                                        ,last_update_login        
+                                                                        ,created_by               
+                                                                        ,creation_date     
+                                                                        )
+                                  SELECT sequence_no
+                                        ,line_number
+                                        ,object_category
+                                        ,specifics
+                                        ,attribute1               
+                                        ,attribute2               
+                                        ,attribute3               
+                                        ,attribute4               
+                                        ,attribute5               
+                                        ,last_update_date         
+                                        ,last_updated_by          
+                                        ,last_update_login        
+                                        ,created_by               
+                                        ,creation_date
+                                 FROM xxup_per_ps_cat_tr
+                                 WHERE item_key = l_itemkey;
 
 
-                          UPDATE xxup.xxup_per_ps_header_tr
-                          SET request_status = 'APPROVED'
-                          WHERE sequence_no = lv_seq_no;
+                                 /*Benif */
+                                DELETE FROM xxup_per_public_service_benif
+                                WHERE sequence_no = lv_seq_no;
+
+                                INSERT INTO xxup_per_public_service_benif(sequence_no
+                                                                        ,line_number
+                                                                        ,beneficiary_organization
+                                                                        ,contact_details
+                                                                        ,attribute1               
+                                                                        ,attribute2               
+                                                                        ,attribute3               
+                                                                        ,attribute4               
+                                                                        ,attribute5               
+                                                                        ,last_update_date         
+                                                                        ,last_updated_by          
+                                                                        ,last_update_login        
+                                                                        ,created_by               
+                                                                        ,creation_date     
+                                                                        )
+                                  SELECT sequence_no
+                                        ,line_number
+                                        ,beneficiary_organization
+                                        ,contact_details
+                                        ,attribute1               
+                                        ,attribute2               
+                                        ,attribute3               
+                                        ,attribute4               
+                                        ,attribute5               
+                                        ,last_update_date         
+                                        ,last_updated_by          
+                                        ,last_update_login        
+                                        ,created_by               
+                                        ,creation_date
+                                 FROM xxup_per_ps_benif_tr
+                                 WHERE item_key = l_itemkey;
 
 
-                          UPDATE xxup.xxup_per_ps_action_history
-                          SET action = 'Approved'
-                             ,action_date = SYSDATE
-                             ,note = wf_engine.context_user_comment
-                          WHERE sequence_no = lv_seq_no
-                          AND type = 'Individual'
-                          AND approver_no = ln_approver_counter;
+                                  /*Country */
+                                DELETE FROM xxup_per_ps_countries
+                                WHERE sequence_no = lv_seq_no;
+
+                                INSERT INTO xxup_per_ps_countries(sequence_no
+                                                                        ,line_number
+                                                                        ,country
+                                                                        ,attribute1               
+                                                                        ,attribute2               
+                                                                        ,attribute3               
+                                                                        ,attribute4               
+                                                                        ,attribute5               
+                                                                        ,last_update_date         
+                                                                        ,last_updated_by          
+                                                                        ,last_update_login        
+                                                                        ,created_by               
+                                                                        ,creation_date     
+                                                                        )
+                                  SELECT sequence_no
+                                        ,line_number
+                                        ,country
+                                        ,attribute1               
+                                        ,attribute2               
+                                        ,attribute3               
+                                        ,attribute4               
+                                        ,attribute5               
+                                        ,last_update_date         
+                                        ,last_updated_by          
+                                        ,last_update_login        
+                                        ,created_by               
+                                        ,creation_date
+                                 FROM xxup_per_ps_countries_tr
+                                 WHERE item_key = l_itemkey;
+
+
+                                /*Address */
+                                DELETE FROM xxup_per_public_service_addr
+                                WHERE sequence_no = lv_seq_no;
+
+                                INSERT INTO xxup_per_public_service_addr(sequence_no
+                                                                        ,line_number
+                                                                        ,address
+                                                                        ,attribute1               
+                                                                        ,attribute2               
+                                                                        ,attribute3               
+                                                                        ,attribute4               
+                                                                        ,attribute5               
+                                                                        ,last_update_date         
+                                                                        ,last_updated_by          
+                                                                        ,last_update_login        
+                                                                        ,created_by               
+                                                                        ,creation_date     
+                                                                        )
+                                  SELECT sequence_no
+                                        ,line_number
+                                        ,address
+                                        ,attribute1               
+                                        ,attribute2               
+                                        ,attribute3               
+                                        ,attribute4               
+                                        ,attribute5               
+                                        ,last_update_date         
+                                        ,last_updated_by          
+                                        ,last_update_login        
+                                        ,created_by               
+                                        ,creation_date
+                                 FROM xxup_per_ps_addr_tr
+                                 WHERE item_key = l_itemkey;
+
+                            UPDATE xxup.xxup_per_ps_header_tr
+                              SET request_status = 'APPROVED'
+                              WHERE item_key = l_itemkey;
+
+
+                              UPDATE xxup.xxup_per_ps_action_history
+                              SET action = 'Approved'
+                                 ,action_date = SYSDATE
+                                 ,note = wf_engine.context_user_comment
+                              WHERE item_key = l_itemkey
+                              AND type = 'Individual'
+                              AND approver_no = ln_approver_counter;
+                        EXCEPTION
+                            WHEN OTHERS THEN
+                                ROLLBACK;
+                                raise_application_error(-20101, 'Update status, Error creating records!');
+                        END;
 
                       ELSIF lv_ntf_result = 'REJECT' THEN
 
@@ -1303,7 +1802,7 @@ IS
                           SET action = 'Rejected'
                              ,action_date = SYSDATE
                              ,note = wf_engine.context_user_comment
-                          WHERE sequence_no = lv_seq_no
+                          WHERE item_key = l_itemkey
                           AND type = 'Individual'
                           AND approver_no = ln_approver_counter;
 
@@ -1340,7 +1839,7 @@ IS
                   SET action = 'Approved'
                      ,action_date = SYSDATE
                      ,note = wf_engine.context_user_comment
-                  WHERE sequence_no = lv_seq_no
+                  WHERE item_key = l_itemkey
                   AND type = 'Individual'
                   AND approver_no = ln_approver_counter;
                 EXCEPTION
@@ -1364,7 +1863,7 @@ IS
                   SET action = 'Rejected'
                      ,action_date = SYSDATE
                      ,note = wf_engine.context_user_comment
-                  WHERE sequence_no = lv_seq_no
+                  WHERE item_key = l_itemkey
                   AND type = 'Individual'
                   AND approver_no = ln_approver_counter;
 
@@ -1390,7 +1889,7 @@ IS
                 FROM fnd_user
                 WHERE employee_id = (SELECT to_employee_id
                                      FROM xxup.xxup_per_ps_action_history pah
-                                     WHERE sequence_no = lv_seq_no
+                                     WHERE item_key = l_itemkey
                                      AND type = 'Individual'
                                      AND approver_no = ln_approver_counter);
 
@@ -1461,5 +1960,8 @@ IS
         END IF;
 
     END update_status;
+
+
+
 
 END xxup_ps_wf_pkg;

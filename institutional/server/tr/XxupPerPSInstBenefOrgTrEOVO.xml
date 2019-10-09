@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstBenefOrgTrEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstBenefOrgTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstBenefOrgTrEO.SEQUENCE_NO, 
+       XxupPerPsInstBenefOrgTrEO.LINE_NUMBER, 
+       XxupPerPsInstBenefOrgTrEO.BENEFICIARY_ORGANIZATION, 
+       XxupPerPsInstBenefOrgTrEO.CONTACT_DETAILS, 
+       XxupPerPsInstBenefOrgTrEO.ATTRIBUTE1, 
+       XxupPerPsInstBenefOrgTrEO.ATTRIBUTE2, 
+       XxupPerPsInstBenefOrgTrEO.ATTRIBUTE3, 
+       XxupPerPsInstBenefOrgTrEO.ATTRIBUTE4, 
+       XxupPerPsInstBenefOrgTrEO.ATTRIBUTE5, 
+       XxupPerPsInstBenefOrgTrEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstBenefOrgTrEO.LAST_UPDATED_BY, 
+       XxupPerPsInstBenefOrgTrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstBenefOrgTrEO.CREATED_BY, 
+       XxupPerPsInstBenefOrgTrEO.CREATION_DATE, 
+       XxupPerPsInstBenefOrgTrEO.ITEM_KEY, 
+       XxupPerPsInstBenefOrgTrEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_BENEF_ORG_TR XxupPerPsInstBenefOrgTrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstBenefOrgTrEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.tr.XxupPerPsInstBenefOrgTrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="BeneficiaryOrganization"
+      EntityAttrName="BeneficiaryOrganization"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="BENEFICIARY_ORGANIZATION" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ContactDetails"
+      EntityAttrName="ContactDetails"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="CONTACT_DETAILS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstBenefOrgTrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

@@ -5,7 +5,7 @@
    Name="XxupPerPSInstObjCatEOVO"
    BindingStyle="OracleName"
    CustomQuery="true"
-   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   RowClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstObjCatEOVORowImpl"
    ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.XxupPerPSInstObjCatEOVOImpl"
    UseGlueCode="false" >
    <SQLQuery><![CDATA[
@@ -27,6 +27,7 @@ SELECT XxupPerPsInstObjCatEO.SEQUENCE_NO,
 FROM XXUP.XXUP_PER_PS_INST_OBJ_CAT XxupPerPsInstObjCatEO
    ]]></SQLQuery>
    <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
       <Attr Name="_isExpertMode" Value="true" />
       <Attr Name="_version" Value="10.1.3.41.57" />
       <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />

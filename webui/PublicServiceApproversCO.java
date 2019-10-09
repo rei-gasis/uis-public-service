@@ -33,14 +33,15 @@ public class PublicServiceApproversCO extends OAControllerImpl
   {
     super.processRequest(pageContext, webBean);
     
-      String sequenceNo = pageContext.getParameter("pSequenceNo");
+      // String sequenceNo = pageContext.getParameter("pSequenceNo");
+      String itemKey = pageContext.getParameter("pItemKey");
       
       OAApplicationModule am = pageContext.getApplicationModule(webBean);
       
       
       
       
-      Serializable[] params = {sequenceNo};
+      Serializable[] params = { itemKey };
       
       /*
       if (pageContext.isBackNavigationFired(false))

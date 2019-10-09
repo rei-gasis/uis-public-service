@@ -67,6 +67,50 @@
    </ViewUsage>
    <ViewUsage
       Name="XxupPerPSHeaderTrEOVO1"
-      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderTrEOVO" >
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSHeaderTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSCountriesEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSCountriesEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSTypeOfActivitiesEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSTypeOfActivitiesEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPublicServiceHeaderEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceHeaderEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSCatTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCatTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSAddrTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSAddrTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSBenifTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenifTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSCountriesTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSCountriesTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSSubjTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSSubjTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSToaTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSToaTrEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSBenefTypeEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.XxupPerPSBenefTypeEOVO" >
+   </ViewUsage>
+   <ViewUsage
+      Name="XxupPerPSBenefTypeTrEOVO1"
+      ViewObjectName="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenefTypeTrEOVO" >
    </ViewUsage>
 </AppModule>

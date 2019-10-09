@@ -27,27 +27,24 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
     public static final int STARTDATE = 7;
     public static final int ENDDATE = 8;
     public static final int DURATIONHOURS = 9;
-    public static final int TYPEOFACTIVITY = 10;
-    public static final int SOURCEOFFUND = 11;
-    public static final int COSTOFPARTICIPATION = 12;
-    public static final int PARTNERORGORINST = 13;
-    public static final int BENEFICIARYCATEGORY = 14;
-    public static final int TYPEOFBENEFICIARY = 15;
-    public static final int UNITOFBENEFICIARY = 16;
-    public static final int NOOFBENEFICIARY = 17;
-    public static final int COUNTRY = 18;
-    public static final int POSTACTEVALRATING = 19;
-    public static final int REMARKS = 20;
-    public static final int ATTRIBUTE1 = 21;
-    public static final int ATTRIBUTE2 = 22;
-    public static final int ATTRIBUTE3 = 23;
-    public static final int ATTRIBUTE4 = 24;
-    public static final int ATTRIBUTE5 = 25;
-    public static final int LASTUPDATEDATE = 26;
-    public static final int LASTUPDATEDBY = 27;
-    public static final int LASTUPDATELOGIN = 28;
-    public static final int CREATEDBY = 29;
-    public static final int CREATIONDATE = 30;
+    public static final int SOURCEOFFUND = 10;
+    public static final int COSTOFPARTICIPATION = 11;
+    public static final int PARTNERORGORINST = 12;
+    public static final int BENEFICIARYCATEGORY = 13;
+    public static final int UNITOFBENEFICIARY = 14;
+    public static final int NOOFBENEFICIARY = 15;
+    public static final int POSTACTEVALRATING = 16;
+    public static final int REMARKS = 17;
+    public static final int ATTRIBUTE1 = 18;
+    public static final int ATTRIBUTE2 = 19;
+    public static final int ATTRIBUTE3 = 20;
+    public static final int ATTRIBUTE4 = 21;
+    public static final int ATTRIBUTE5 = 22;
+    public static final int LASTUPDATEDATE = 23;
+    public static final int LASTUPDATEDBY = 24;
+    public static final int LASTUPDATELOGIN = 25;
+    public static final int CREATEDBY = 26;
+    public static final int CREATIONDATE = 27;
 
 
     private static OAEntityDefImpl mDefinitionObject;
@@ -176,18 +173,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
         setAttributeInternal(DURATIONHOURS, value);
     }
 
-    /**Gets the attribute value for TypeOfActivity, using the alias name TypeOfActivity
-     */
-    public Number getTypeOfActivity() {
-        return (Number)getAttributeInternal(TYPEOFACTIVITY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for TypeOfActivity
-     */
-    public void setTypeOfActivity(Number value) {
-        setAttributeInternal(TYPEOFACTIVITY, value);
-    }
-
 
     /**Gets the attribute value for SourceOfFund, using the alias name SourceOfFund
      */
@@ -248,18 +233,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
      */
     public void setNoOfBeneficiary(Number value) {
         setAttributeInternal(NOOFBENEFICIARY, value);
-    }
-
-    /**Gets the attribute value for Country, using the alias name Country
-     */
-    public String getCountry() {
-        return (String)getAttributeInternal(COUNTRY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for Country
-     */
-    public void setCountry(String value) {
-        setAttributeInternal(COUNTRY, value);
     }
 
 
@@ -433,8 +406,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
             return getEndDate();
         case DURATIONHOURS:
             return getDurationHours();
-        case TYPEOFACTIVITY:
-            return getTypeOfActivity();
         case SOURCEOFFUND:
             return getSourceOfFund();
         case COSTOFPARTICIPATION:
@@ -443,14 +414,10 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
             return getPartnerOrgOrInst();
         case BENEFICIARYCATEGORY:
             return getBeneficiaryCategory();
-        case TYPEOFBENEFICIARY:
-            return getTypeOfBeneficiary();
         case UNITOFBENEFICIARY:
             return getUnitOfBeneficiary();
         case NOOFBENEFICIARY:
             return getNoOfBeneficiary();
-        case COUNTRY:
-            return getCountry();
         case POSTACTEVALRATING:
             return getPostActEvalRating();
         case REMARKS:
@@ -515,9 +482,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
         case DURATIONHOURS:
             setDurationHours((Number)value);
             return;
-        case TYPEOFACTIVITY:
-            setTypeOfActivity((Number)value);
-            return;
         case SOURCEOFFUND:
             setSourceOfFund((String)value);
             return;
@@ -530,17 +494,11 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
         case BENEFICIARYCATEGORY:
             setBeneficiaryCategory((String)value);
             return;
-        case TYPEOFBENEFICIARY:
-            setTypeOfBeneficiary((String)value);
-            return;
         case UNITOFBENEFICIARY:
             setUnitOfBeneficiary((String)value);
             return;
         case NOOFBENEFICIARY:
             setNoOfBeneficiary((Number)value);
-            return;
-        case COUNTRY:
-            setCountry((String)value);
             return;
         case POSTACTEVALRATING:
             setPostActEvalRating((String)value);
@@ -620,17 +578,6 @@ public class XxupPerPublicServiceHeaderEOImpl extends OAEntityImpl {
         setAttributeInternal(PROJECTTYPE, value);
     }
 
-    /**Gets the attribute value for TypeOfBeneficiary, using the alias name TypeOfBeneficiary
-     */
-    public String getTypeOfBeneficiary() {
-        return (String)getAttributeInternal(TYPEOFBENEFICIARY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for TypeOfBeneficiary
-     */
-    public void setTypeOfBeneficiary(String value) {
-        setAttributeInternal(TYPEOFBENEFICIARY, value);
-    }
 
     /**Gets the attribute value for UnitOfBeneficiary, using the alias name UnitOfBeneficiary
      */

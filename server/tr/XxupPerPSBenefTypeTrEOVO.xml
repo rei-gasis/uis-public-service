@@ -1,0 +1,139 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSBenefTypeTrEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSBenefTypeTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsBenefTypeTrEO.SEQUENCE_NO, 
+       XxupPerPsBenefTypeTrEO.LINE_NUMBER, 
+       XxupPerPsBenefTypeTrEO.TYPE_OF_BENEFICIARY, 
+       XxupPerPsBenefTypeTrEO.ATTRIBUTE1, 
+       XxupPerPsBenefTypeTrEO.ATTRIBUTE2, 
+       XxupPerPsBenefTypeTrEO.ATTRIBUTE3, 
+       XxupPerPsBenefTypeTrEO.ATTRIBUTE4, 
+       XxupPerPsBenefTypeTrEO.ATTRIBUTE5, 
+       XxupPerPsBenefTypeTrEO.LAST_UPDATE_DATE, 
+       XxupPerPsBenefTypeTrEO.LAST_UPDATED_BY, 
+       XxupPerPsBenefTypeTrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsBenefTypeTrEO.CREATED_BY, 
+       XxupPerPsBenefTypeTrEO.CREATION_DATE, 
+       XxupPerPsBenefTypeTrEO.SELECTED, 
+       XxupPerPsBenefTypeTrEO.ITEM_KEY, 
+       XxupPerPsBenefTypeTrEO.ROWID
+FROM XXUP.XXUP_PER_PS_BENEF_TYPE_TR XxupPerPsBenefTypeTrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsBenefTypeTrEO"
+      Entity="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsBenefTypeTrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="TypeOfBeneficiary"
+      EntityAttrName="TypeOfBeneficiary"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="TYPE_OF_BENEFICIARY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Selected"
+      EntityAttrName="Selected"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="SELECTED" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsBenefTypeTrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

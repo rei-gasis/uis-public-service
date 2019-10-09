@@ -37,28 +37,34 @@
                   <oa:messageTextInput id="ImplementationStartDate" dataType="DATE" prompt="*Start date of implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationStartDate" translatableDefaultValue=""/>
                   <oa:messageTextInput id="ImplementationEndDate" dataType="DATE" prompt="End date of Implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationEndDate" translatableDefaultValue=""/>
                   <oa:messageRadioGroup id="Status" dataType="VARCHAR2" prompt="Status" viewName="XxupPerPSInstTrEOVO1" viewAttr="Status" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstStatusVO" pickListViewName="Status" pickListDispAttr="Status" pickListValAttr="Status" defaultValue="Ongoing"/>
-                  <oa:messageTextInput id="Duration" dataType="VARCHAR2" prompt="* Duration" viewName="XxupPerPSInstTrEOVO1" viewAttr="DurationHours" maximumLength="200" translatableDefaultValue=""/>
+                  <oa:messageTextInput id="Duration" dataType="NUMBER" prompt="* Duration" viewName="XxupPerPSInstTrEOVO1" viewAttr="Duration" maximumLength="5" translatableDefaultValue=""/>
+                  <oa:messageRadioGroup id="DurationUnit" dataType="VARCHAR2" viewName="XxupPerPSInstTrEOVO1" viewAttr="DurationUnit" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSDurationUnitVO" pickListViewName="Frequency" pickListDispAttr="Frequency" pickListValAttr="Frequency" defaultValue="Hours"/>
                   <oa:messageRadioGroup id="ImplementationFrequency" dataType="VARCHAR2" prompt="Frequency of Implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationFrequency" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstFrequency" pickListViewName="Frequency" pickListDispAttr="Frequency" pickListValAttr="Frequency" defaultValue="Weekly"/>
                   <oa:messageLayout id="ObjCatML" prompt="* Objective Category">
                      <ui:contents>
                         <oa:advancedTable id="ObjCatAT" extends="/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalObjCatRN"/>
                      </ui:contents>
                   </oa:messageLayout>
-                  <oa:messageLovInput id="TypeOfActivity" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSActivityTypeLovRN" viewName="XxupPerPSInstTrEOVO1" viewAttr="TypeOfActivity" prompt="* Type Of Activity" readOnly="false" selectiveSearchCriteria="false" lookAheadSearchType="contains" translatableDefaultValue="">
+                  <!-- <oa:messageLovInput id="TypeOfActivity" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSActivityTypeLovRN" viewName="XxupPerPSInstTrEOVO1" viewAttr="TypeOfActivity" prompt="* Type Of Activity" readOnly="false" selectiveSearchCriteria="false" lookAheadSearchType="contains" translatableDefaultValue="">
                      <lovMappings>
                         <lovMap id="TypeOfActivityLovMap" lovItem="ActivityType" resultTo="TypeOfActivity" criteriaFrom="TypeOfActivity"/>
                      </lovMappings>
-                  </oa:messageLovInput>
+                  </oa:messageLovInput> -->
+                  <oa:messageLayout id="TypeOfActivitiesML">
+                     <ui:contents>
+                        <oa:advancedTable id="TypeOfActivitiesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceTypeOfActivitiesRN" viewName="XxupPerPSInstToaTrEOVO1"/>
+                     </ui:contents>
+                  </oa:messageLayout>
                   <oa:messageLayout id="ActivitiesML" prompt="Activities">
                      <ui:contents>
-                        <oa:advancedTable id="XxupPerPSInstActivitiesEOVO1" viewName="XxupPerPSInstActivitiesEOVO1">
+                        <oa:advancedTable id="ActivitiesAT" viewName="XxupPerPSInstActTrEOVO1">
                            <ui:contents>
                               <oa:column id="SelectedActivityCol">
                                  <ui:columnHeader>
                                     <oa:sortableHeader id="SelectedActivitySH" prompt="Select"/>
                                  </ui:columnHeader>
                                  <ui:contents>
-                                    <oa:messageCheckBox id="SelectedActivity" viewAttr="Selected">
+                                    <oa:messageCheckBox id="SelectedActivity" viewAttr="Selected" defaultValue="" checkedValue="Y" unCheckedValue="N">
                                        <ui:primaryClientAction>
                                           <ui:firePartialAction event="RenderActivityOthers"/>
                                        </ui:primaryClientAction>
@@ -80,14 +86,14 @@
                   <oa:messageTextInput id="ActivityOthers" dataType="VARCHAR2" prompt="Specify:" viewName="XxupPerPSInstTrEOVO1" viewAttr="ActivityOthers" maximumLength="255" rendered="${oa.XxupPerPSInstTrEOVO1.RenderActivityOthers}"/>
                   <oa:messageLayout id="DeliveryModeML" prompt="Mode of Delivery">
                      <ui:contents>
-                        <oa:advancedTable id="XxupPerPSInstDeliveryModeEOVO1" viewName="XxupPerPSInstDeliveryModeEOVO1">
+                        <oa:advancedTable id="DeliveryModeAT" viewName="XxupPerPSInstDelModeTrEOVO1">
                            <ui:contents>
                               <oa:column id="SelectedModeCol">
                                  <ui:columnHeader>
                                     <oa:sortableHeader id="SelectedModeSH" prompt="Select"/>
                                  </ui:columnHeader>
                                  <ui:contents>
-                                    <oa:messageCheckBox id="SelectedMode" viewAttr="Selected">
+                                    <oa:messageCheckBox id="SelectedMode" viewAttr="Selected" defaultValue="" checkedValue="Y" unCheckedValue="N">
                                        <ui:primaryClientAction>
                                           <ui:firePartialAction event="RenderDelModeOthers"/>
                                        </ui:primaryClientAction>
@@ -110,14 +116,40 @@
                   <!-- <oa:messageTextInput id="Activities" dataType="VARCHAR2" prompt="Activities" viewName="XxupPerPSInstTrEOVO1" viewAttr="Activities" maximumLength="1000" rows="3" columns="50"/> -->
                   <oa:messageLayout id="SubjAreaML" prompt="* Subject Area of Interest">
                      <ui:contents>
-                        <oa:table id="XxupPerPSInstSubjEOVO1">
+                        <!-- <oa:table id="XxupPerPSInstSubjEOVO1">
                            <ui:contents>
                               <oa:messageCheckBox id="Selected" dataType="VARCHAR2" text="Selected" prompt="Selected" viewName="XxupPerPSInstSubjEOVO1" viewAttr="Selected" defaultValue="" checkedValue="Y" unCheckedValue="N"/>
                               <oa:messageStyledText id="SubjectAreaInterest" dataType="VARCHAR2" prompt="Subject Area of Interest" viewName="XxupPerPSInstSubjEOVO1" viewAttr="SubjectAreaInterest"/>
                            </ui:contents>
-                        </oa:table>
+                        </oa:table> -->
+
+                        <oa:advancedTable id="SubjAreaAT" viewName="XxupPerPSInstSubjTrEOVO1">
+                           <ui:contents>
+                              <oa:column id="SelectedSubjAreaCol">
+                                 <ui:columnHeader>
+                                    <oa:sortableHeader id="SelectedSubjAreaSH" prompt="Select"/>
+                                 </ui:columnHeader>
+                                 <ui:contents>
+                                    <oa:messageCheckBox id="SelectedSubjAreaSelect" viewAttr="Selected" defaultValue="" checkedValue="Y" unCheckedValue="N">
+                                       <ui:primaryClientAction>s
+                                          <ui:firePartialAction event="RenderSubjAreaOthers"/>
+                                       </ui:primaryClientAction>
+                                    </oa:messageCheckBox>
+                                 </ui:contents>
+                              </oa:column>
+                              <oa:column id="SubjecAreaInterestCol">
+                                 <ui:columnHeader>
+                                    <oa:sortableHeader id="SubjecAreaInterestSH" prompt="Subject Area Interest"/>
+                                 </ui:columnHeader>
+                                 <ui:contents>
+                                    <oa:messageStyledText id="SubjectAreaInterest" viewAttr="Attribute1"/>
+                                 </ui:contents>
+                              </oa:column>
+                           </ui:contents>
+                        </oa:advancedTable>
                      </ui:contents>
                   </oa:messageLayout>
+                  <oa:messageTextInput id="SubjAreaOthers" dataType="VARCHAR2" prompt="Specify:" viewName="XxupPerPSInstTrEOVO1" viewAttr="SubjAreaOthers" maximumLength="255" rendered="${oa.XxupPerPSInstTrEOVO1.RenderSubjAreaOthers}"/>
                   <oa:messageTextInput id="FundingAgency" dataType="VARCHAR2" prompt="Funding Agency" viewName="XxupPerPSInstTrEOVO1" viewAttr="FundingAgency" maximumLength="200"/>
                   <oa:messageTextInput id="CostOfParticipation" dataType="VARCHAR2" prompt="* Cost of Participation" viewName="XxupPerPSInstTrEOVO1" viewAttr="CostOfParticipation" maximumLength="200" translatableDefaultValue=""/>
                   <oa:messageRadioGroup id="UnitOfBeneficiary" defaultValue="Individual" pickListViewDef="xxup.oracle.apps.per.publicservice.lov.server.PerPSBeneficiaryUnitVO" pickListViewName="UnitOfBeneficiary" pickListDispAttr="UnitOfBeneficiary" pickListValAttr="UnitOfBeneficiary" viewName="XxupPerPSInstTrEOVO1" viewAttr="UnitOfBeneficiary" prompt="* Unit of Beneficiary">
@@ -136,10 +168,10 @@
                   </oa:messageLayout>
                   <oa:messageLayout id="BenefTypeML" prompt="* Type of Beneficiary">
                      <ui:contents>
-                        <oa:table id="XxupPerPSInstBenefTypeEOVO1">
+                        <oa:table id="BenefTypeTbl">
                            <ui:contents>
-                              <oa:messageCheckBox id="SelectedBenefType" dataType="VARCHAR2" text="Selected" prompt="Selected" viewName="XxupPerPSInstBenefTypeEOVO1" viewAttr="Selected" checkedValue="Y"/>
-                              <oa:messageStyledText id="TypeOfBeneficiary" dataType="VARCHAR2" prompt="Type of Beneficiary" viewName="XxupPerPSInstBenefTypeEOVO1" viewAttr="TypeOfBeneficiary" maximumLength="200"/>
+                              <oa:messageCheckBox id="SelectedBenefType" dataType="VARCHAR2" text="Selected" prompt="Selected" viewName="XxupPerPSInstBenefTypeTrEOVO1" viewAttr="Selected" checkedValue="Y"/>
+                              <oa:messageStyledText id="TypeOfBeneficiary" dataType="VARCHAR2" prompt="Type of Beneficiary" viewName="XxupPerPSInstBenefTypeTrEOVO1" viewAttr="TypeOfBeneficiary" maximumLength="200"/>
                            </ui:contents>
                         </oa:table>
                      </ui:contents>
@@ -152,21 +184,29 @@
                   </oa:messageLayout>
                   <oa:messageLayout id="BenefOrgML" prompt="Beneficiary Organization" rendered="${oa.XxupPerPSInstTrEOVO1.RenderOrgRN}">
                      <ui:contents>
-                        <oa:advancedTable id="XxupPerPSInstBenifEOVO1" extends="/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalBenefOrgRN"/>
+                        <oa:advancedTable id="BenefOrgAT" extends="/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalBenefOrgRN"/>
                      </ui:contents>
                   </oa:messageLayout>
-                  <oa:messageLovInput id="Country" dataType="VARCHAR2" prompt="Country" viewName="XxupPerPSInstTrEOVO1" viewAttr="Country" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSCountryRN" maximumLength="140">
+                  <!-- <oa:messageLovInput id="Country" dataType="VARCHAR2" prompt="Country" viewName="XxupPerPSInstTrEOVO1" viewAttr="Country" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSCountryRN" maximumLength="140">
                      <lovMappings>
                         <lovMap id="CountryLovMap" lovItem="Country" resultTo="Country" criteriaFrom="Country"/>
                      </lovMappings>
-                  </oa:messageLovInput>
+                  </oa:messageLovInput> -->
+                  <oa:messageLayout id="CountriesML">
+                     <ui:contents>
+                        <oa:advancedTable id="CountriesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceCountriesRN" viewName="XxupPerPSInstCountriesTrEOVO1"
+                           />
+
+                     </ui:contents>
+                  </oa:messageLayout>
                   <oa:messageLayout id="AddressML" prompt="" rendered="${oa.XxupPerPSInstTrEOVO1.RenderAddress}">
                      <ui:contents>
-                        <oa:advancedTable id="XxupPerPSInstAddressEOVO1" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceAddressRN" viewName="XxupPerPSInstAddrEOVO1"/>
+                        <oa:advancedTable id="AddressAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceAddressRN" viewName="XxupPerPSInstAddrTrEOVO1"/>
                      </ui:contents>
                   </oa:messageLayout>
                   <oa:messageTextInput id="PostActEvalRating" dataType="VARCHAR2" prompt="Post Activity Evaluation Rating (Good and Better rating)" viewName="XxupPerPSInstTrEOVO1" viewAttr="PostActEvalRating" maximumLength="100"/>
-                  <oa:messageTextInput id="Remarks" dataType="VARCHAR2" prompt="Remarks" viewName="XxupPerPSInstTrEOVO1" viewAttr="Remarks" maximumLength="1000"/>
+                  <oa:messageTextInput id="Remarks" dataType="VARCHAR2" prompt="Remarks" viewName="XxupPerPSInstTrEOVO1" viewAttr="Remarks" maximumLength="1000" columns="100" rows="3"/>
+
                </ui:contents>
             </oa:messageComponentLayout>
          </ui:contents>

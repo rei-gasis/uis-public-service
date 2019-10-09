@@ -22,28 +22,28 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
     public static final int IMPLEMENTATIONENDDATE = 4;
     public static final int DURATIONHOURS = 5;
     public static final int IMPLEMENTATIONFREQUENCY = 6;
-    public static final int TYPEOFACTIVITY = 7;
-    public static final int FUNDINGAGENCY = 8;
-    public static final int COSTOFPARTICIPATION = 9;
-    public static final int UNITOFBENEFICIARY = 10;
-    public static final int NOOFBENEFICIARY = 11;
-    public static final int COUNTRY = 12;
-    public static final int POSTACTEVALRATING = 13;
-    public static final int REMARKS = 14;
-    public static final int ATTRIBUTE1 = 15;
-    public static final int ATTRIBUTE2 = 16;
-    public static final int ATTRIBUTE3 = 17;
-    public static final int ATTRIBUTE4 = 18;
-    public static final int ATTRIBUTE5 = 19;
-    public static final int LASTUPDATEDATE = 20;
-    public static final int LASTUPDATEDBY = 21;
-    public static final int LASTUPDATELOGIN = 22;
-    public static final int CREATEDBY = 23;
-    public static final int CREATIONDATE = 24;
-    public static final int STATUS = 25;
-    public static final int MALEBENEFCOUNT = 26;
-    public static final int FEMALEBENEFCOUNT = 27;
-    public static final int PROJECTLEADER = 28;
+    public static final int FUNDINGAGENCY = 7;
+    public static final int COSTOFPARTICIPATION = 8;
+    public static final int UNITOFBENEFICIARY = 9;
+    public static final int NOOFBENEFICIARY = 10;
+    public static final int POSTACTEVALRATING = 11;
+    public static final int REMARKS = 12;
+    public static final int ATTRIBUTE1 = 13;
+    public static final int ATTRIBUTE2 = 14;
+    public static final int ATTRIBUTE3 = 15;
+    public static final int ATTRIBUTE4 = 16;
+    public static final int ATTRIBUTE5 = 17;
+    public static final int LASTUPDATEDATE = 18;
+    public static final int LASTUPDATEDBY = 19;
+    public static final int LASTUPDATELOGIN = 20;
+    public static final int CREATEDBY = 21;
+    public static final int CREATIONDATE = 22;
+    public static final int STATUS = 23;
+    public static final int MALEBENEFCOUNT = 24;
+    public static final int FEMALEBENEFCOUNT = 25;
+    public static final int PROJECTLEADER = 26;
+    public static final int DURATION = 27;
+    public static final int DURATIONUNIT = 28;
 
 
     private static OAEntityDefImpl mDefinitionObject;
@@ -166,17 +166,6 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
         setAttributeInternal(IMPLEMENTATIONFREQUENCY, value);
     }
 
-    /**Gets the attribute value for TypeOfActivity, using the alias name TypeOfActivity
-     */
-    public String getTypeOfActivity() {
-        return (String)getAttributeInternal(TYPEOFACTIVITY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for TypeOfActivity
-     */
-    public void setTypeOfActivity(String value) {
-        setAttributeInternal(TYPEOFACTIVITY, value);
-    }
 
     /**Gets the attribute value for FundingAgency, using the alias name FundingAgency
      */
@@ -226,17 +215,6 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
         setAttributeInternal(NOOFBENEFICIARY, value);
     }
 
-    /**Gets the attribute value for Country, using the alias name Country
-     */
-    public String getCountry() {
-        return (String)getAttributeInternal(COUNTRY);
-    }
-
-    /**Sets <code>value</code> as the attribute value for Country
-     */
-    public void setCountry(String value) {
-        setAttributeInternal(COUNTRY, value);
-    }
 
     /**Gets the attribute value for PostActEvalRating, using the alias name PostActEvalRating
      */
@@ -450,8 +428,6 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
             return getDurationHours();
         case IMPLEMENTATIONFREQUENCY:
             return getImplementationFrequency();
-        case TYPEOFACTIVITY:
-            return getTypeOfActivity();
         case FUNDINGAGENCY:
             return getFundingAgency();
         case COSTOFPARTICIPATION:
@@ -460,8 +436,6 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
             return getUnitOfBeneficiary();
         case NOOFBENEFICIARY:
             return getNoOfBeneficiary();
-        case COUNTRY:
-            return getCountry();
         case POSTACTEVALRATING:
             return getPostActEvalRating();
         case REMARKS:
@@ -494,6 +468,10 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
             return getFemaleBenefCount();
         case PROJECTLEADER:
             return getProjectLeader();
+        case DURATION:
+            return getDuration();
+        case DURATIONUNIT:
+            return getDurationUnit();
         default:
             return super.getAttrInvokeAccessor(index, attrDef);
         }
@@ -525,9 +503,6 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
         case IMPLEMENTATIONFREQUENCY:
             setImplementationFrequency((String)value);
             return;
-        case TYPEOFACTIVITY:
-            setTypeOfActivity((String)value);
-            return;
         case FUNDINGAGENCY:
             setFundingAgency((String)value);
             return;
@@ -539,9 +514,6 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
             return;
         case NOOFBENEFICIARY:
             setNoOfBeneficiary((Number)value);
-            return;
-        case COUNTRY:
-            setCountry((String)value);
             return;
         case POSTACTEVALRATING:
             setPostActEvalRating((String)value);
@@ -591,10 +563,40 @@ public class XxupPerPsInstitutionalEOImpl extends OAEntityImpl {
         case PROJECTLEADER:
             setProjectLeader((Number)value);
             return;
+        case DURATION:
+            setDuration((Number)value);
+            return;
+        case DURATIONUNIT:
+            setDurationUnit((String)value);
+            return;
         default:
             super.setAttrInvokeAccessor(index, value, attrDef);
             return;
         }
+    }
+
+    /**Gets the attribute value for Duration, using the alias name Duration
+     */
+    public Number getDuration() {
+        return (Number)getAttributeInternal(DURATION);
+    }
+
+    /**Sets <code>value</code> as the attribute value for Duration
+     */
+    public void setDuration(Number value) {
+        setAttributeInternal(DURATION, value);
+    }
+
+    /**Gets the attribute value for DurationUnit, using the alias name DurationUnit
+     */
+    public String getDurationUnit() {
+        return (String)getAttributeInternal(DURATIONUNIT);
+    }
+
+    /**Sets <code>value</code> as the attribute value for DurationUnit
+     */
+    public void setDurationUnit(String value) {
+        setAttributeInternal(DURATIONUNIT, value);
     }
 
     /**Creates a Key object based on given key constituents

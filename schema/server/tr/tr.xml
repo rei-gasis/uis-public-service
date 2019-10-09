@@ -1,0 +1,52 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE JboPackage SYSTEM "jbo_03_01.dtd">
+
+<JboPackage
+   Name="tr"
+   SeparateXMLFiles="true"
+   PackageName="xxup.oracle.apps.per.publicservice.schema.server.tr" >
+   <DesignTime>
+      <Attr Name="_ejbPackage" Value="false" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+   </DesignTime>
+   <Containee
+      Name="XxupPerPsAddrTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsAddrTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsBenefTypeTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsBenefTypeTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsBenifTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsBenifTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsCatTr"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsCatTr"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsCountriesTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsCountriesTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsHeaderTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsHeaderTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsSubjTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsSubjTrEO"
+      ObjectType="Entity" >
+   </Containee>
+   <Containee
+      Name="XxupPerPsToaTrEO"
+      FullName="xxup.oracle.apps.per.publicservice.schema.server.tr.XxupPerPsToaTrEO"
+      ObjectType="Entity" >
+   </Containee>
+</JboPackage>

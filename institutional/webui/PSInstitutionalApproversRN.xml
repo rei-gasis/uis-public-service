@@ -3,7 +3,7 @@
    <ui:contents>
       <oa:table id="ApproverTable" text="" width="70%">
          <ui:contents>
-            <oa:messageStyledText id="ApproverNo" viewName="PerPSActionHistoryVO1" viewAttr="ApproverNo" prompt="Sequence" styleClass="OraDataText"/>
+            <oa:messageStyledText id="ApproverNo" viewName="PerPSActionHistoryVO1" viewAttr="ApproverNo" prompt="Line No" styleClass="OraDataText"/>
             <oa:messageStyledText id="ToEmployeeName" viewName="PerPSActionHistoryVO1" viewAttr="ToEmployeeName" prompt="Name" styleClass="OraDataText"/>
             <oa:messageStyledText id="ToPositionName" viewName="PerPSActionHistoryVO1" viewAttr="ToPositionName" prompt="Position" styleClass="OraDataText"/>
             <oa:messageStyledText id="ToOrgName" viewName="PerPSActionHistoryVO1" viewAttr="ToOrgName" prompt="Organization" styleClass="OraDataText"/>

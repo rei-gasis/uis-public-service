@@ -21,10 +21,11 @@
    FromList="XXUP.XXUP_PER_PUBLIC_SERVICE_CAT XxupPerPublicServiceCatEO"
    BindingStyle="OracleName"
    CustomQuery="false"
-   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   RowClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVORowImpl"
    ComponentClass="xxup.oracle.apps.per.publicservice.server.XxupPerPublicServiceCatEOVOImpl"
    UseGlueCode="false" >
    <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
       <Attr Name="_version" Value="10.1.3.41.57" />
       <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
    </DesignTime>

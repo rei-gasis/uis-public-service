@@ -1,0 +1,26 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<oa:advancedTable version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" text="">
+	<ui:contents>
+		<oa:column id="TypeOfActivityCol">
+			<ui:columnHeader>
+				<oa:sortableHeader id="TypeOfActivitySH" prompt="Type of Activity*"/>
+			</ui:columnHeader>
+			<ui:contents>
+				<oa:formValue id="TypeOfActivityId" viewAttr="TypeOfActivity" dataType="VARCHAR2"/>
+				<oa:messageLovInput id="TypeOfActivityDisplay" dataType="VARCHAR2" prompt="* Type of Activity" maximumLength="200" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSActivityTypeLovRN" rendered="true" viewAttr="Attribute1" queryable="false" required="no" lookAheadSearchType="contains">
+					<lovMappings>
+						<lovMap id="lovMap61" lovItem="ActivityId" resultTo="TypeOfActivityId" criteriaFrom="TypeOfActivityId"/>
+						<lovMap id="lovMap62" resultTo="TypeOfActivityDisplay" lovItem="ActivityType" criteriaFrom="TypeOfActivityDisplay"/>
+					</lovMappings>
+				</oa:messageLovInput>
+			</ui:contents>
+		</oa:column>
+	</ui:contents>
+	<ui:footer>
+		<oa:tableFooter id="tableFooter1">
+			<ui:contents>
+				<oa:addTableRow id="addTableRow1"/>
+			</ui:contents>
+		</oa:tableFooter>
+	</ui:footer>
+</oa:advancedTable>

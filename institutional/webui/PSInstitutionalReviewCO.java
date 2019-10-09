@@ -52,17 +52,30 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
     public void processRequest(OAPageContext pageContext, OAWebBean webBean) {
 
         super.processRequest(pageContext, webBean);
-    
+
         String sequenceNo = pageContext.getParameter("pSequenceNo");
+        String actionFromURL = pageContext.getParameter("urlParam");
+        String pItemKey = "";
 
 
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
+        OAViewObject mainVO = 
+            (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
 
-        Serializable[] params = { sequenceNo };
+        //        if(mainVO != null){
+        //            pItemKey = mainVO.getCurrentRow().getAttribute("ItemKey").toString();
+        //            System.out.println("ReviewCO > itemKey: " + pItemKey);
+        //            // pItemKey = "INDIV-317";
+        //        }
 
-    
-        am.invokeMethod("initApprovers", params);
+         // pItemKey = "INST-233";
+
+        //        Serializable[] initApproversParams = new String[2];
+        Serializable[] reviewPSParams = { pItemKey };
+
+
+        am.invokeMethod("reviewPS", reviewPSParams);
 
 
         /*Handle RFC
@@ -76,9 +89,8 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
         OAHeaderBean attachmentRN = 
             (OAHeaderBean)rootWB.findChildRecursive("AttachmentHRN");
-            
-//        OAMessageCheckBoxBean checkbox =  (OAMessageCheckBoxBean) rootWB.findChildRecursive("SelectedMode");
-        
+
+        //        OAMessageCheckBoxBean checkbox =  (OAMessageCheckBoxBean) rootWB.findChildRecursive("SelectedMode");
 
 
         String actionParam = pageContext.getParameter("urlParam");
@@ -111,19 +123,18 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
                 webBean.addIndexedChild(1, attachmentReviewRN);
             }
 
-    
-            
-//            OAMessageAttachmentLinkBean attachmentLink = 
-//                (OAMessageAttachmentLinkBean)rootWB.findChildRecursive("PSInstitutionalAttachment");
-//
-//            if (attachmentLink != null) {
-//                Dictionary[] entityMaps = attachmentLink.getEntityMappings();
-//                entityMaps[0].remove("insertAllowed");
-//                entityMaps[0].put("insertAllowed", false);
-//                entityMaps[0].put("updatetAllowed", false);
-//                entityMaps[0].put("deleteAllowed", false);
-//            }
-//
+
+            //            OAMessageAttachmentLinkBean attachmentLink = 
+            //                (OAMessageAttachmentLinkBean)rootWB.findChildRecursive("PSInstitutionalAttachment");
+            //
+            //            if (attachmentLink != null) {
+            //                Dictionary[] entityMaps = attachmentLink.getEntityMappings();
+            //                entityMaps[0].remove("insertAllowed");
+            //                entityMaps[0].put("insertAllowed", false);
+            //                entityMaps[0].put("updatetAllowed", false);
+            //                entityMaps[0].put("deleteAllowed", false);
+            //            }
+            //
 
         }
 
@@ -143,9 +154,7 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
-
         String actionParam = pageContext.getParameter("urlParam");
-
         String viewFrom = pageContext.getParameter("viewFrom");
 
         Serializable[] params = { sequenceNo };
@@ -177,15 +186,17 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
             } else {
 
-                am.invokeMethod("returnNonMemberVO", null);
-//                am.invokeMethod("returnNonMemberVO", null);
+                am.invokeMethod("returnNonMemberVO");
+                //                am.invokeMethod("returnNonMemberVO", null);
 
                 TransactionUnitHelper.endTransactionUnit(pageContext, 
                                                          "PSCreateTxn");
 
                 pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalRequestPG" + 
                                                "&pSequenceNo=" + sequenceNo + 
-                                               "&urlParam=Back", null, 
+                                               "&urlParam=" + actionParam +
+                                               "&backUsed=" + "yes",
+                                               null, 
                                                OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                                null, null, true, 
                                                OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
@@ -212,46 +223,57 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
                    (!"oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) && 
                    (!"oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM)))) {
 
-            am.invokeMethod("resubmitPS", params);
+            OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
+            String pItemKey = pageContext.getParameter("pItemKey");
+            Serializable[] reviewPSParams = { pItemKey };
+            am.invokeMethod("reviewPS", reviewPSParams);
+            
+            
+            vo.reset();
+            Row row = vo.next();
+//            Row row = vo.getCurrentRow();
 
-            /*
-                    OAViewObject vo =
-                        (OAViewObject)am.findViewObject("XxupPerPublicServiceHeaderEOVO1");
-
-                    Row row = vo.getCurrentRow();
-
-                    String projName = row.getAttribute("ProjectName").toString();
+            if(vo.getRowCount() == 1){
+                String projName = row.getAttribute("ProjectName").toString();
+                
+                System.out.println("projName: " + projName);
 
 
+                MessageToken[] tokens = { new MessageToken("PROJ_NAME", projName) };
+
+                         
+                OAException resubmitMessage = 
+                    new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", tokens, 
+                                    OAException.INFORMATION, null);
+                    
+                OADialogPage dialogPage = 
+                new OADialogPage(OAException.INFORMATION, resubmitMessage, 
+                                 null, "", null);
 
 
-                    MessageToken[] tokens =
-                    { new MessageToken("PROJ_NAME", projName) };
+                dialogPage.setOkButtonToPost(true);
+                dialogPage.setOkButtonLabel("Ok");
+                dialogPage.setOkButtonItemName("DialogOk");
 
-                     */
+                dialogPage.setPostToCallingPage(true);
 
-            OAException resubmitMessage = 
-                new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", null, 
-                                OAException.INFORMATION, null);
+
+                pageContext.redirectToDialogPage(dialogPage);
+                
+                
+                String itemKey = pageContext.getParameter("pItemKey");
+                Serializable[] resubmitParams = { itemKey };
+                am.invokeMethod("resubmitPS", resubmitParams);
+            }
+
+            
 
 
             //OADialogPage dialogPage = new OADialogPage(()  
 
 
             //pageContext.forwardImmediately("OA.jsp?page=/oracle/apps/fnd/framework/navigate/webui/NewHomePG",
-            OADialogPage dialogPage = 
-                new OADialogPage(OAException.INFORMATION, resubmitMessage, 
-                                 null, "", null);
-
-
-            dialogPage.setOkButtonToPost(true);
-            dialogPage.setOkButtonLabel("Ok");
-            dialogPage.setOkButtonItemName("DialogOk");
-
-            dialogPage.setPostToCallingPage(true);
-
-
-            pageContext.redirectToDialogPage(dialogPage);
+            
 
 
         } else if (pageContext.getParameter("Submit") != null) {
@@ -259,14 +281,21 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
             OAViewObject vo = 
                 (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
 
-            Row row = vo.getCurrentRow();
+            // vo.executeQuery();
+            //            Row row = vo.getCurrentRow();
+            vo.reset();
+            Row row = vo.next();
 
-            String projName = row.getAttribute("ProjectName").toString();
+            String pSequenceNo = row.getAttribute("SequenceNo").toString();
+            String pItemKey = row.getAttribute("ItemKey").toString();
+
+            Serializable[] initWFParams = { pSequenceNo, pItemKey };
 
             /*start workflow*/
-            am.invokeMethod("initWF", params);
+            am.invokeMethod("initWF", initWFParams);
 
 
+            String projName = row.getAttribute("ProjectName").toString();
             MessageToken[] tokens = 
             { new MessageToken("PROJ_NAME", projName) };
 

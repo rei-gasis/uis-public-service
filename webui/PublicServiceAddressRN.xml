@@ -1,12 +1,14 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<oa:advancedTable version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" viewName="XxupPerPublicServiceAddrEOVO1">
+<oa:advancedTable version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$">
    <ui:contents>
       <oa:column id="AddressCol">
          <ui:columnHeader>
             <oa:sortableHeader id="AddressSH" prompt="Address"/>
          </ui:columnHeader>
          <ui:contents>
-            <oa:messageLovInput id="Address" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSAddressRN" viewAttr="Address" maximumLength="100" dataType="VARCHAR2">
+            <oa:messageLovInput id="Address" queryable="true" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPSAddressRN" viewAttr="Address" maximumLength="100" dataType="VARCHAR2" 
+               lookAheadSearchType="contains"
+               >
                <lovMappings>
                   <lovMap id="lovMap1" lovItem="Address" criteriaFrom="Address" resultTo="Address"/>
                </lovMappings>

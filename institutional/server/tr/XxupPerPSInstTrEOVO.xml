@@ -1,0 +1,351 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstTrEOVO"
+   BindingStyle="OracleName"
+   CustomQuery="true"
+   RowClass="oracle.apps.fnd.framework.server.OAViewRowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstitutionalTrEO.SEQUENCE_NO, 
+       XxupPerPsInstitutionalTrEO.CONSTITUENT_UNIVERSITY, 
+       XxupPerPsInstitutionalTrEO.PROJECT_NAME, 
+       XxupPerPsInstitutionalTrEO.IMPLEMENTATION_START_DATE, 
+       XxupPerPsInstitutionalTrEO.IMPLEMENTATION_END_DATE, 
+       XxupPerPsInstitutionalTrEO.DURATION, 
+       XxupPerPsInstitutionalTrEO.DURATION_UNIT, 
+       XxupPerPsInstitutionalTrEO.IMPLEMENTATION_FREQUENCY, 
+       XxupPerPsInstitutionalTrEO.FUNDING_AGENCY, 
+       XxupPerPsInstitutionalTrEO.COST_OF_PARTICIPATION, 
+       XxupPerPsInstitutionalTrEO.UNIT_OF_BENEFICIARY, 
+       XxupPerPsInstitutionalTrEO.NO_OF_BENEFICIARY, 
+       XxupPerPsInstitutionalTrEO.POST_ACT_EVAL_RATING, 
+       XxupPerPsInstitutionalTrEO.REMARKS, 
+       XxupPerPsInstitutionalTrEO.REQUEST_STATUS, 
+       XxupPerPsInstitutionalTrEO.ATTRIBUTE1, 
+       XxupPerPsInstitutionalTrEO.ATTRIBUTE2, 
+       XxupPerPsInstitutionalTrEO.ATTRIBUTE3, 
+       XxupPerPsInstitutionalTrEO.ATTRIBUTE4, 
+       XxupPerPsInstitutionalTrEO.ATTRIBUTE5, 
+       XxupPerPsInstitutionalTrEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstitutionalTrEO.LAST_UPDATED_BY, 
+       XxupPerPsInstitutionalTrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstitutionalTrEO.CREATED_BY, 
+       XxupPerPsInstitutionalTrEO.CREATION_DATE, 
+       XxupPerPsInstitutionalTrEO.ITEM_KEY, 
+       XxupPerPsInstitutionalTrEO.STATUS, 
+       XxupPerPsInstitutionalTrEO.MALE_BENEF_COUNT, 
+       XxupPerPsInstitutionalTrEO.FEMALE_BENEF_COUNT, 
+       XxupPerPsInstitutionalTrEO.PROJECT_LEADER, 
+       XxupPerPsInstitutionalTrEO.ROWID,
+	(SELECT full_name
+        FROM per_all_people_f papf
+        WHERE person_id = project_leader
+        AND SYSDATE BETWEEN effective_start_date AND effective_end_date) project_leader_display
+FROM XXUP.XXUP_PER_PS_INSTITUTIONAL_TR XxupPerPsInstitutionalTrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.43.6" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstitutionalTrEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.tr.XxupPerPsInstitutionalTrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ConstituentUniversity"
+      EntityAttrName="ConstituentUniversity"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="CONSTITUENT_UNIVERSITY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectName"
+      EntityAttrName="ProjectName"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="PROJECT_NAME" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ImplementationStartDate"
+      EntityAttrName="ImplementationStartDate"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="IMPLEMENTATION_START_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ImplementationEndDate"
+      EntityAttrName="ImplementationEndDate"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="IMPLEMENTATION_END_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Duration"
+      EntityAttrName="Duration"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="DURATION" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="DurationUnit"
+      EntityAttrName="DurationUnit"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="DURATION_UNIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ImplementationFrequency"
+      EntityAttrName="ImplementationFrequency"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="IMPLEMENTATION_FREQUENCY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="FundingAgency"
+      EntityAttrName="FundingAgency"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="FUNDING_AGENCY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CostOfParticipation"
+      EntityAttrName="CostOfParticipation"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="COST_OF_PARTICIPATION" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="UnitOfBeneficiary"
+      EntityAttrName="UnitOfBeneficiary"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="UNIT_OF_BENEFICIARY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="NoOfBeneficiary"
+      EntityAttrName="NoOfBeneficiary"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="NO_OF_BENEFICIARY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PostActEvalRating"
+      EntityAttrName="PostActEvalRating"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="POST_ACT_EVAL_RATING" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Remarks"
+      EntityAttrName="Remarks"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="REMARKS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RequestStatus"
+      EntityAttrName="RequestStatus"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="REQUEST_STATUS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Status"
+      EntityAttrName="Status"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="STATUS" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="MaleBenefCount"
+      EntityAttrName="MaleBenefCount"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="MALE_BENEF_COUNT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="FemaleBenefCount"
+      EntityAttrName="FemaleBenefCount"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="FEMALE_BENEF_COUNT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectLeader"
+      EntityAttrName="ProjectLeader"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="PROJECT_LEADER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstitutionalTrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ProjectLeaderDisplay"
+      IsPersistent="false"
+      Precision="240"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="PROJECT_LEADER_DISPLAY"
+      Expression="PROJECT_LEADER_DISPLAY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="240" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderOrgRN"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderAddress"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderDelModeOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="DelModeOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ActivityOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="SubjAreaOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      Precision="255"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderActivityOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RenderSubjAreaOthers"
+      IsSelected="false"
+      IsPersistent="false"
+      DefaultValue="false"
+      Type="java.lang.Boolean"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="AssignmentId"
+      IsSelected="false"
+      IsPersistent="false"
+      Type="oracle.jbo.domain.Number"
+      ColumnType="NUMBER"
+      AliasName="VIEW_ATTR"
+      SQLType="NUMERIC" >
+   </ViewAttribute>
+   
+</ViewObject>

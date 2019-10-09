@@ -1,0 +1,133 @@
+<?xml version='1.0' encoding='windows-1252' ?>
+<!DOCTYPE ViewObject SYSTEM "jbo_03_01.dtd">
+
+<ViewObject
+   Name="XxupPerPSInstCountriesTrEOVO"
+   BindingStyle="Oracle"
+   CustomQuery="true"
+   RowClass="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstCountriesTrEOVORowImpl"
+   ComponentClass="xxup.oracle.apps.per.publicservice.institutional.server.tr.XxupPerPSInstCountriesTrEOVOImpl"
+   UseGlueCode="false" >
+   <SQLQuery><![CDATA[
+SELECT XxupPerPsInstCountriesTrEO.SEQUENCE_NO, 
+       XxupPerPsInstCountriesTrEO.LINE_NUMBER, 
+       XxupPerPsInstCountriesTrEO.COUNTRY, 
+       XxupPerPsInstCountriesTrEO.ATTRIBUTE1, 
+       XxupPerPsInstCountriesTrEO.ATTRIBUTE2, 
+       XxupPerPsInstCountriesTrEO.ATTRIBUTE3, 
+       XxupPerPsInstCountriesTrEO.ATTRIBUTE4, 
+       XxupPerPsInstCountriesTrEO.ATTRIBUTE5, 
+       XxupPerPsInstCountriesTrEO.LAST_UPDATE_DATE, 
+       XxupPerPsInstCountriesTrEO.LAST_UPDATED_BY, 
+       XxupPerPsInstCountriesTrEO.LAST_UPDATE_LOGIN, 
+       XxupPerPsInstCountriesTrEO.CREATED_BY, 
+       XxupPerPsInstCountriesTrEO.CREATION_DATE, 
+       XxupPerPsInstCountriesTrEO.ITEM_KEY, 
+       XxupPerPsInstCountriesTrEO.ROWID
+FROM XXUP.XXUP_PER_PS_INST_COUNTRIES_TR XxupPerPsInstCountriesTrEO
+   ]]></SQLQuery>
+   <DesignTime>
+      <Attr Name="_isCodegen" Value="true" />
+      <Attr Name="_isExpertMode" Value="true" />
+      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
+   </DesignTime>
+   <EntityUsage
+      Name="XxupPerPsInstCountriesTrEO"
+      Entity="xxup.oracle.apps.per.publicservice.institutional.schema.server.tr.XxupPerPsInstCountriesTrEO" >
+      <DesignTime>
+         <Attr Name="_queryClause" Value="false" />
+      </DesignTime>
+   </EntityUsage>
+   <ViewAttribute
+      Name="SequenceNo"
+      EntityAttrName="SequenceNo"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LineNumber"
+      EntityAttrName="LineNumber"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="LINE_NUMBER" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Country"
+      EntityAttrName="Country"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="COUNTRY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute1"
+      EntityAttrName="Attribute1"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="ATTRIBUTE1" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute2"
+      EntityAttrName="Attribute2"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="ATTRIBUTE2" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="ATTRIBUTE3" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute4"
+      EntityAttrName="Attribute4"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="ATTRIBUTE4" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute5"
+      EntityAttrName="Attribute5"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="ATTRIBUTE5" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateDate"
+      EntityAttrName="LastUpdateDate"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="LAST_UPDATE_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdatedBy"
+      EntityAttrName="LastUpdatedBy"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="LAST_UPDATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="LastUpdateLogin"
+      EntityAttrName="LastUpdateLogin"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="LAST_UPDATE_LOGIN" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreatedBy"
+      EntityAttrName="CreatedBy"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="CREATED_BY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="CreationDate"
+      EntityAttrName="CreationDate"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="CREATION_DATE" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="ItemKey"
+      EntityAttrName="ItemKey"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="ITEM_KEY" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="RowID"
+      IsUpdateable="false"
+      EntityAttrName="RowID"
+      EntityUsage="XxupPerPsInstCountriesTrEO"
+      AliasName="ROWID" >
+   </ViewAttribute>
+</ViewObject>

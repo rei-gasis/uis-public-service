@@ -121,10 +121,10 @@
                            <ui:contents>
                               <oa:switcher id="ViewDetailsSwitcher" viewAttr="ViewDetails">
                                  <ui:case name="VIEW_INDIVIDUAL">
-                                    <oa:image id="VIEW_INDIVIDUAL" source="detailsicon_enabled.gif" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceReviewPG&amp;urlParam=View&amp;pSequenceNo={@SequenceNo}"/>
+                                    <oa:image id="VIEW_INDIVIDUAL" source="detailsicon_enabled.gif" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceViewDetailsPG&amp;urlParam=View&amp;pSequenceNo={@SequenceNo}"/>
                                  </ui:case>
                                  <ui:case name="VIEW_INSTITUTIONAL">
-                                    <oa:image id="VIEW_INSTITUTIONAL" source="detailsicon_enabled.gif" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalReviewPG&amp;urlParam=View&amp;viewFrom=individual&amp;pSequenceNo={@SequenceNo}"/>
+                                    <oa:image id="VIEW_INSTITUTIONAL" source="detailsicon_enabled.gif" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalViewDetailsPG&amp;urlParam=View&amp;viewFrom=individual&amp;pSequenceNo={@SequenceNo}"/>
                                  </ui:case>
                               </oa:switcher>
                            </ui:contents>

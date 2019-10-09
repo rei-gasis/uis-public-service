@@ -17,8 +17,47 @@ public class XxupPerPSInstitutionalEOVOImpl extends OAViewObjectImpl {
         setWhereClause("created_by = fnd_global.user_id");
         setOrderByClause("project_name");
         executeQuery();
-        
-        
+    }
     
+    public void initExistingPS(String sequenceNumber) {
+        setWhereClauseParams(null);
+        setWhereClause("sequence_no = :1");
+        setWhereClauseParam(0, sequenceNumber);
+        executeQuery();
+    }
+    
+    
+    protected static final int ALL_LEVEL = 0;
+    protected static final int USER_LEVEL = 1;
+    protected static final int UNIT_LEVEL = 2;
+    protected static final int CU_LEVEL = 3;
+
+
+    public void showSummaryVO(int accessLevel) {
+
+        switch(accessLevel){
+                case USER_LEVEL:
+                        System.out.println(USER_LEVEL);
+                        this.execWhereClause();
+                        break;
+                case UNIT_LEVEL:
+                        System.out.println(UNIT_LEVEL);
+                        break;
+                case ALL_LEVEL:
+                        System.out.println(ALL_LEVEL);
+                        break;
+                case CU_LEVEL:
+                        System.out.println(CU_LEVEL);
+                        break;
+                default:
+                        System.out.println("none");
+        }
+    }
+
+
+    void execWhereClause(){
+        setWhereClause(null);
+        setWhereClause("created_by = fnd_global.user_id");
+        executeQuery();
     }
 }

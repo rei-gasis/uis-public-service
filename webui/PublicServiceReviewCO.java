@@ -33,7 +33,7 @@ import oracle.apps.fnd.framework.webui.beans.table.OATableBean;
 
 import oracle.jbo.Row;
 
-import xxup.oracle.apps.per.publicservice.server.XxupPerPSHeaderTrEOVOImpl;
+import xxup.oracle.apps.per.publicservice.server.tr.XxupPerPSHeaderTrEOVOImpl;
 
 
 /**
@@ -74,43 +74,24 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
         String actionFromURL = pageContext.getParameter("urlParam");
+        String pItemKey = "";
 
 
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
+        OAViewObject pshVO = (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
 
-        Serializable[] initApproversParams = new String[2];
-        Serializable[] reviewPSParams = { sequenceNo };
+//         if(pshVO != null){
+//             pItemKey = pshVO.getCurrentRow().getAttribute("ItemKey").toString();
+//             // System.out.println("ReviewCO > itemKey: " + pItemKey);
+// //             pItemKey = "INDIV-317";
+//         }
 
-        try{
 
-            OAViewObject pshVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
-            Row row = null;
-            String assignmentId = "";
+        // Serializable[] initApproversParams = new String[2];
+        Serializable[] reviewPSParams = { pItemKey };
 
-            if(pshVO != null){
-                
-                row = pshVO.getCurrentRow();
-
-                if("Create".equals(actionFromURL)){
-                       if(row.getAttribute("AssignmentId") != null){
-                        assignmentId = row.getAttribute("AssignmentId").toString();
-                        initApproversParams[0] = assignmentId;
-
-                        // System.out.println("1assignmentId:" + assignmentId);
-                        // System.out.println("SequenceNo:" + row.getAttribute("SequenceNo").toString());
-                    }
-
-                    initApproversParams[1] = sequenceNo;
-                    am.invokeMethod("initApprovers", initApproversParams);
-                }
-            }
-
-            am.invokeMethod("reviewPS", reviewPSParams);
-
-        }catch(Exception ex){
-            throw new OAException("Unable to set approver list: " + ex);
-        }
+        am.invokeMethod("reviewPS", reviewPSParams);
 
         //pageContext.getPageLayoutBean() 
 
@@ -184,10 +165,10 @@ public class PublicServiceReviewCO extends OAControllerImpl {
         OAApplicationModule am = 
             (OAApplicationModule)pageContext.getApplicationModule(webBean);
 
-
+        
         String sequenceNo = pageContext.getParameter("pSequenceNo");
-
         String actionParam = pageContext.getParameter("urlParam");
+                
 
         Serializable[] params = { sequenceNo };
 
@@ -212,7 +193,9 @@ public class PublicServiceReviewCO extends OAControllerImpl {
                                                      "PSCreateTxn");*/
                 pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceRequestPG" + 
                                                "&pSequenceNo=" + sequenceNo + 
-                                               "&urlParam=Back", null, 
+                                               "&urlParam=" + actionParam +
+                                               "&backUsed=" + "yes",
+                                               null, 
                                                OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                                null, null, true, 
                                                OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
@@ -236,50 +219,66 @@ public class PublicServiceReviewCO extends OAControllerImpl {
                                            null, null, false, 
                                            OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
 
+        } else if (pageContext.getParameter("Cancel") != null) {
+            am.invokeMethod("rollbackPS", null);
+
+            TransactionUnitHelper.endTransactionUnit(pageContext, 
+                                                     "PSCreateTxn");
+
+
+            pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceSummaryPG", 
+                                           null, 
+                                           OAWebBeanConstants.KEEP_MENU_CONTEXT, 
+                                           null, null, false, 
+                                           OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
         } else if ("RFC".equals(actionParam) && 
                    (!"oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) && 
                    (!"oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM)))) {
 
-            am.invokeMethod("resubmitPS", params);
-
-            /*
-            OAViewObject vo =
-                (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
-
-            Row row = vo.getCurrentRow();
-
-            String projName = row.getAttribute("ProjectName").toString();
+            OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
+            String pItemKey = pageContext.getParameter("pItemKey");
+            Serializable[] reviewPSParams = { pItemKey };
+            am.invokeMethod("reviewPS", reviewPSParams);
 
 
+            vo.reset();
+            Row row = vo.next();
+
+            if(vo.getRowCount() == 1){
+                String projName = row.getAttribute("ProjectName").toString();
+
+                MessageToken[] tokens = { new MessageToken("PROJ_NAME", projName) };
+
+                         
+
+                OAException resubmitMessage = 
+                    new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", tokens, 
+                                    OAException.INFORMATION, null);
 
 
-            MessageToken[] tokens =
-            { new MessageToken("PROJ_NAME", projName) };
-
-             */
-
-            OAException resubmitMessage = 
-                new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", null, 
-                                OAException.INFORMATION, null);
+                //OADialogPage dialogPage = new OADialogPage(()  
 
 
-            //OADialogPage dialogPage = new OADialogPage(()  
+                //pageContext.forwardImmediately("OA.jsp?page=/oracle/apps/fnd/framework/navigate/webui/NewHomePG",
+                OADialogPage dialogPage = 
+                    new OADialogPage(OAException.INFORMATION, resubmitMessage, 
+                                     null, "", null);
 
 
-            //pageContext.forwardImmediately("OA.jsp?page=/oracle/apps/fnd/framework/navigate/webui/NewHomePG",
-            OADialogPage dialogPage = 
-                new OADialogPage(OAException.INFORMATION, resubmitMessage, 
-                                 null, "", null);
+                dialogPage.setOkButtonToPost(true);
+                dialogPage.setOkButtonLabel("Ok");
+                dialogPage.setOkButtonItemName("DialogOk");
+                dialogPage.setPostToCallingPage(true);
+                
+                String itemKey = pageContext.getParameter("pItemKey");
+                Serializable[] resubmitParams = { itemKey };
+                am.invokeMethod("resubmitPS", resubmitParams);
 
 
-            dialogPage.setOkButtonToPost(true);
-            dialogPage.setOkButtonLabel("Ok");
-            dialogPage.setOkButtonItemName("DialogOk");
-
-            dialogPage.setPostToCallingPage(true);
+                pageContext.redirectToDialogPage(dialogPage);
 
 
-            pageContext.redirectToDialogPage(dialogPage);
+            }
 
 
         } else if (pageContext.getParameter("Submit") != null) {
@@ -291,8 +290,13 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
             String projName = row.getAttribute("ProjectName").toString();
 
+            String pSequenceNo = row.getAttribute("SequenceNo").toString();
+            String pItemKey = row.getAttribute("ItemKey").toString();
 
-            am.invokeMethod("initWF", params);
+            Serializable[] initWFParams = { pSequenceNo, pItemKey };
+
+
+            am.invokeMethod("initWF", initWFParams);
 
 
             MessageToken[] tokens = 
@@ -321,19 +325,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
             //pageContext.forwardImmediately("OA.jsp?page=/oracle/apps/fnd/framework/navigate/webui/NewHomePG",
 
 
-        } else if (pageContext.getParameter("Cancel") != null) {
-            am.invokeMethod("rollbackPS", null);
-
-            TransactionUnitHelper.endTransactionUnit(pageContext, 
-                                                     "PSCreateTxn");
-
-
-            pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceSummaryPG", 
-                                           null, 
-                                           OAWebBeanConstants.KEEP_MENU_CONTEXT, 
-                                           null, null, false, 
-                                           OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
-        }
+        } 
 
     }
 
