@@ -27,6 +27,7 @@ public class XxupPerPublicServiceAddrEOVORowImpl extends OAViewRowImpl {
     public static final int CREATEDBY = 10;
     public static final int CREATIONDATE = 11;
     public static final int ROWID = 12;
+    public static final int ATTRIBUTE3 = 13;
 
     /**This is the default constructor (do not remove)
      */
@@ -220,6 +221,8 @@ public class XxupPerPublicServiceAddrEOVORowImpl extends OAViewRowImpl {
             return getCreationDate();
         case ROWID:
             return getRowID();
+        case ATTRIBUTE3:
+            return getAttribute3();
         default:
             return super.getAttrInvokeAccessor(index, attrDef);
         }
@@ -266,9 +269,24 @@ public class XxupPerPublicServiceAddrEOVORowImpl extends OAViewRowImpl {
         case CREATIONDATE:
             setCreationDate((Date)value);
             return;
+        case ATTRIBUTE3:
+            setAttribute3((String)value);
+            return;
         default:
             super.setAttrInvokeAccessor(index, value, attrDef);
             return;
         }
+    }
+
+    /**Gets the attribute value for ATTRIBUTE3 using the alias name Attribute3
+     */
+    public String getAttribute3() {
+        return (String) getAttributeInternal(ATTRIBUTE3);
+    }
+
+    /**Sets <code>value</code> as attribute value for ATTRIBUTE3 using the alias name Attribute3
+     */
+    public void setAttribute3(String value) {
+        setAttributeInternal(ATTRIBUTE3, value);
     }
 }

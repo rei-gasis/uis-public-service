@@ -208,7 +208,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             
             XxupPerPSHeaderTrEOVOImpl pshVO = 
                 getXxupPerPSHeaderTrEOVO1();
-            pshVO.initExistingPS(paramItemKey);
+            pshVO.initTranPS(paramItemKey);
             
             /*
             PerPSAttachmentsVOImpl attVO = 
@@ -228,7 +228,6 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             
             PerPSActionHistoryVOImpl ahVO = 
                 getPerPSActionHistoryVO1();
-            
             
             
             ahVO.initApprovers(paramItemKey);
@@ -281,9 +280,9 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                 getPerPSAttachmentsVO1();
             attVO.initTranPS(paramItemKey);
 
-            PerPSActionHistoryVOImpl ahVO = 
-                getPerPSActionHistoryVO1();
-            ahVO.initApprovers(paramItemKey);
+            // PerPSActionHistoryVOImpl ahVO = 
+            //     getPerPSActionHistoryVO1();
+            // ahVO.initApprovers(paramItemKey);
 
 
             XxupPerPSToaTrEOVOImpl toaVO =
@@ -293,6 +292,9 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             XxupPerPSBenefTypeTrEOVOImpl benefTypeVO = 
                 getXxupPerPSBenefTypeTrEOVO1();
             benefTypeVO.initTranPS(paramItemKey);
+
+
+            setApproversTable(paramItemKey);
             
 
             
@@ -414,6 +416,8 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                     String strStartDate = currRow.getAttribute("StartDate") != null ? currRow.getAttribute("StartDate").toString() : "";
                     String strEndDate = currRow.getAttribute("EndDate") != null ? currRow.getAttribute("EndDate").toString() : "";
                     String strDurationHours = currRow.getAttribute("DurationHours") != null ? currRow.getAttribute("DurationHours").toString() : "";
+                    // String strDuration = currRow.getAttribute("Duration") != null ? currRow.getAttribute("Duration").toString() : "";
+                    // String strDurationUnit = currRow.getAttribute("DurationUnit") != null ? currRow.getAttribute("DurationUnit").toString() : "";
                     String strSourceOfFund = currRow.getAttribute("SourceOfFund") != null ? currRow.getAttribute("SourceOfFund").toString() : "";
                     String strCostOfParticipation = currRow.getAttribute("CostOfParticipation") != null ? currRow.getAttribute("CostOfParticipation").toString() : "";
                     String strPartnerOrgOrInst = currRow.getAttribute("PartnerOrgOrInst") != null ? currRow.getAttribute("PartnerOrgOrInst").toString() : "";
@@ -429,9 +433,9 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                     String strAttribute4 = currRow.getAttribute("Attribute4") != null ? currRow.getAttribute("Attribute4").toString() : "";
                     String strAttribute5 = currRow.getAttribute("Attribute5") != null ? currRow.getAttribute("Attribute5").toString() : "";
                     String strPositionName = currRow.getAttribute("PositionName") != null ? currRow.getAttribute("PositionName").toString() : "";
-                    String strShowHide = currRow.getAttribute("ShowHide") != null ? currRow.getAttribute("ShowHide").toString() : "";
-                    String strRenderAddress = currRow.getAttribute("RenderAddress") != null ? currRow.getAttribute("RenderAddress").toString() : "";
-                    String strRenderOrgRN = currRow.getAttribute("RenderOrgRN") != null ? currRow.getAttribute("RenderOrgRN").toString() : "";
+                    // String strShowHide = currRow.getAttribute("ShowHide") != null ? currRow.getAttribute("ShowHide").toString() : "";
+                    // String strRenderAddress = currRow.getAttribute("RenderAddress") != null ? currRow.getAttribute("RenderAddress").toString() : "";
+                    // String strRenderOrgRN = currRow.getAttribute("RenderOrgRN") != null ? currRow.getAttribute("RenderOrgRN").toString() : "";
                     // String strAssignmentId = currRow.getAttribute("AssignmentId") != null ? currRow.getAttribute("AssignmentId").toString() : "";
                     
                     XxupPerPSHeaderTrEOVOImpl trVO = 
@@ -451,6 +455,8 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                      trRow.setAttribute("StartDate", strStartDate);
                      trRow.setAttribute("EndDate", strEndDate);
                      trRow.setAttribute("DurationHours", strDurationHours);
+                     // trRow.setAttribute("Duration", strDuration);
+                     // trRow.setAttribute("DurationUnit", strDurationUnit);
                      trRow.setAttribute("SourceOfFund", strSourceOfFund);
                      trRow.setAttribute("CostOfParticipation", strCostOfParticipation);
                      trRow.setAttribute("PartnerOrgOrInst", strPartnerOrgOrInst);
@@ -466,9 +472,9 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                      trRow.setAttribute("Attribute4", strAttribute4);
                      trRow.setAttribute("Attribute5", strAttribute5);
                      trRow.setAttribute("PositionName", strPositionName);
-                     trRow.setAttribute("ShowHide", strShowHide);
-                     trRow.setAttribute("RenderAddress", strRenderAddress);
-                     trRow.setAttribute("RenderOrgRN", strRenderOrgRN);
+                     // trRow.setAttribute("ShowHide", strShowHide);
+                     // trRow.setAttribute("RenderAddress", strRenderAddress);
+                     // trRow.setAttribute("RenderOrgRN", strRenderOrgRN);
 
                      //derive assignment ID from DB
                      String strAssignmentId = "";
@@ -957,14 +963,15 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
         String sequenceNo = 
             vo.getCurrentRow().getAttribute("SequenceNo").toString();
 
-        String itemKey = 
-            vo.getCurrentRow().getAttribute("ItemKey").toString();
+        
         //System.out.println(sequenceNo);
 
         Row headerRow = (OAViewRowImpl)vo.getCurrentRow();
 
 
         if (headerRow != null) {
+
+            String itemKey = headerRow.getAttribute("ItemKey").toString();
 
 
             XxupPerPSCatTrEOVOImpl ppscVO = 
@@ -1080,6 +1087,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                     othersRow.setAttribute("Selected", "Y");
                     othersRow.setAttribute("Attribute5", "Others");
                     othersRow.setAttribute("ItemKey", itemKey);
+                    othersRow.setAttribute("SubjectAreaInterest", 0);
 
                     ppssVO.insertRow(othersRow);
                 }
@@ -1261,57 +1269,41 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
 
     public void LoadExistSubjectAreaOfInterestTable(String paramItemKey) {
 
-            
-        XxupPerPSSubjTrEOVOImpl existVO = 
-             getXxupPerPSSubjTrEOVO1();
+
+        XxupPerPSSubjTrEOVOImpl existVO = getXxupPerPSSubjTrEOVO1();
         existVO.initTranPS(paramItemKey);
-        
-        //if (ppssVO.getRowCount() < 1) {
+
         PerPSSubjectAreaInterestVOImpl sourceVO = 
             getPerPSSubjectAreaInterestVO1();
 
         sourceVO.executeQuery();
-        Integer line = sourceVO.getRowCount();
+
+        // Integer line = sourceVO.getRowCount();
         Row newRowForSubArea = null;
         Row row = null;
-        
-        
 
-        /*
-            1. pool already selected LOV into array
-                -remove Others from the list
-            2. Compare already selected to the source LOV, get all NOT selected
-            3. Combine 1 & 2
-        */
-        
-        
-        
         
         RowSetIterator rs = existVO.createRowSetIterator(null);
-        String[] arrExistSubj = new String[rs.getRowCount()];
         rs.reset();
-        
-        
-        int ctr = 0;
-        while(rs.hasNext()){
-            Row r = rs.next();
-            /*Exclude "Others" value*/
-            if (r.getAttribute("Attribute5") == null) {
-                arrExistSubj[ctr] = r.getAttribute("Attribute1").toString();
-                ctr++;
-                //                 System.out.println("exists: " + r.getAttribute("DeliveryMode").toString());
-            } else if("Others".equals(r.getAttribute("Attribute5").toString())) {
-                r.remove();
-            }
 
-            
-            
+        String[] arrExistSubj = new String[rs.getRowCount()];
+        
+         
+         int ctr = 0;
+         while (rs.hasNext()) {
+             Row r = rs.next();
+             
+//             String strAttribute5 = r.getAttribute("Attribute5") != null ? r.getAttribute("Attribute5").toString() : "";
+             
+             arrExistSubj[ctr] = r.getAttribute("Attribute1").toString();
+             ctr++;
+             
+             // System.out.println(r.getAttribute("Attribute1").toString());
+         }        
 
-            //System.out.println(r.getAttribute("Attribute1").toString());
-        }
-        
-        
-        rs.closeRowSetIterator();
+         rs.closeRowSetIterator();
+
+
         
         for (row = (OAViewRowImpl)sourceVO.first(); row != null; 
              row = (OAViewRowImpl)sourceVO.next()) {
@@ -1319,30 +1311,129 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
              
             String subjArea = row.getAttribute("SubjectAreaInterestDisplay").toString();
             //Set<String> alreadyExist = new HashSet<String>());
-            
+            newRowForSubArea = existVO.createRow();
             
             if(!Arrays.asList(arrExistSubj).contains(subjArea)){
-                newRowForSubArea = existVO.createRow();
+                
                 newRowForSubArea.setAttribute("SubjectAreaInterest", 
                                               row.getAttribute("SubjectAreaInterestId"));
                 newRowForSubArea.setAttribute("Attribute1", 
                                               row.getAttribute("SubjectAreaInterestDisplay"));
                 existVO.insertRow(newRowForSubArea);
-                
+
+            }else{
+                newRowForSubArea.setAttribute("Selected", "Y");
             }
-             
-            
-            //line = line - 1;
         }
         
+        existVO.setOrderByClause("SUBJECT_AREA_INTEREST");
+
+        //  rs.reset();
+         
+        //  int ctr = 0;
+
+
+        //  while (rs.hasNext()) {
+        //      Row r = rs.next();
+             
+        //      String strAttribute5 = r.getAttribute("Attribute5") != null ? r.getAttribute("Attribute5").toString() : "";
+             
+        //      //revert the specified others -> 'Others'
+        //      if("Others".equals(strAttribute5))
+        //         r.setAttribute("Attribute1", "Others");
+             
+        //  }
+         
+         
+        existVO.setOrderByClause("SUBJECT_AREA_INTEREST");
+            
+    }
+
+
+    // public void LoadExistSubjectAreaOfInterestTable(String paramItemKey) {
+
+            
+    //     XxupPerPSSubjTrEOVOImpl existVO = 
+    //          getXxupPerPSSubjTrEOVO1();
+    //     existVO.initTranPS(paramItemKey);
         
-        existVO.setOrderByClause("Attribute1");
-        existVO.executeQuery();
+    //     //if (ppssVO.getRowCount() < 1) {
+    //     PerPSSubjectAreaInterestVOImpl sourceVO = 
+    //         getPerPSSubjectAreaInterestVO1();
+
+    //     sourceVO.executeQuery();
+    //     Integer line = sourceVO.getRowCount();
+    //     Row newRowForSubArea = null;
+    //     Row row = null;
+        
+        
+
+    //     /*
+    //         1. pool already selected LOV into array
+    //             -remove Others from the list
+    //         2. Compare already selected to the source LOV, get all NOT selected
+    //         3. Combine 1 & 2
+    //     */
+        
+        
+        
+        
+    //     RowSetIterator rs = existVO.createRowSetIterator(null);
+    //     String[] arrExistSubj = new String[rs.getRowCount()];
+    //     rs.reset();
+        
+        
+    //     int ctr = 0;
+    //     while(rs.hasNext()){
+    //         Row r = rs.next();
+    //         /*Exclude "Others" value*/
+    //         if (r.getAttribute("Attribute5") == null) {
+    //             arrExistSubj[ctr] = r.getAttribute("Attribute1").toString();
+    //             ctr++;
+    //             //                 System.out.println("exists: " + r.getAttribute("DeliveryMode").toString());
+    //         } else if("Others".equals(r.getAttribute("Attribute5").toString())) {
+    //             r.remove();
+    //         }
+
+            
+            
+
+    //         //System.out.println(r.getAttribute("Attribute1").toString());
+    //     }
+        
+        
+    //     rs.closeRowSetIterator();
+        
+    //     for (row = (OAViewRowImpl)sourceVO.first(); row != null; 
+    //          row = (OAViewRowImpl)sourceVO.next()) {
+             
+             
+    //         String subjArea = row.getAttribute("SubjectAreaInterestDisplay").toString();
+    //         //Set<String> alreadyExist = new HashSet<String>());
+            
+            
+    //         if(!Arrays.asList(arrExistSubj).contains(subjArea)){
+    //             newRowForSubArea = existVO.createRow();
+    //             newRowForSubArea.setAttribute("SubjectAreaInterest", 
+    //                                           row.getAttribute("SubjectAreaInterestId"));
+    //             newRowForSubArea.setAttribute("Attribute1", 
+    //                                           row.getAttribute("SubjectAreaInterestDisplay"));
+    //             existVO.insertRow(newRowForSubArea);
+                
+    //         }
+             
+            
+    //         //line = line - 1;
+    //     }
+        
+        
+    //     existVO.setOrderByClause("Attribute1");
+    //     existVO.executeQuery();
         
     
         
 
-    }
+    // }
 
     public void LoadExistSubjectAreaOfInterestTable(XxupPerPSSubjTrEOVOImpl pTrVO) {
 
@@ -1375,23 +1466,30 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
         String[] arrExistSubj = new String[rs.getRowCount()];
         rs.reset();
         
+        /*store subj others value*/
+        String subjOthers = "";
         
         int ctr = 0;
         while(rs.hasNext()){
             Row r = rs.next();
-            /*Exclude "Others" value*/
-            if (r.getAttribute("Attribute5") == null) {
-                arrExistSubj[ctr] = r.getAttribute("Attribute1").toString();
-                ctr++;
-                //                 System.out.println("exists: " + r.getAttribute("DeliveryMode").toString());
-            } else if("Others".equals(r.getAttribute("Attribute5").toString())) {
-                r.remove();
-            }
-
+             arrExistSubj[ctr] = r.getAttribute("Attribute1").toString();
+             ctr++;
+             
+//            String strAttribute5 = r.getAttribute("Attribute5") != null ? r.getAttribute("Attribute5").toString() : "";
             
             
-
-            //System.out.println(r.getAttribute("Attribute1").toString());
+            
+//            if("Others".equals(strAttribute5))
+//                subjOthers = r.getAttribute("Attribute1").toString(); //store
+//                r.setAttribute("Attribute1", "Others");
+                
+//            if (r.getAttribute("Attribute5") == null) {
+//                arrExistSubj[ctr] = r.getAttribute("Attribute1").toString();
+//                ctr++;
+//                   //                 System.out.println("exists: " + r.getAttribute("DeliveryMode").toString());
+//            }else if("Others".equals(r.getAttribute("Attribute5").toString())) {
+//                r.remove();
+//            }
         }
         
         
@@ -1411,19 +1509,20 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
                                               row.getAttribute("SubjectAreaInterestId"));
                 newRowForSubArea.setAttribute("Attribute1", 
                                               row.getAttribute("SubjectAreaInterestDisplay"));
-                
+                existVO.insertRow(newRowForSubArea);    
             }else{
                 newRowForSubArea.setAttribute("Selected", "Y");
             }
-
-            existVO.insertRow(newRowForSubArea);
+            
+            
+            
              
             
             //line = line - 1;
             
         }
         
-        existVO.setOrderByClause("ATTRIBUTE1");
+        existVO.setOrderByClause("SUBJECT_AREA_INTEREST");
         // existVO.executeQuery();
         
         

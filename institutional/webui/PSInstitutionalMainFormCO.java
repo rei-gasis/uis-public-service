@@ -55,6 +55,12 @@ public class PSInstitutionalMainFormCO extends OAControllerImpl {
         //    
         //    chkboxSelectedDelMode.setPrimaryClientAction(pprRenderOthers);
 
+        String actionFromURL = pageContext.getParameter("urlParam");
+        
+        if("Update".equals(actionFromURL)){
+            return;
+        }
+
 
         OAApplicationModule am = 
             (OAApplicationModule)pageContext.getApplicationModule(webBean);

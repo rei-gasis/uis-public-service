@@ -3,7 +3,7 @@
    <ui:contents>
       <oa:messageComponentLayout id="DetailsRN" width="70%">
          <ui:contents>
-            <oa:messageStyledText id="SequenceNo" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SequenceNo" prompt="Sequence No" styleClass="OraDataText" dataType="NUMBER"/>
+            <oa:messageStyledText id="SequenceNo" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SequenceNo" prompt="Line No" styleClass="OraDataText" dataType="NUMBER"/>
             <oa:messageStyledText id="AssignmentPosition" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PositionName" prompt="Assignment Position" styleClass="OraDataText"/>
             <oa:messageStyledText id="ProjectName" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="ProjectName" prompt="Project Name" styleClass="OraDataText"/>
             <oa:messageStyledText id="PrimaryRole" prompt="Primary Role" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PrimaryRole" styleClass="OraDataText"/>

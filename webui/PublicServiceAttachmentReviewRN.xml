@@ -6,6 +6,7 @@
             <oa:entityMap id="AttachmentEM" entityId="XXUP_PER_PUBLIC_SERVICE_ATTACHMENT" insertAllowed="false" updateAllowed="false" deleteAllowed="false" showAll="true">
                <oa:primaryKeys>
                   <oa:primaryKey id="AttachmentPK" viewAttr="SequenceNo"/>
+                  <oa:primaryKey id="ItemKeyPK" viewAttr="ItemKey"/>
                </oa:primaryKeys>
                <oa:categoryMappings>
                   <oa:categoryMap id="AttachmentCM" categoryName="MISC"/>

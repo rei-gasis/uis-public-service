@@ -51,6 +51,12 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
             return; 
         }
 
+
+        // String pItemKey = pageContext.getParameter("pItemKey");
+        
+
+//        return;
+
         String actionFromURL = pageContext.getParameter("urlParam");
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
@@ -61,7 +67,12 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
 
 
         if ("Create".equals(actionFromURL) || actionFromURL == null) {
-            am.invokeMethod("initVOForNewRequest");
+             am.invokeMethod("initVOForNewRequest");
+            
+//test rfc
+//String pItemKey = "U-INST-240-7";
+//Serializable[] updatePSParams = { pItemKey };
+//am.invokeMethod("updatePS", updatePSParams);
 
             //            OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSInstTrEOVO1");
             //             mainVO.setWhereClauseParams(null);
@@ -101,6 +112,7 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
 
                     if("Philippines".equals(couRow.getAttribute("Country"))){
                         mainRow.setAttribute("RenderAddress", true);   
+                        break;
                     }else{
                         mainRow.setAttribute("RenderAddress", false);
                     }
@@ -129,6 +141,7 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
 
                         mainRow.setAttribute("RenderSubjAreaOthers", true);   
                         mainRow.setAttribute("SubjAreaOthers", strSubjAreaOthers);   
+                        break;
 
                     }else{
                         mainRow.setAttribute("RenderSubjAreaOthers", false);
@@ -157,6 +170,8 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
 
                         mainRow.setAttribute("RenderDelModeOthers", true);   
                         mainRow.setAttribute("DelModeOthers", strDelModeOthers);   
+
+                        break;
                     }else{
                         mainRow.setAttribute("RenderDelModeOthers", false);
                     }
@@ -185,6 +200,8 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
 
                         mainRow.setAttribute("RenderActivityOthers", true);   
                         mainRow.setAttribute("ActivityOthers", strActOthers);   
+                        break;
+
 
 
                     }else{
@@ -200,7 +217,8 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
 
 
 
-        } else if ("Back".equals(actionFromURL)) {
+        // } 
+        // else if ("Back".equals(actionFromURL)) {
 
             // OAViewObject mainVO = 
             //     (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
@@ -559,6 +577,7 @@ public class PSInstitutionalRequestCO extends OAControllerImpl {
                 pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalReviewPG&pSequenceNo=" + 
                                                strSequenceNo + "&urlParam=" + 
                                                actionParam + "&pItemKey=" + 
+//                                                "RFC" + "&pItemKey=" + 
                                                itemKey, null, 
                                                OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                                null, null, true, 

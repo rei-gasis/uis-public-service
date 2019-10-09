@@ -65,17 +65,90 @@ public class PublicServiceRequestCO extends OAControllerImpl {
          String sequenceNo = pageContext.getParameter("pSequenceNo");
          String itemKey = pageContext.getParameter("pItemKey");
 
+         String backUsed = pageContext.getParameter("backUsed");
+
+        if("yes".equals(backUsed)){
+            return; 
+        }
+
 
          //String sequenceNo = "1950";
          
          if ("Create".equals(actionFromURL) || actionFromURL == null) {
-             am.invokeMethod("initVOForNewRequest");
+            am.invokeMethod("initVOForNewRequest");
 
-         }else if ("Update".equals(actionFromURL)){
+            //test rfc
+ // String pItemKey = "INDIV-400";
+ // Serializable[] updatePSParams = { pItemKey };
+ // am.invokeMethod("updatePS", updatePSParams);
+
+         }else if ("Update".equals(actionFromURL)) {
+
+            Serializable[] initTranRecordParams = { sequenceNo };
+            am.invokeMethod("initTranRecord", initTranRecordParams);
+
             
-             Serializable[] initTranRecordParams = { sequenceNo };
-             am.invokeMethod("initTranRecord", initTranRecordParams);
+            OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
 
+            // mainVO.reset();
+            // Row mainRow = mainVO.next();
+            Row mainRow = mainVO.getCurrentRow();
+
+
+            /*check country if have value to show addressRN*/
+            OAViewObject couVO = (OAViewObject) am.findViewObject("XxupPerPSCountriesTrEOVO1");
+
+            if(couVO.getRowCount() >= 1){
+                couVO.reset();
+                while(couVO.hasNext()){
+                    Row couRow = couVO.next();    
+
+                    if("Philippines".equals(couRow.getAttribute("Country"))){
+                        mainRow.setAttribute("RenderAddress", true); 
+                        break;
+                    }else{
+                        System.out.println(couRow.getAttribute("Country").toString());
+                        mainRow.setAttribute("RenderAddress", false);
+                    }
+                    
+                }
+                
+            }else{
+                mainRow.setAttribute("RenderAddress", false);
+            }
+
+
+            /*check subj others is checked then show subj others*/
+            OAViewObject subjVO = (OAViewObject) am.findViewObject("XxupPerPSSubjTrEOVO1");
+
+            if(subjVO.getRowCount() >= 1){
+                subjVO.reset();
+                while(subjVO.hasNext()){
+                    Row subjRow = subjVO.next();    
+
+                    if("Others".equals(subjRow.getAttribute("Attribute5"))){
+                            String strSubjAreaOthers = "";
+                        if(subjRow.getAttribute("Attribute1") != null){
+                            // System.out.println(subjRow.getAttribute("Attribute1").toString());
+                            strSubjAreaOthers = subjRow.getAttribute("Attribute1").toString();    
+                        }
+                        
+
+                        mainRow.setAttribute("RenderSubjAreaOthers", true);   
+                        mainRow.setAttribute("SubjAreaOthers", strSubjAreaOthers);   
+                        // subjRow.removeFromCollection();
+                        break;
+
+
+
+                    }else{
+                        mainRow.setAttribute("RenderSubjAreaOthers", false);
+                    }
+                }
+                
+            }else{
+                mainRow.setAttribute("RenderSubjAreaOthers", false);
+            }
 
          } else if ("RFC".equals(actionFromURL)) {
 
@@ -429,7 +502,10 @@ public class PublicServiceRequestCO extends OAControllerImpl {
             
              System.out.println("Request CO > forward URL: " + "OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceReviewPG&pSequenceNo=" + strSequenceNo + "&urlParam=" + actionParam + "&pItemKey=" + itemKey);
             
-            pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceReviewPG&pSequenceNo=" + strSequenceNo + "&urlParam=" + actionParam + "&pItemKey=" + itemKey, 
+            pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceReviewPG&pSequenceNo=" + strSequenceNo + 
+                                          "&urlParam=" + actionParam + 
+                                            // "&urlParam=" + "RFC" +
+                                           "&pItemKey=" + itemKey, 
                                            null, 
                                            OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                            null, null, true, 
@@ -437,26 +513,26 @@ public class PublicServiceRequestCO extends OAControllerImpl {
                                            
             
         } else if (pageContext.getParameter("Cancel") != null) {
-            am.invokeMethod("rollbackPS", null);
+            // am.invokeMethod("rollbackPS", null);
 
-            /*TransactionUnitHelper.endTransactionUnit(pageContext, 
+            TransactionUnitHelper.endTransactionUnit(pageContext, 
                                                      "PSCreateTxn");
-            am.invokeMethod("showSummaryVO");
+            // am.invokeMethod("showSummaryVO");
             
             pageContext.forwardImmediately("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceSummaryPG", 
                                            null, 
                                            OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                            null, null, false, 
                                            OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
-             */
-             pageContext.setForwardURL("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceSummaryPG",
-                                        null,
-                                        OAWebBeanConstants.KEEP_MENU_CONTEXT,
-                                        null,
-                                        null,
-                                        false,
-                                        OAWebBeanConstants.ADD_BREAD_CRUMB_NO,
-                                        OAWebBeanConstants.IGNORE_MESSAGES);
+             
+             // pageContext.setForwardURL("OA.jsp?page=/xxup/oracle/apps/per/publicservice/webui/PublicServiceSummaryPG",
+             //                            null,
+             //                            OAWebBeanConstants.KEEP_MENU_CONTEXT,
+             //                            null,
+             //                            null,
+             //                            false,
+             //                            OAWebBeanConstants.ADD_BREAD_CRUMB_NO,
+             //                            OAWebBeanConstants.IGNORE_MESSAGES);
         }
 
 

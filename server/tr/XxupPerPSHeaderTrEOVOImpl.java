@@ -44,25 +44,25 @@ public class XxupPerPSHeaderTrEOVOImpl extends OAViewObjectImpl {
     }
     
     
-    public void initUpdateRecord(String sequenceNumber) {
-        XxupPerPublicServiceHeaderEOVOImpl mainVO =
-            new XxupPerPublicServiceHeaderEOVOImpl();
+    // public void initUpdateRecord(String sequenceNumber) {
+    //     XxupPerPublicServiceHeaderEOVOImpl mainVO =
+    //         new XxupPerPublicServiceHeaderEOVOImpl();
         
-        Row mainRow = null;
-        if(mainVO != null){
-            mainVO.setWhereClauseParams(null);
-            mainVO.setWhereClause("sequence_no = :1");
-            mainVO.setWhereClauseParam(0, sequenceNumber);
-            mainVO.executeQuery();
+    //     Row mainRow = null;
+    //     if(mainVO != null){
+    //         mainVO.setWhereClauseParams(null);
+    //         mainVO.setWhereClause("sequence_no = :1");
+    //         mainVO.setWhereClauseParam(0, sequenceNumber);
+    //         mainVO.executeQuery();
             
-            mainRow = mainVO.getCurrentRow();
-        }
+    //         mainRow = mainVO.getCurrentRow();
+    //     }
         
         
     
-        Row row = createRow();
-        insertRow(mainRow);
-        row.setNewRowState(Row.STATUS_INITIALIZED);
+    //     Row row = createRow();
+    //     insertRow(mainRow);
+    //     row.setNewRowState(Row.STATUS_INITIALIZED);
 
-    }
+    // }
 }

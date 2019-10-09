@@ -45,9 +45,17 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
         
+        String actionFromURL = pageContext.getParameter("urlParam");
+        
+        if("Update".equals(actionFromURL)){
+            return;
+        }
+            
         /*on init, hide some fields*/
         OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
         Row mRow = mainVO.getCurrentRow();
+        
+    
 
 
         try{

@@ -69,7 +69,7 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
         //            // pItemKey = "INDIV-317";
         //        }
 
-        // pItemKey = "INST-96";
+         // pItemKey = "INST-233";
 
         //        Serializable[] initApproversParams = new String[2];
         Serializable[] reviewPSParams = { pItemKey };
@@ -154,9 +154,7 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
 
         String sequenceNo = pageContext.getParameter("pSequenceNo");
-
         String actionParam = pageContext.getParameter("urlParam");
-
         String viewFrom = pageContext.getParameter("viewFrom");
 
         Serializable[] params = { sequenceNo };
@@ -225,48 +223,57 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
                    (!"oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) && 
                    (!"oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM)))) {
 
-            String itemKey = pageContext.getParameter("pItemKey");
-            Serializable[] resubmitParams = { itemKey };
-            am.invokeMethod("resubmitPS", resubmitParams);
-
-            
             OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
-
+            String pItemKey = pageContext.getParameter("pItemKey");
+            Serializable[] reviewPSParams = { pItemKey };
+            am.invokeMethod("reviewPS", reviewPSParams);
+            
+            
             vo.reset();
             Row row = vo.next();
+//            Row row = vo.getCurrentRow();
 
-            String projName = row.getAttribute("ProjectName").toString();
+            if(vo.getRowCount() == 1){
+                String projName = row.getAttribute("ProjectName").toString();
+                
+                System.out.println("projName: " + projName);
 
 
+                MessageToken[] tokens = { new MessageToken("PROJ_NAME", projName) };
+
+                         
+                OAException resubmitMessage = 
+                    new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", tokens, 
+                                    OAException.INFORMATION, null);
+                    
+                OADialogPage dialogPage = 
+                new OADialogPage(OAException.INFORMATION, resubmitMessage, 
+                                 null, "", null);
 
 
-                    MessageToken[] tokens =
-                    { new MessageToken("PROJ_NAME", projName) };
+                dialogPage.setOkButtonToPost(true);
+                dialogPage.setOkButtonLabel("Ok");
+                dialogPage.setOkButtonItemName("DialogOk");
 
-                     
+                dialogPage.setPostToCallingPage(true);
 
-            OAException resubmitMessage = 
-                new OAException("XXUP", "UP_HR_PS_RESUBMIT_MSG", null, 
-                                OAException.INFORMATION, null);
+
+                pageContext.redirectToDialogPage(dialogPage);
+                
+                
+                String itemKey = pageContext.getParameter("pItemKey");
+                Serializable[] resubmitParams = { itemKey };
+                am.invokeMethod("resubmitPS", resubmitParams);
+            }
+
+            
 
 
             //OADialogPage dialogPage = new OADialogPage(()  
 
 
             //pageContext.forwardImmediately("OA.jsp?page=/oracle/apps/fnd/framework/navigate/webui/NewHomePG",
-            OADialogPage dialogPage = 
-                new OADialogPage(OAException.INFORMATION, resubmitMessage, 
-                                 null, "", null);
-
-
-            dialogPage.setOkButtonToPost(true);
-            dialogPage.setOkButtonLabel("Ok");
-            dialogPage.setOkButtonItemName("DialogOk");
-
-            dialogPage.setPostToCallingPage(true);
-
-
-            pageContext.redirectToDialogPage(dialogPage);
+            
 
 
         } else if (pageContext.getParameter("Submit") != null) {

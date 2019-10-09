@@ -14,6 +14,7 @@ SELECT XxupPerPublicServiceAddrEO.SEQUENCE_NO,
        XxupPerPublicServiceAddrEO.ADDRESS, 
        XxupPerPublicServiceAddrEO.ATTRIBUTE1, 
        XxupPerPublicServiceAddrEO.ATTRIBUTE2, 
+       XxupPerPublicServiceAddrEO.ATTRIBUTE3, 
        XxupPerPublicServiceAddrEO.ATTRIBUTE4, 
        XxupPerPublicServiceAddrEO.ATTRIBUTE5, 
        XxupPerPublicServiceAddrEO.LAST_UPDATE_DATE, 
@@ -27,7 +28,7 @@ FROM XXUP.XXUP_PER_PUBLIC_SERVICE_ADDR XxupPerPublicServiceAddrEO
    <DesignTime>
       <Attr Name="_isCodegen" Value="true" />
       <Attr Name="_isExpertMode" Value="true" />
-      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_version" Value="10.1.3.43.6" />
       <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
    </DesignTime>
    <EntityUsage
@@ -115,5 +116,11 @@ FROM XXUP.XXUP_PER_PUBLIC_SERVICE_ADDR XxupPerPublicServiceAddrEO
       EntityAttrName="RowID"
       EntityUsage="XxupPerPublicServiceAddrEO"
       AliasName="ROWID" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="Attribute3"
+      EntityAttrName="Attribute3"
+      EntityUsage="XxupPerPublicServiceAddrEO"
+      AliasName="ATTRIBUTE3" >
    </ViewAttribute>
 </ViewObject>

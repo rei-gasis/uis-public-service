@@ -35,18 +35,20 @@ public class PSInstitutionalApprDetailsCO extends OAControllerImpl {
         String sequenceNo = pageContext.getParameter("pSequenceNo");
         String pItemKey = pageContext.getParameter("pItemKey");
 
-        // String pItemKey = "INDIV-317";
+//         String pItemKey = "INDIV-317";
 
         OAApplicationModule am = pageContext.getApplicationModule(webBean);
 
         // System.out.println("ApprDetailsCO > Itemkey: " + pItemKey);
         // Serializable[] initApproversParams = new String[2];
 
-        //         pItemKey = "INST-96";
+                 // pItemKey = "INST-233";
 
         Serializable[] reviewPSParams = { pItemKey };
 
-        pageContext.writeDiagnostics(this, "PSInstitutionalApprDetailsCO:" + pItemKey, 1);
+        // pageContext.writeDiagnostics(this, "PSInstitutionalApprDetailsCO:" + pItemKey, 1);
+        
+        // System.out.println("PSInstitutionalApprDetailsCO:" + pItemKey);
         
         
         am.invokeMethod("reviewPS", reviewPSParams);

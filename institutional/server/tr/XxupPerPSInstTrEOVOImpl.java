@@ -15,23 +15,20 @@ public class XxupPerPSInstTrEOVOImpl extends OAViewObjectImpl {
     }
     
     public void initExistingPS(String sequenceNumber) {
-        
         setWhereClauseParams(null);
         setWhereClause("sequence_no = :1");
         setWhereClauseParam(0, sequenceNumber);
         executeQuery();
     }
-
-     public void initNewRecord() {
-         
+    
+    public void initNewRecord() {
         setMaxFetchSize(0);
         executeQuery();
         Row row = createRow();
         insertRow(row);
         row.setNewRowState(Row.STATUS_INITIALIZED);
-
     }
-    
+
     public void initTranPS(String itemKey) {
         setWhereClauseParams(null);
         setWhereClause("item_key = :1");
