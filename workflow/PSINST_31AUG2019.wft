@@ -2,13 +2,13 @@
 # dbdrv: exec fnd bin WFLOAD bin &phase=daa+52 checkfile:~PROD:~PATH:~FILE \
 # dbdrv: &ui_apps 0 Y UPGRADE @~PROD:~PATH/~FILE
 # $Header$
-# Source Database PROD
+
 
 VERSION_MAJOR = "2"
 VERSION_MINOR = "6"
 LANGUAGE = "AMERICAN"
 
-ACCESS_LEVEL = "100"
+ACCESS_LEVEL = "0"
 
 DEFINE ITEM_TYPE
   KEY NAME VARCHAR2(8)
@@ -2882,7 +2882,7 @@ BEGIN ACTIVITY "XXUPPIWF" "FYI_NOTIFICATION"
   DISPLAY_NAME = "FYI Notification"
   TYPE = "NOTICE"
   RESULT_TYPE = "*"
-  RERUN = "RESET"
+  RERUN = "LOOP"
   COST = "0"
   ICON_NAME = "NTF_INFO.ICO"
   MESSAGE = "FYI_MSG"

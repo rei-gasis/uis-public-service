@@ -1,5 +1,5 @@
 <?xml version = '1.0' encoding = 'UTF-8'?>
-<oa:stackLayout version="10.1.3_1312" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" standalone="false" controllerClass="xxup.oracle.apps.per.publicservice.institutional.webui.PSInstitutionalMainFormCO">
+<oa:stackLayout version="10.1.3_" xml:lang="en-US" xmlns:oa="http://xmlns.oracle.com/oa" xmlns:jrad="http://xmlns.oracle.com/jrad" xmlns:ui="http://xmlns.oracle.com/uix/ui" xmlns:user="http://xmlns.oracle.com/jrad/user" xmlns="http://xmlns.oracle.com/jrad" file-version="$Header$" standalone="false" controllerClass="xxup.oracle.apps.per.publicservice.institutional.webui.PSInstitutionalMainFormCO">
    <ui:contents>
       <oa:header id="PublicServiceHRN" text="Public Service Institutional Request">
          <ui:contents>
@@ -38,7 +38,11 @@
                   <oa:messageTextInput id="ImplementationEndDate" dataType="DATE" prompt="End date of Implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationEndDate" translatableDefaultValue=""/>
                   <oa:messageRadioGroup id="Status" dataType="VARCHAR2" prompt="Status" viewName="XxupPerPSInstTrEOVO1" viewAttr="Status" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstStatusVO" pickListViewName="Status" pickListDispAttr="Status" pickListValAttr="Status" defaultValue="Ongoing"/>
                   <oa:messageTextInput id="Duration" dataType="NUMBER" prompt="* Duration" viewName="XxupPerPSInstTrEOVO1" viewAttr="Duration" maximumLength="5" translatableDefaultValue=""/>
-                  <oa:messageRadioGroup id="DurationUnit" dataType="VARCHAR2" viewName="XxupPerPSInstTrEOVO1" viewAttr="DurationUnit" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSDurationUnitVO" pickListViewName="Frequency" pickListDispAttr="Frequency" pickListValAttr="Frequency" defaultValue="Hours"/>
+                  <!-- <oa:messageRadioGroup id="DurationUnitold" dataType="VARCHAR2" viewName="XxupPerPSInstTrEOVO1" viewAttr="DurationUnit" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSDurationUnitVO" pickListViewName="Frequency" pickListDispAttr="Frequency" pickListValAttr="Frequency" defaultValue="Hours"/> -->
+                  <oa:messageChoice id="DurationUnit" dataType="VARCHAR2" viewName="XxupPerPSInstTrEOVO1" viewAttr="DurationUnit" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSDurationUnitVO" pickListViewName="Frequency" pickListDispAttr="Frequency" pickListValAttr="Frequency" defaultValue="Hours"/>
+                  <!-- <oa:messageChoice id="DurationUnit" 
+
+                     /> -->
                   <oa:messageRadioGroup id="ImplementationFrequency" dataType="VARCHAR2" prompt="Frequency of Implementation" viewName="XxupPerPSInstTrEOVO1" viewAttr="ImplementationFrequency" pickListViewDef="xxup.oracle.apps.per.publicservice.institutional.lov.server.PerPSInstFrequency" pickListViewName="Frequency" pickListDispAttr="Frequency" pickListValAttr="Frequency" defaultValue="Weekly"/>
                   <oa:messageLayout id="ObjCatML" prompt="* Objective Category">
                      <ui:contents>
@@ -122,7 +126,6 @@
                               <oa:messageStyledText id="SubjectAreaInterest" dataType="VARCHAR2" prompt="Subject Area of Interest" viewName="XxupPerPSInstSubjEOVO1" viewAttr="SubjectAreaInterest"/>
                            </ui:contents>
                         </oa:table> -->
-
                         <oa:advancedTable id="SubjAreaAT" viewName="XxupPerPSInstSubjTrEOVO1">
                            <ui:contents>
                               <oa:column id="SelectedSubjAreaCol">
@@ -132,8 +135,7 @@
                                  <ui:contents>
                                     <oa:messageCheckBox id="SelectedSubjAreaSelect" viewAttr="Selected" defaultValue="" checkedValue="Y" unCheckedValue="N">
                                        <ui:primaryClientAction>s
-                                          <ui:firePartialAction event="RenderSubjAreaOthers"/>
-                                       </ui:primaryClientAction>
+                                          <ui:firePartialAction event="RenderSubjAreaOthers"/></ui:primaryClientAction>
                                     </oa:messageCheckBox>
                                  </ui:contents>
                               </oa:column>
@@ -194,9 +196,7 @@
                   </oa:messageLovInput> -->
                   <oa:messageLayout id="CountriesML">
                      <ui:contents>
-                        <oa:advancedTable id="CountriesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceCountriesRN" viewName="XxupPerPSInstCountriesTrEOVO1"
-                           />
-
+                        <oa:advancedTable id="CountriesAT" extends="/xxup/oracle/apps/per/publicservice/webui/PublicServiceCountriesRN" viewName="XxupPerPSInstCountriesTrEOVO1"/>
                      </ui:contents>
                   </oa:messageLayout>
                   <oa:messageLayout id="AddressML" prompt="" rendered="${oa.XxupPerPSInstTrEOVO1.RenderAddress}">
@@ -206,7 +206,6 @@
                   </oa:messageLayout>
                   <oa:messageTextInput id="PostActEvalRating" dataType="VARCHAR2" prompt="Post Activity Evaluation Rating (Good and Better rating)" viewName="XxupPerPSInstTrEOVO1" viewAttr="PostActEvalRating" maximumLength="100"/>
                   <oa:messageTextInput id="Remarks" dataType="VARCHAR2" prompt="Remarks" viewName="XxupPerPSInstTrEOVO1" viewAttr="Remarks" maximumLength="1000" columns="100" rows="3"/>
-
                </ui:contents>
             </oa:messageComponentLayout>
          </ui:contents>

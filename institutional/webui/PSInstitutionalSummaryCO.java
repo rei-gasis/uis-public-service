@@ -65,7 +65,7 @@ public class PSInstitutionalSummaryCO extends OAControllerImpl {
                                              "Query Executed" + access_level, 
                                              1);
 
-                System.out.println(resultset.getString("access_level"));
+//                System.out.println(resultset.getString("access_level"));
             }
 
             am.invokeMethod("showSummaryVO", params);

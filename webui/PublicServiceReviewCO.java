@@ -162,6 +162,22 @@ public class PublicServiceReviewCO extends OAControllerImpl {
     public void processFormRequest(OAPageContext pageContext, 
                                    OAWebBean webBean) {
         super.processFormRequest(pageContext, webBean);
+
+
+        //ignore actions from attachment functions
+        if(("oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaUpdateAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaDeleteAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaViewAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("AddInlineAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("DeleteInlineAttachment".equals(pageContext.getParameter(EVENT_PARAM)))
+          ){
+            return;
+        } 
+
+
+
         OAApplicationModule am = 
             (OAApplicationModule)pageContext.getApplicationModule(webBean);
 
@@ -231,9 +247,7 @@ public class PublicServiceReviewCO extends OAControllerImpl {
                                            OAWebBeanConstants.KEEP_MENU_CONTEXT, 
                                            null, null, false, 
                                            OAWebBeanConstants.ADD_BREAD_CRUMB_SAVE);
-        } else if ("RFC".equals(actionParam) && 
-                   (!"oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) && 
-                   (!"oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM)))) {
+            } else if ("RFC".equals(actionParam)) {
 
             OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPSHeaderTrEOVO1");
             String pItemKey = pageContext.getParameter("pItemKey");
@@ -276,7 +290,6 @@ public class PublicServiceReviewCO extends OAControllerImpl {
 
 
                 pageContext.redirectToDialogPage(dialogPage);
-
 
             }
 

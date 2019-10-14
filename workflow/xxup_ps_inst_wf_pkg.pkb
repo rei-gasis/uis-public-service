@@ -20,22 +20,6 @@ IS
 
             lv_item_key := 'INST-' || p_seq_no;
 
---            BEGIN
---                SELECT 'Y'
---                INTO lv_exist
---                FROM xxup.xxup_per_ps_action_history
---                WHERE item_key = lv_item_key
---                AND sequence_no = p_seq_no
---                AND type = 'Institutional'
---                AND ROWNUM = 1;
---                
---                raise e_exists;
---                
---             EXCEPTION 
---                WHEN OTHERS THEN
---                    raise_application_error(-20101, 'Unable to create item key for this transaction');
---             END;
-
             RETURN lv_item_key;
 
         ELSIF p_action = 'Update' THEN
@@ -44,10 +28,14 @@ IS
             BEGIN
                 SELECT item_key
                 INTO lv_last_update_item_key
-                FROM xxup_per_ps_action_history
-                WHERE sequence_no = p_seq_no
-                AND type = 'Institutional'
-                AND ROWNUM = 1;
+                FROM (
+                    SELECT item_key
+    --                FROM xxup_per_ps_action_history
+                    FROM xxup.xxup_per_ps_institutional_tr
+                    WHERE sequence_no = p_seq_no
+                    ORDER BY last_update_date DESC
+                )
+                WHERE ROWNUM = 1;
 
                 SELECT SUBSTR(lv_last_update_item_key,1,1)
                 INTO lv_action_prefix
@@ -57,9 +45,10 @@ IS
                     /*increment update item key*/
                     SELECT MAX(SUBSTR(lv_last_update_item_key,-1,1))
                     INTO ln_last_update_ctr
-                    FROM xxup_per_ps_action_history
+--                    FROM xxup_per_ps_action_history
+                    FROM xxup.xxup_per_ps_institutional_tr
                     WHERE sequence_no = p_seq_no
-                    AND type = 'Institutional'
+--                    AND type = 'Institutional'
                     AND ROWNUM = 1;
 
 
@@ -163,18 +152,28 @@ IS
         FROM per_all_assignments_f paaf
             ,per_all_people_f papf
             ,xxup.xxup_per_ps_Institutional_tr pptr            
+            ,fnd_user fu
         WHERE paaf.person_id = papf.person_id
+        AND papf.person_id = fu.employee_id
+        AND pptr.created_by = fu.user_id
         AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
         AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
         AND primary_flag = 'Y'
         AND pptr.item_key = p_item_key;
 
+    EXCEPTION
+        WHEN no_data_found THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - data not found!');
+        WHEN too_many_rows THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - too many row fetched!');
+        WHEN OTHERS THEN
+          raise_application_error(-20101, 'Encountered error on Set Initiator details - ' || SUBSTR(SQLERRM,0,200));
 
     END set_owner_details;
 
 
-    PROCEDURE init_wf(p_sequence_no IN VARCHAR2
-                     ,p_item_key    IN VARCHAR2)
+    PROCEDURE init_wf(p_seq_no IN VARCHAR2
+                     ,p_item_key  IN VARCHAR2)
     IS
     lv_item_type VARCHAR2(100) := 'XXUPPIWF';
     lv_item_key VARCHAR2(100) := p_item_key;
@@ -198,7 +197,7 @@ IS
         wf_engine.setitemattrtext(lv_item_type
                                  ,lv_item_key
                                  ,'SEQUENCE_NO'
-                                 ,p_sequence_no
+                                 ,p_seq_no
                                  );
 
         wf_engine.startprocess(lv_item_type, lv_item_key);
@@ -208,11 +207,11 @@ IS
 --        SET item_key = lv_item_key
 --        WHERE sequence_no = p_sequence_no;
 
---        UPDATE xxup.xxup_per_ps_action_history hist
---        SET action_date = SYSDATE
---        WHERE item_key = lv_item_key
---        AND action = 'Submit'
---        AND type = 'Institutional'; --employee submission
+        UPDATE xxup.xxup_per_ps_action_history hist
+        SET action_date = SYSDATE
+        WHERE item_key = lv_item_key
+        AND action = 'Submit'
+        AND type = 'Institutional'; --employee submission
 
 
         COMMIT;
@@ -311,7 +310,7 @@ IS
                 SELECT COUNT(1)
                 INTO ln_total_approver_count
                 FROM xxup.xxup_per_ps_action_history psah
-                WHERE sequence_no = lv_seq_no
+                WHERE item_key = l_itemkey
                 AND type = 'Institutional'
                 AND action = 'Pending';
 
@@ -332,7 +331,7 @@ IS
                 SELECT project_name
                 INTO lv_project_name
                 FROM xxup.xxup_per_ps_Institutional_tr pptr
-                WHERE sequence_no = lv_seq_no;
+                WHERE item_key = l_itemkey;
             EXCEPTION
                 WHEN OTHERS THEN
                     NULL;
@@ -348,9 +347,9 @@ IS
               AND papf.person_id = (SELECT to_employee_id
                                     FROM xxup.xxup_per_ps_action_history
                                     WHERE type = 'Institutional'
-                                    AND sequence_no = lv_seq_no
-                                    AND action = 'Pending');
-
+                                    AND action = 'Pending' --since only 1 approver
+--                                    AND approver_no = 1
+                                    AND item_key = l_itemkey);
 
 
             BEGIN
@@ -362,7 +361,7 @@ IS
                     WHERE employee_id = (SELECT to_employee_id
                                         FROM xxup.xxup_per_ps_action_history
                                         WHERE type = 'Institutional'
-                                        AND sequence_no = lv_seq_no
+                                        AND item_key = l_itemkey
                                         AND action = 'Pending');
 
                 EXCEPTION
@@ -401,7 +400,12 @@ IS
                     WHEN OTHERS THEN
                         NULL;
                 END;
-
+                
+                wf_engine.setitemattrtext(itemtype
+                                         ,l_itemkey
+                                         ,'FROM'
+                                         ,fnd_global.user_name
+                                        );
 
 
                 wf_engine.setitemattrtext(itemtype
@@ -416,7 +420,7 @@ IS
                                         ,'Public Service Institutional - '
                                       || lv_project_name
                                       || ' submitted by '
-                                      || lv_emp_name
+                                      || lv_emp_name    
                                       || ' needs your Approval'
                                          );
 
@@ -425,6 +429,9 @@ IS
                                         ,'APPR_BODY_RN'
                                         ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_INST_DETAILS_RN&pSequenceNo='
                                       || lv_seq_no
+                                      || '&urlParam=Approval'
+                                        || '&pItemKey='
+                                        || l_itemkey
                                         );
 
                 wf_engine.setitemattrtext(itemtype
@@ -432,6 +439,8 @@ IS
                                         ,'ATTACHMENT_RN'
                                         ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_INST_ATTACHMENT_RN&pSequenceNo='
                                         || lv_seq_no
+                                        || '&pItemKey='
+                                        || l_itemkey
                                         );
 
 
@@ -440,13 +449,15 @@ IS
                                         ,'#HISTORY'
                                         ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_INST_HIST_RN&pSequenceNo='
                                         || lv_seq_no
+                                        || '&pItemKey='
+                                        || l_itemkey
                                         );                        
 
 
                 wf_engine.setitemattrtext(itemtype
                                         ,l_itemkey
                                         ,'APPROVER_COUNTER'
-                                        ,1);
+                                        ,2); --1 is reserved for submitter
 
 
                 wf_engine.setitemattrtext(itemtype
@@ -478,10 +489,11 @@ IS
             wf_engine.setitemattrtext(itemtype
                                      ,l_itemkey
                                      ,'FYI_BODY_RN'
-                                     ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_INST_DETAILS_RNnull=' 
+                                     ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_INST_DETAILS_RN&pSequenceNo=' 
                                     || lv_seq_no
+                                    || '&pItemKey='
+                                    || l_itemkey
                                     );
-
 
             wf_engine.setitemattrtext(itemtype
                                      ,l_itemkey
@@ -529,7 +541,7 @@ IS
         ln_emp_id NUMBER;
         lv_emp_pos_name VARCHAR2(150);
         lv_emp_org_name VARCHAR2(150);
-        ln_emp_asg_id NUMBER;
+        ln_emp_asg_id NUMBER;   
 
 
         --lv_owner VARCHAR2(100);
@@ -558,6 +570,9 @@ IS
         lv_error VARCHAR2(1000) := '';
 
         lv_item_key wf_notifications.item_key%TYPE;
+
+
+        lv_ps_recipient_org_name hr_all_organization_units.name%TYPE := '';
     BEGIN
 
         /*create item key*/
@@ -567,7 +582,7 @@ IS
                          );
 
           p_item_key :=  lv_item_key; 
-
+        BEGIN
           SELECT 'Y'
           INTO lv_exist
           FROM xxup.xxup_per_ps_action_history
@@ -576,22 +591,29 @@ IS
           AND item_key = lv_item_key;
 --          AND sequence_no = p_seq_no;
 
+            IF lv_exist = 'Y' THEN
+    --          RETURN;
+                DELETE
+                  FROM xxup.xxup_per_ps_action_history
+                  WHERE type = 'Institutional'
+                  AND item_key = lv_item_key;
 
-        IF lv_exist = 'Y' THEN
---          RETURN;
-            DELETE
-              FROM xxup.xxup_per_ps_action_history
-              WHERE type = 'Institutional'
-              AND item_key = lv_item_key;
+            END IF;
+        EXCEPTION
+            WHEN no_data_found THEN
+                NULL;
+        END;
 
-        END IF;
+
+
+
 
 
         BEGIN
 
-            lv_seq_no := wf_engine.getitemattrtext('XXUPPIWF'
-                                                    ,lv_item_key
-                                                    ,'SEQUENCE_NO');
+--            lv_seq_no := wf_engine.getitemattrtext('XXUPPIWF'
+--                                                    ,lv_item_key
+--                                                    ,'SEQUENCE_NO');
 
             /*Set employee details*/
             set_owner_details(p_assignment_id  => p_assignment_id
@@ -643,6 +665,8 @@ IS
 
         /*Get PS Recipient approver*/
         BEGIN
+            
+        
             /*--get org name
             SELECT organization_id
             INTO ln_emp_asg_id
@@ -654,14 +678,43 @@ IS
             */
 
             ln_approver_ctr := ln_approver_ctr + 1;
+            
+            
+            BEGIN
+                SELECT name
+                INTO lv_ps_recipient_org_name
+                FROM hr_all_organization_units haou
+                    ,hr_soft_coding_keyflex hsck
+                    ,per_all_assignments_f paaf
+                WHERE haou.organization_id = to_number(hsck.segment1)
+                AND paaf.soft_coding_keyflex_id = hsck.soft_coding_keyflex_id
+                AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
+                AND paaf.assignment_id = p_assignment_id;
+            EXCEPTION
+                WHEN OTHERS THEN
+                    raise_application_error(-20101, 'Encountered error on Initializing approvers - PS recipient not found!');
+            END;
 
-            SELECT apps.xxup_hrms_utilities_pkg.get_up_approver(lv_emp_org_name,
+
+
+
+
+
+            SELECT apps.xxup_hrms_utilities_pkg.get_up_approver(lv_ps_recipient_org_name,
                                                                 'UP_HRD_APPROVAL_ROLES',
                                                                 'Public Service Recipient',
                                                                 trunc(sysdate)) hr
              INTO ln_ps_recipient_id
              FROM DUAL;
 
+
+
+             /*Additional check if the recipient is the same as creator*/
+            IF ln_ps_recipient_id = ln_emp_id
+            THEN
+                RETURN;
+            END IF;
+            BEGIN
              SELECT papf.full_name
                    ,papf.person_id
                    ,(SELECT ppd.segment1
@@ -682,11 +735,23 @@ IS
                  ,lv_to_org_name
              FROM per_all_assignments_f paaf
                  ,per_all_people_f papf
+                 ,per_position_extra_info ppei
              WHERE paaf.person_id = papf.person_id
              AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
              AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
-             AND primary_flag = 'Y'
+             AND paaf.position_id = ppei.position_id
+             AND information_type = 'UP_POSITION_INFO'
+             AND NVL(ppei.poei_information8,'No') = 'Yes' --is PS recipient
              AND papf.person_id = ln_ps_recipient_id;
+            EXCEPTION
+                WHEN no_data_found THEN
+                    raise_application_error(-20101, 'Encountered error on Initializing approvers - PS Recipient not properly setup');
+                WHEN too_many_rows THEN
+                    raise_application_error(-20101, 'Encountered error on Initializing approvers - Too many PS Recipient defined');
+                WHEN OTHERS THEN
+                    raise_application_error(-20101, 'Encountered error on Initializing approvers - Unable to retrieve PS Recipient data');
+            END;
+             
 
              INSERT INTO xxup.xxup_per_ps_action_history (
                         item_key,
@@ -912,9 +977,9 @@ IS
 
 
 --          ln_approver_counter := ln_approver_counter + 1;
-
+--
 --          wf_engine.setitemattrnumber('XXUPPIWF'
---                                     ,lv_seq_no
+--                                     ,lv_item_key
 --                                     ,'APPROVER_COUNTER'
 --                                     ,ln_approver_counter);
 
@@ -977,6 +1042,7 @@ IS
 
     ln_approver_counter NUMBER;
     ln_total_approver_count NUMBER;
+    lv_completed_approval VARCHAR2(1) := 'N';
 
     ln_cur_approver_no NUMBER;
 
@@ -1003,114 +1069,134 @@ IS
 
 
     lv_action_prefix VARCHAR2(1) := 'C';
+    
+    
 
     BEGIN
 
 
-        lv_ntf_result := wf_notification.getattrtext(ln_nid, 'RESULT');
+        
 
-
-        --raise_application_error(-20111, lv_ntf_result);
-
-
-        ln_approver_counter := wf_engine.getitemattrnumber(itemtype
-                                                         ,l_itemkey
-                                                         ,'APPROVER_COUNTER');
-
-
-
-
-
-
-        /*
-        ln_total_approver_count := wf_engine.getitemattrnumber(itemtype
-                                                         ,l_itemkey
-                                                         ,'TOTAL_APPROVER_COUNT');
-        */
-
-
-        lv_seq_no := wf_engine.getitemattrtext(itemtype
-                                             ,l_itemkey
-                                             ,'SEQUENCE_NO');
-
-
-        lv_project_name := wf_engine.getitemattrtext(itemtype
-                                             ,l_itemkey
-                                             ,'PROJECT_NAME');
-
-        BEGIN
-
-          SELECT MAX(approver_no)
-          INTO ln_cur_approver_no
-          FROM xxup.xxup_per_ps_action_history
-          WHERE sequence_no = lv_seq_no
-          AND type = 'Institutional'
-          AND action = 'Pending';
-
-        EXCEPTION
-          WHEN OTHERS THEN
-            raise_application_error(-20101, 'Error getting latest approver');
-        END;
-
-        BEGIN
-
-        /*Set employee details*/
-        set_owner_details(p_item_key     => l_itemkey
-                         ,p_emp_id       => ln_emp_id
-                         ,p_emp_name     => lv_emp_name
-                         ,p_emp_pos_name => lv_emp_pos_name
-                         ,p_emp_org_name => lv_emp_org_name
-        );
-
-
-        EXCEPTION
-            WHEN OTHERS THEN
-                lv_error := SQLERRM;
-                raise_application_error(-20105, 'error getting employee details: ' || lv_error);
-        END;
-
-
-        BEGIN
-
-            SELECT user_name
-                 ,(SELECT full_name
-                   FROM per_all_people_f papf
-                   WHERE person_id = employee_id
-                   AND SYSDATE BETWEEN effective_start_date AND effective_end_date
-                   AND person_type_id = 1126)
-            INTO lv_appr_user_name
-                ,lv_approver_name
-            FROM fnd_user
-            WHERE employee_id = (SELECT to_employee_id
-                                               FROM xxup.xxup_per_ps_action_history pah
-                                               WHERE type = 'Institutional'
-                                               AND item_key = l_itemkey
-    --                                           AND approver_no = ln_approver_counter
-                                               AND action = 'Pending');
-
-        EXCEPTION
-          WHEN OTHERS THEN
-            raise_application_error(-20101, 'Error getting latest approver user name');
-        END;
-
-
-        BEGIN
-
-          SELECT COUNT(1)
-          INTO ln_total_approver_count
-          FROM xxup.xxup_per_ps_action_history
-          WHERE item_key = l_itemkey
-          AND action = 'Pending';
-
-        EXCEPTION
-          WHEN OTHERS THEN
-            raise_application_error(-20101, 'Error getting total approver count');
-        END;
+--        INSERT INTO xxup_ps_test_tbl
+--        VALUES('funcmode: ' || funcmode);
+--        
+--        COMMIT;
+--        
 
 --       raise_application_error(-20101, 'total approver counter: ' || ln_approver_counter);
 
 
         IF funcmode = 'RESPOND' THEN
+        
+            lv_ntf_result := wf_notification.getattrtext(ln_nid, 'RESULT');
+
+
+            ln_approver_counter := wf_engine.getitemattrnumber(itemtype
+                                                             ,l_itemkey
+                                                             ,'APPROVER_COUNTER');
+    
+    
+    
+            BEGIN 
+                SELECT sequence_no
+                INTO lv_seq_no
+                FROM xxup.xxup_per_ps_institutional_tr
+                WHERE item_key = l_itemkey;
+    
+            EXCEPTION
+                WHEN OTHERS THEN
+                    raise_application_error(-20101, 'Error getting Sequence no');
+            END;
+    
+    
+            lv_project_name := wf_engine.getitemattrtext(itemtype
+                                                 ,l_itemkey
+                                                 ,'PROJECT_NAME');
+    
+    
+            BEGIN
+    
+              SELECT MAX(approver_no)
+              INTO ln_cur_approver_no
+              FROM xxup.xxup_per_ps_action_history
+              WHERE item_key = l_itemkey
+              AND type = 'Institutional'
+              AND action = 'Pending';
+    
+            EXCEPTION
+              WHEN OTHERS THEN
+                raise_application_error(-20101, 'Error getting latest approver');
+            END;
+    
+    --        INSERT INTO xxup_ps_test_tbl
+    --        VALUES('ln_cur_approver_no: ' || ln_cur_approver_no);
+    --        
+    --        COMMIT;
+    
+    
+    
+    
+            BEGIN
+    
+            /*Set employee details*/
+            set_owner_details(p_item_key     => l_itemkey
+                             ,p_emp_id       => ln_emp_id
+                             ,p_emp_name     => lv_emp_name
+                             ,p_emp_pos_name => lv_emp_pos_name
+                             ,p_emp_org_name => lv_emp_org_name
+            );
+    
+    
+            EXCEPTION
+                WHEN OTHERS THEN
+                    lv_error := SQLERRM;
+                    raise_application_error(-20105, 'error getting employee details: ' || lv_error);
+            END;
+    
+    
+    --        INSERT INTO xxup_ps_test_tbl
+    --        VALUES('ln_emp_id: ' || ln_emp_id);
+    --        
+    --        COMMIT;
+    
+    
+            BEGIN
+    
+                SELECT user_name
+                     ,(SELECT full_name
+                       FROM per_all_people_f papf
+                       WHERE person_id = employee_id
+                       AND SYSDATE BETWEEN effective_start_date AND effective_end_date
+                       AND person_type_id = 1126)
+                INTO lv_appr_user_name
+                    ,lv_approver_name
+                FROM fnd_user
+                WHERE employee_id = (SELECT to_employee_id
+                                                   FROM xxup.xxup_per_ps_action_history pah
+                                                   WHERE type = 'Institutional'
+                                                   AND item_key = l_itemkey
+        --                                           AND approver_no = ln_approver_counter
+                                                   AND action = 'Pending');
+    
+            EXCEPTION
+              WHEN OTHERS THEN
+                raise_application_error(-20101, 'Error getting latest approver user name');
+            END;
+    
+    
+            BEGIN
+    
+              SELECT COUNT(DISTINCT to_employee_name)
+              INTO ln_total_approver_count
+              FROM xxup.xxup_per_ps_action_history
+              WHERE item_key = l_itemkey
+              AND type = 'Institutional'
+              AND action IN ('Pending','Return for correction','Reassign');
+    
+            EXCEPTION
+              WHEN OTHERS THEN
+                raise_application_error(-20101, 'Error getting total approver count');
+            END;
 
 
                 IF lv_ntf_result = 'RFC' THEN
@@ -1119,7 +1205,8 @@ IS
                                           ,l_itemkey
                                           ,'RFC_URL'
                                           ,'JSP:/OA_HTML/OA.jsp?OAFunc=XXUP_HR_PS_INST_REQ&urlParam=RFC' ||
-                                          'pSequenceNo=' || lv_seq_no
+                                          '&pSequenceNo=' || lv_seq_no ||
+                                          '&pItemKey=' || l_itemkey
                                           );            
 
                     wf_engine.setitemattrtext(itemtype
@@ -1130,6 +1217,11 @@ IS
                                           ' has been returned for correction by '|| 
                                           lv_approver_name
                                            );
+                                           
+                    wf_engine.setitemattrtext(itemtype
+                                          ,l_itemkey
+                                          ,'FROM'
+                                          ,lv_appr_user_name);
 
 
 
@@ -1202,18 +1294,226 @@ IS
                       lv_error := SQLERRM;
                       raise_application_error(-20105, 'error inserting action history record: ' || lv_error);
                   END;
+                  
+                ELSIF lv_ntf_result = 'APPROVE' THEN
+                    INSERT INTO test_tbl
+                    VALUES('approved');
+                    
+                    wf_engine.setitemattrtext(itemtype
+                                             ,l_itemkey
+                                             ,'FYI_TITLE'
+                                             ,'Public Service Institutional- '
+                                             || lv_project_name
+                                             || ' has been approved by '
+                                             || lv_approver_name
+                                            );
+    
+                    wf_engine.setitemattrtext(itemtype
+                                            ,l_itemkey
+                                            ,'TITLE'
+                                            ,'Public Service Institutional- '
+                                          || lv_project_name
+                                          || ' submitted by '
+                                          || lv_emp_name
+                                          || ' needs your Approval'
+                                             );
+    
+                    UPDATE XXUP.XXUP_PER_PS_ACTION_HISTORY
+                    SET action = 'Approved'
+                       ,action_date = SYSDATE
+                       ,note = wf_engine.context_user_comment
+                    WHERE item_key = l_itemkey
+                    AND approver_no = ln_approver_counter;
+                ELSIF lv_ntf_result = 'REJECT' THEN
+                    INSERT INTO test_tbl
+                    VALUES('rejected');
+
+                    wf_engine.setitemattrtext(itemtype
+                                             ,l_itemkey
+                                             ,'FYI_TITLE'
+                                             ,'Public Service Institutional- '
+                                             || lv_project_name
+                                             || ' has been rejected by '
+                                             || lv_approver_name
+                                             );
+    
+                    UPDATE XXUP.XXUP_PER_PS_ACTION_HISTORY
+                    SET action = 'Rejected'
+                       ,action_date = SYSDATE
+                       ,note = wf_engine.context_user_comment
+                    WHERE item_key = l_itemkey
+                    AND type = 'Institutional'
+                    AND approver_no = ln_approver_counter;
+                    
+                ELSIF funcmode = 'FORWARD' THEN
+
+                    --get forwarded employee person id (l_new_approver_id
+                    wf_directory.getroleorigsysinfo(wf_engine.context_new_role,
+                                                    l_origsys,
+                                                    l_new_approver_id
+                                                   );
+        
+        
+                    wf_engine.setitemattrtext(itemtype
+                                             ,l_itemkey
+                                             ,'TITLE'
+                                             ,'Public Service Institutional - '
+                                             || lv_project_name
+                                             || ' has been reassigned to you by '
+                                             || lv_approver_name
+                                             || ' for approval'
+                                             );
+        
+        
+                    UPDATE xxup.xxup_per_ps_action_history
+                    SET action = 'Reassign'
+                        ,action_date = SYSDATE
+                        ,note = wf_engine.context_user_comment
+                    WHERE item_key = l_itemkey
+                    AND type = 'Institutional'
+                    AND approver_no = ln_cur_approver_no;
+        
+        --            COMMIT;
+        
+        
+                     /*1. get all pending approvers and increment their approver no/sequence by 1 
+                       2. insert record for the owner (pending pending approval to new approver)  */
+        
+        --             UPDATE xxup.xxup_per_ps_action_history
+        --             SET approver_no = approver_no + 1
+        --             WHERE action = 'Pending'
+        --             AND sequence_no = lv_seq_no
+        --             AND type = 'Institutional';
+        
+        
+        
+                     /*Get details of reassigned employee*/
+                     BEGIN
+        
+                       SELECT papf.full_name
+                             ,papf.person_id
+                             ,(SELECT ppd.segment1
+                               FROM per_position_definitions ppd
+                                   ,per_all_positions pap
+                               WHERE pap.position_id = paaf.position_id
+                               AND   ppd.position_definition_id = pap.position_definition_id) POSITION_NAME
+                            ,(SELECT haou.name
+                              FROM per_position_definitions ppd
+                                  ,per_all_positions pap
+                                  ,hr_all_organization_units haou
+                               WHERE pap.position_id = paaf.position_id
+                               AND   ppd.position_definition_id = pap.position_definition_id
+                               AND   haou.organization_id = ppd.segment2) ORGANIZATION_NAME
+                       INTO lv_to_name
+                           ,ln_to_id
+                           ,lv_to_pos_name
+                           ,lv_to_org_name
+                       FROM per_all_assignments_f paaf
+                           ,per_all_people_f papf
+                       WHERE paaf.person_id = papf.person_id
+                       AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
+                       AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
+                       AND primary_flag = 'Y'
+                       AND papf.person_id = l_new_approver_id;
+        
+                     EXCEPTION
+                        WHEN OTHERS THEN
+                          lv_error := SQLERRM;
+                          raise_application_error(-20105, 'Error on getting details of reassigned employee: ' || lv_error);
+                     END;
+        
+        
+                     INSERT INTO xxup.xxup_per_ps_action_history(sequence_no,
+                                                                 approver_no,
+                                                                 from_employee_id,
+                                                                 from_employee_name,
+                                                                 from_position_name,
+                                                                 from_org_name,
+                                                                 to_employee_id,
+                                                                 to_employee_name,
+                                                                 to_position_name,
+                                                                 to_org_name,
+                                                                 action,
+                                                                 type,
+                                                                 item_key
+        
+                                                                 )
+                     SELECT sequence_no
+                           ,to_number(approver_no) + 1
+                           ,to_employee_id
+                           ,to_employee_name
+                           ,to_position_name
+                           ,to_org_name
+                           ,ln_to_id
+                           ,lv_to_name
+                           ,lv_to_pos_name
+                           ,lv_to_org_name
+                           ,'Pending'
+                           ,'Institutional'
+                           ,l_itemkey
+                     FROM xxup.xxup_per_ps_action_history
+                     WHERE item_key = l_itemkey
+                     AND approver_no = ln_cur_approver_no
+                     AND type = 'Institutional';         
+        
+        
+        --            ln_approver_counter := ln_approver_counter + 1;
+        ----            
+        ----            
+        --            wf_engine.setitemattrnumber(itemtype
+        --                                        ,l_itemkey
+        --                                        ,'APPROVER_COUNTER'
+        --                                        ,ln_approver_counter);
+        
+        
+        
+
                 END IF;
 
 
 
+                --exit workflow and complete, if no 'Pending' approval remaining
+                  BEGIN
+                      SELECT 'N'
+                      INTO lv_completed_approval
+                      FROM xxup.xxup_per_ps_action_history
+                      WHERE action IN ('Pending')
+                      AND item_key = l_itemkey
+                      AND type = 'Institutional'
+                      AND ROWNUM = 1;
+                  EXCEPTION
+                      WHEN no_data_found THEN
+                          lv_completed_approval := 'Y';
+                       WHEN OTHERS THEN
+                          lv_completed_approval := 'N';
+                          
+--                          INSERT INTO test_tbl
+--                          VALUES('3.5');
+                          
+                  END;
+                  
+                  
+                  
+                  
+                  
+                  IF lv_completed_approval = 'Y' THEN
+                    
+                    INSERT INTO test_tbl
+                    VALUES('completed approval');
+                  
+
+--                IF ln_approver_counter = ln_total_approver_count THEN
+--                    INSERT INTO xxup_ps_test_tbl
+--                    VALUES('equal');
 
 
-
-
-                IF ln_approver_counter = ln_total_approver_count THEN
-
+--                    COMMIT;
 
                       IF lv_ntf_result = 'APPROVE' THEN
+                      
+                        INSERT INTO test_tbl
+                        VALUES('approvad');
+
 
                         BEGIN
                             SELECT SUBSTR(l_itemkey,1,1)
@@ -1223,6 +1523,9 @@ IS
                             WHEN OTHERS THEN
                                 raise_application_error(-20101, 'Unable to get Transaction action');
                         END;
+
+--                        INSERT INTO xxup_ps_test_tbl
+--                        VALUES('lv_action_prefix: ' || lv_action_prefix);
 
 
                         BEGIN
@@ -1235,7 +1538,8 @@ IS
                                         ,project_name                    
                                         ,implementation_start_date       
                                         ,implementation_end_date         
-                                        ,duration_hours                  
+                                        ,duration
+                                        ,duration_unit
                                         ,implementation_frequency        
                                         ,funding_agency                  
                                         ,cost_of_participation           
@@ -1262,7 +1566,8 @@ IS
                                             ,project_name                    
                                             ,implementation_start_date       
                                             ,implementation_end_date         
-                                            ,duration_hours                  
+                                            ,duration
+                                            ,duration_unit
                                             ,implementation_frequency        
                                             ,funding_agency                  
                                             ,cost_of_participation           
@@ -1284,12 +1589,17 @@ IS
                                             ,male_benef_count                
                                             ,female_benef_count              
                                             ,project_leader           
-                                      FROM xxup_per_ps_header_tr tr
+                                      FROM xxup_per_ps_institutional_tr tr
                                       WHERE tr.item_key = l_itemkey)
                                     WHERE main.sequence_no = lv_seq_no;
 
 
+
                                  ELSE --create
+
+--                                    INSERT INTO xxup_ps_test_tbl
+--                                    VALUES('creating record');
+
                                      INSERT INTO xxup.xxup_per_ps_institutional
                                       (
                                         sequence_no
@@ -1299,7 +1609,8 @@ IS
                                        ,implementation_start_date
                                        ,implementation_end_date
                                        ,status
-                                       ,duration_hours
+                                       ,duration
+                                       ,duration_unit
                                        ,implementation_frequency
                                        ,funding_agency
                                        ,cost_of_participation
@@ -1327,7 +1638,8 @@ IS
                                              ,implementation_start_date
                                              ,implementation_end_date
                                              ,status
-                                             ,duration_hours
+                                             ,duration
+                                             ,duration_unit
                                              ,implementation_frequency
                                              ,funding_agency
                                              ,cost_of_participation
@@ -1786,6 +2098,7 @@ IS
                                      WHERE item_key = l_itemkey;
 
 
+
                                 UPDATE xxup.xxup_per_ps_institutional_tr
                                   SET request_status = 'APPROVED'
                                   WHERE item_key = l_itemkey;
@@ -1797,7 +2110,13 @@ IS
                                      ,note = wf_engine.context_user_comment
                                   WHERE item_key = l_itemkey
                                   AND type = 'Institutional'
-                                  AND approver_no = ln_approver_counter;
+                                  AND approver_no = ln_cur_approver_no; 
+                                  
+                                  
+
+--                                INSERT INTO xxup_ps_test_tbl
+--                                VALUES('done updating child tables');
+--                                  COMMIT;
 
                         EXCEPTION
                             WHEN OTHERS THEN
@@ -1806,6 +2125,9 @@ IS
                         END;
 
                         BEGIN
+                            
+                         INSERT INTO test_tbl
+                                VALUES('FYI_TITLE set');
 
                           wf_engine.setitemattrtext(itemtype
                                     ,l_itemkey
@@ -1816,8 +2138,12 @@ IS
                                     || lv_approver_name
                                     || ' and has been completed'
                                     );
+                        
+                            --workflow done, exit proc
+                            RETURN;
 
-
+--                                INSERT INTO xxup_ps_test_tbl
+--                                VALUES('FYI_TITLE set ');
                         EXCEPTION
                           WHEN OTHERS THEN
                             lv_error := SQLERRM;
@@ -1827,6 +2153,9 @@ IS
 
 
                       ELSIF lv_ntf_result = 'REJECT' THEN
+
+--                                INSERT INTO xxup_ps_test_tbl
+--                                VALUES('rejected!');
 
                           wf_engine.setitemattrtext(itemtype
                                     ,l_itemkey
@@ -1850,60 +2179,14 @@ IS
                           AND type = 'Institutional';
 
                       END IF;
-                END IF;
+                
+            END IF; --completed approval
+            
+--          IF ln_approver_counter < ln_total_approver_count THEN
 
 
-          IF ln_approver_counter < ln_total_approver_count THEN
-
-            IF lv_ntf_result = 'APPROVE' THEN
-
-
-                wf_engine.setitemattrtext(itemtype
-                                         ,l_itemkey
-                                         ,'FYI_TITLE'
-                                         ,'Public Service - '
-                                         || lv_project_name
-                                         || ' has been approved by '
-                                         || lv_approver_name
-                                         || ' and is completed'
-                                          );
-
-                wf_engine.setitemattrtext(itemtype
-                                        ,l_itemkey
-                                        ,'TITLE'
-                                        ,'Public Service - '
-                                      || lv_project_name
-                                      || ' submitted by '
-                                      || lv_emp_name
-                                      || ' needs your Approval'
-                                         );
-
-                UPDATE XXUP.XXUP_PER_PS_ACTION_HISTORY
-                SET action = 'Approved'
-                   ,action_date = SYSDATE
-                   ,note = wf_engine.context_user_comment
-                WHERE item_key = l_itemkey
-                AND approver_no = ln_approver_counter;
-
-             ELSIF lv_ntf_result = 'REJECT' THEN
-
-                wf_engine.setitemattrtext(itemtype
-                                         ,l_itemkey
-                                         ,'FYI_TITLE'
-                                         ,'Public Service - '
-                                         || lv_project_name
-                                         || ' has been rejected by '
-                                         || lv_approver_name
-                                         );
-
-                UPDATE XXUP.XXUP_PER_PS_ACTION_HISTORY
-                SET action = 'Rejected'
-                   ,action_date = SYSDATE
-                   ,note = wf_engine.context_user_comment
-                WHERE item_key = l_itemkey
-                AND type = 'Institutional'
-                AND approver_no = ln_approver_counter;
-            END IF;
+             
+--            END IF;
 
 
             IF lv_ntf_result IN ('APPROVE', 'REJECT','RFC') THEN
@@ -1920,7 +2203,6 @@ IS
                                          ,'APPROVER_COUNTER'
                                          ,ln_approver_counter);
 
-                raise_application_error(-20102, 'set attribute error');
 
                 /*                         
                 SELECT COUNT(1)
@@ -1940,28 +2222,27 @@ IS
                                          ,lv_appr_user_name);
 
 
---                raise_application_error(-20102, 'set attribute error');
 
 
-                IF lv_ntf_result IN ('APPROVE', 'REJECT') THEN
-
-                  wf_engine.setitemattrtext(itemtype
-                                           ,l_itemkey
-                                           ,'APPROVER_NAME'
-                                           ,lv_approver_name);
-
-
-                  wf_engine.setitemattrtext(itemtype
-                                     ,l_itemkey
-                                     ,'APPROVER'
-                                     ,lv_appr_user_name);
-
-                  raise_application_error(-20102, 'set attribute approver error');
-
-
-
-
-                END IF;
+--                IF lv_ntf_result IN ('APPROVE', 'REJECT') THEN
+--
+--                  wf_engine.setitemattrtext(itemtype
+--                                           ,l_itemkey
+--                                           ,'APPROVER_NAME'
+--                                           ,lv_approver_name);
+--
+--
+--                  wf_engine.setitemattrtext(itemtype
+--                                     ,l_itemkey
+--                                     ,'APPROVER'
+--                                     ,lv_appr_user_name);
+--
+--                  raise_application_error(-20102, 'set attribute approver error');
+--
+--
+--
+--
+--                END IF;
 
 
                 EXCEPTION
@@ -1976,140 +2257,13 @@ IS
           END IF;
 
 
-        ELSIF funcmode = 'FORWARD' THEN
-
-            --get forwarded employee person id (l_new_approver_id
-            wf_directory.getroleorigsysinfo(wf_engine.context_new_role,
-                                            l_origsys,
-                                            l_new_approver_id
-                                           );
-
-
-            wf_engine.setitemattrtext(itemtype
-                                     ,l_itemkey
-                                     ,'TITLE'
-                                     ,'Public Service Institutional - '
-                                     || lv_project_name
-                                     || ' has been reassigned to you by '
-                                     || lv_approver_name
-                                     || ' for approval'
-                                     );
-
-
-            UPDATE xxup.xxup_per_ps_action_history
-            SET action = 'Reassign'
-                ,action_date = SYSDATE
-                ,note = wf_engine.context_user_comment
-            WHERE item_key = l_itemkey
-            AND type = 'Institutional'
-            AND approver_no = ln_cur_approver_no;
-
---            COMMIT;
-
-
-             /*1. get all pending approvers and increment their approver no/sequence by 1 
-               2. insert record for the owner (pending pending approval to new approver)  */
-
---             UPDATE xxup.xxup_per_ps_action_history
---             SET approver_no = approver_no + 1
---             WHERE action = 'Pending'
---             AND sequence_no = lv_seq_no
---             AND type = 'Institutional';
-
-
-
-             /*Get details of reassigned employee*/
-             BEGIN
-
-               SELECT papf.full_name
-                     ,papf.person_id
-                     ,(SELECT ppd.segment1
-                       FROM per_position_definitions ppd
-                           ,per_all_positions pap
-                       WHERE pap.position_id = paaf.position_id
-                       AND   ppd.position_definition_id = pap.position_definition_id) POSITION_NAME
-                    ,(SELECT haou.name
-                      FROM per_position_definitions ppd
-                          ,per_all_positions pap
-                          ,hr_all_organization_units haou
-                       WHERE pap.position_id = paaf.position_id
-                       AND   ppd.position_definition_id = pap.position_definition_id
-                       AND   haou.organization_id = ppd.segment2) ORGANIZATION_NAME
-               INTO lv_to_name
-                   ,ln_to_id
-                   ,lv_to_pos_name
-                   ,lv_to_org_name
-               FROM per_all_assignments_f paaf
-                   ,per_all_people_f papf
-               WHERE paaf.person_id = papf.person_id
-               AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
-               AND SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
-               AND primary_flag = 'Y'
-               AND papf.person_id = l_new_approver_id;
-
-             EXCEPTION
-                WHEN OTHERS THEN
-                  lv_error := SQLERRM;
-                  raise_application_error(-20105, 'Error on getting details of reassigned employee: ' || lv_error);
-             END;
-
-
-             INSERT INTO xxup.xxup_per_ps_action_history(sequence_no,
-                                                         approver_no,
-                                                         from_employee_id,
-                                                         from_employee_name,
-                                                         from_position_name,
-                                                         from_org_name,
-                                                         to_employee_id,
-                                                         to_employee_name,
-                                                         to_position_name,
-                                                         to_org_name,
-                                                         action,
-                                                         type,
-                                                         item_key
-
-                                                         )
-             SELECT sequence_no
-                   ,to_number(approver_no) + 1
-                   ,to_employee_id
-                   ,to_employee_name
-                   ,to_position_name
-                   ,to_org_name
-                   ,ln_to_id
-                   ,lv_to_name
-                   ,lv_to_pos_name
-                   ,lv_to_org_name
-                   ,'Pending'
-                   ,'Institutional'
-                   ,l_itemkey
-             FROM xxup.xxup_per_ps_action_history
-             WHERE item_key = l_itemkey
-             AND approver_no = ln_cur_approver_no
-             AND type = 'Institutional';         
-
-
---            ln_approver_counter := ln_approver_counter + 1;
---            
---            
---            wf_engine.setitemattrnumber(itemtype
---                                        ,l_itemkey
---                                        ,'APPROVER_COUNTER'
---                                        ,ln_approver_counter);
-
-
-
-
-        END IF;
-
 
 
 
         EXCEPTION
           WHEN OTHERS THEN
---            lv_error := SQLERRM;
---            raise_application_error(-20101, 'last exception' ||  lv_error);
-
-          NULL;
+            lv_error := SQLERRM;
+            raise_application_error(-20101, 'update status' ||  lv_error);
     END update_status;
 
 END xxup_ps_inst_wf_pkg;

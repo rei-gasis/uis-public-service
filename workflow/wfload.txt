@@ -1,0 +1,8 @@
+
+/*Individual*/
+WFLOAD apps/$pwd 0 Y FORCE PS_06SEP2019.wft
+
+
+
+/*Institutional*/
+WFLOAD apps/$pwd 0 Y FORCE PSINST_31AUG2019.wft

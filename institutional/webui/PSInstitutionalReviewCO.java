@@ -149,6 +149,20 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
     public void processFormRequest(OAPageContext pageContext, 
                                    OAWebBean webBean) {
         super.processFormRequest(pageContext, webBean);
+
+                //ignore actions from attachment functions
+        if(("oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaUpdateAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaDeleteAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("oaViewAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("AddInlineAttachment".equals(pageContext.getParameter(EVENT_PARAM))) ||
+           ("DeleteInlineAttachment".equals(pageContext.getParameter(EVENT_PARAM)))
+          ){
+            return;
+        } 
+
+
         OAApplicationModule am = 
             (OAApplicationModule)pageContext.getApplicationModule(webBean);
 
@@ -158,6 +172,15 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
         String viewFrom = pageContext.getParameter("viewFrom");
 
         Serializable[] params = { sequenceNo };
+
+
+//        pageContext.writeDiagnostics(this, "PSInstitutionalReviewCO:" + pageContext.getParameter(EVENT_PARAM), 1);
+//
+        // System.out.println("PSInstitutionalReviewCO:" + pageContext.getParameter(EVENT_PARAM));
+//        pageContext.writeDiagnostics(this, "PSInstitutionalReviewCO:" + pageContext.getParameter(EVENT_PARAM), 1);
+        
+        
+        
 
 
         if (pageContext.getParameter("Back") != null) {
@@ -219,10 +242,8 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
                                            null, null, false, 
                                            OAWebBeanConstants.ADD_BREAD_CRUMB_NO);
 
-        } else if ("RFC".equals(actionParam) && 
-                   (!"oaAddAttachment".equals(pageContext.getParameter(EVENT_PARAM))) && 
-                   (!"oaGotoAttachments".equals(pageContext.getParameter(EVENT_PARAM)))) {
-
+        } else if ("RFC".equals(actionParam)) {
+            
             OAViewObject vo = (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
             String pItemKey = pageContext.getParameter("pItemKey");
             Serializable[] reviewPSParams = { pItemKey };
@@ -257,13 +278,15 @@ public class PSInstitutionalReviewCO extends OAControllerImpl {
 
                 dialogPage.setPostToCallingPage(true);
 
+                String itemKey = pageContext.getParameter("pItemKey");
+                Serializable[] resubmitParams = { itemKey };
+                am.invokeMethod("resubmitPS", resubmitParams);
+
 
                 pageContext.redirectToDialogPage(dialogPage);
                 
                 
-                String itemKey = pageContext.getParameter("pItemKey");
-                Serializable[] resubmitParams = { itemKey };
-                am.invokeMethod("resubmitPS", resubmitParams);
+                
             }
 
             
