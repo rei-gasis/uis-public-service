@@ -1689,7 +1689,7 @@ public class PublicServiceAMImpl extends OAApplicationModuleImpl {
             getXxupPerPSApprovedVO1();
 
         if (vo != null) {
-            vo.showSummaryVO(1);
+            vo.showSummaryVO(accessLevel);
         }
         
     }

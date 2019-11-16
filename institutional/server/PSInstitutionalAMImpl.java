@@ -1658,7 +1658,7 @@ public class PSInstitutionalAMImpl extends OAApplicationModuleImpl {
         XxupPerPSInstitutionalEOVOImpl summVo = getXxupPerPSInstitutionalEOVO1();
         
         if (summVo != null) {
-            summVo.showSummaryVO(1);
+            summVo.showSummaryVO(accessLevel);
         }
 
     }

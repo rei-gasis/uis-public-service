@@ -12,37 +12,58 @@ public class XxupPerPSApprovedVOImpl extends OAViewObjectImpl {
     public XxupPerPSApprovedVOImpl() {
     }
     
-    protected static final int ALL_LEVEL = 0;
-    protected static final int USER_LEVEL = 1;
-    protected static final int UNIT_LEVEL = 2;
-    protected static final int CU_LEVEL = 3;
+    protected static final String ALL_LEVEL = "ALL";
+    protected static final String USER_LEVEL = "USER";
+    protected static final String UNIT_LEVEL = "UNIT";
+    protected static final String CU_LEVEL = "CU";
 
 
-    public void showSummaryVO(int accessLevel) {
+    public void showSummaryVO(String accessLevel) {
 
-    	switch(accessLevel){
-    		case USER_LEVEL:
-    			System.out.println(USER_LEVEL);
-    			this.execWhereClause();
-    			break;
-    		case UNIT_LEVEL:
-    			System.out.println(UNIT_LEVEL);
-    			break;
-    		case ALL_LEVEL:
-    			System.out.println(ALL_LEVEL);
-    			break;
-    		case CU_LEVEL:
-    			System.out.println(CU_LEVEL);
-    			break;
-    		default:
-    			System.out.println("none");
-    	}
-    }
+        System.out.println("access level: " + accessLevel); 
+        setWhereClause(null);
 
-    void execWhereClause(){
-    	setWhereClause(null);
-        setWhereClause("person_id = fnd_global.employee_id");
+        if(accessLevel.equals(ALL_LEVEL)){
+            System.out.println(ALL_LEVEL);
+            setWhereClause("1=1");
+        }else if(accessLevel.equals(CU_LEVEL)){
+            System.out.println(CU_LEVEL);
+            setWhereClause("person_id IN (SELECT employee_id FROM fnd_user WHERE user_name IN (SELECT * FROM TABLE(xxup_ps_inst_wf_pkg.get_users_per_cu(fnd_global.user_id))))");
+
+        }else if(accessLevel.equals(UNIT_LEVEL)){
+            System.out.println(UNIT_LEVEL);
+            setWhereClause("person_id IN (SELECT employee_id FROM fnd_user WHERE user_name IN (SELECT * FROM TABLE(xxup_ps_inst_wf_pkg.get_users_per_unit(fnd_global.user_id))))");
+        }else if(accessLevel.equals(USER_LEVEL)){
+            System.out.println(USER_LEVEL);
+            setWhereClause("person_id = fnd_global.employee_id");
+        }else{
+            setWhereClause("person_id = fnd_global.employee_id");
+        }
+
         executeQuery();
+
+    	// switch(accessLevel){
+    	// 	case USER_LEVEL:
+    	// 		System.out.println(USER_LEVEL);
+    	// 		setWhereClause("person_id = fnd_global.employee_id");
+    	// 		break;
+    	// 	case UNIT_LEVEL:
+    	// 		System.out.println(UNIT_LEVEL);
+    	// 		break;
+    	// 	case ALL_LEVEL:
+    	// 		System.out.println(ALL_LEVEL);
+    	// 		break;
+    	// 	case CU_LEVEL:
+     //            System.out.println(CU_LEVEL);
+     //            setWhereClause("WHERE person_id IN (SELECT employee_id FROM fnd_user WHERE user_name IN (SELECT * FROM TABLE(xxup_get_users_per_cu(fnd_global.user_id))))");
+    	// 		break;
+    	// 	default:
+     //            setWhereClause("1=2");
+    	// 		System.out.println("none");
+    	// }    
+        
     }
+
+    
     
 }

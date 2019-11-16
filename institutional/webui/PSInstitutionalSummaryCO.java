@@ -61,9 +61,9 @@ public class PSInstitutionalSummaryCO extends OAControllerImpl {
                 access_level = resultset.getString("access_level");
                 // params[0] = access_level;
                 params[0] = access_level;
-                pageContext.writeDiagnostics(this, 
-                                             "Query Executed" + access_level, 
-                                             1);
+                // pageContext.writeDiagnostics(this, 
+                //                              "Query Executed" + access_level, 
+                //                              1);
 
 //                System.out.println(resultset.getString("access_level"));
             }
