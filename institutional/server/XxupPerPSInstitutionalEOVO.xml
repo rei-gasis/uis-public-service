@@ -40,13 +40,15 @@ SELECT XxupPerPsInstitutionalEO.SEQUENCE_NO,
        (SELECT full_name
        FROM per_all_people_f papf
        WHERE SYSDATE BETWEEN papf.effective_start_date AND papf.effective_end_date
-       AND papf.person_id = XxupPerPsInstitutionalEO.project_leader) project_leader_display
+       AND papf.person_id = XxupPerPsInstitutionalEO.project_leader)
+ project_leader_display,
+LPAD(XxupPerPsInstitutionalEO.SEQUENCE_NO,9,'0') SEQUENCE_NO_DISPLAY
 FROM XXUP.XXUP_PER_PS_INSTITUTIONAL XxupPerPsInstitutionalEO
    ]]></SQLQuery>
    <DesignTime>
       <Attr Name="_isCodegen" Value="true" />
       <Attr Name="_isExpertMode" Value="true" />
-      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_version" Value="10.1.3.43.6" />
       <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
    </DesignTime>
    <EntityUsage
@@ -235,6 +237,19 @@ FROM XXUP.XXUP_PER_PS_INSTITUTIONAL XxupPerPsInstitutionalEO
       SQLType="VARCHAR" >
       <DesignTime>
          <Attr Name="_DisplaySize" Value="240" />
+      </DesignTime>
+   </ViewAttribute>
+   <ViewAttribute
+      Name="SequenceNoDisplay"
+      IsPersistent="false"
+      Precision="9"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="SEQUENCE_NO_DISPLAY"
+      Expression="SEQUENCE_NO_DISPLAY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="9" />
       </DesignTime>
    </ViewAttribute>
 </ViewObject>

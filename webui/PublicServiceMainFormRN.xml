@@ -7,7 +7,7 @@
             <!-- <oa:formValue id="TypeOfActivityId" prompt="Position" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="TypeOfActivity" dataType="VARCHAR2"/> -->
             <oa:messageComponentLayout id="FieldsCL">
                <ui:contents>
-                  <oa:messageStyledText id="SequenceNo" dataType="NUMBER" prompt="Sequence No" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SequenceNo" styleClass="OraDataText"/>
+                  <oa:messageStyledText id="SequenceNo" dataType="VARCHAR2" prompt="Sequence No" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="SequenceNoDisplay" styleClass="OraDataText"/>
                   <oa:messageLovInput id="PositionName" dataType="VARCHAR2" prompt="* Assignment Position" viewName="XxupPerPSHeaderTrEOVO1" viewAttr="PositionName" externalListOfValues="/xxup/oracle/apps/per/publicservice/lov/webui/PerPositionLovRN" required="no" translatableDefaultValue="" lookAheadSearchType="contains" lookAheadEnabled="true">
                      <lovMappings>
                         <lovMap id="lovMap1" lovItem="PositionName" resultTo="PositionName" criteriaFrom="PositionName"/>

@@ -19,39 +19,40 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
     public static final int SEQUENCENO = 0;
     public static final int REQUESTSTATUS = 21;
     public static final int TYPEOFACTIVITYDISPLAY = 30;
-    public static final int POSITIONID = 1;
-    public static final int PROJECTNAME = 2;
-    public static final int PRIMARYROLE = 3;
-    public static final int PROJECTTYPE = 4;
-    public static final int REQUESTDATE = 5;
-    public static final int RESPONDEDDATE = 6;
-    public static final int STARTDATE = 7;
-    public static final int ENDDATE = 8;
-    public static final int DURATIONHOURS = 9;
-    public static final int SOURCEOFFUND = 10;
-    public static final int COSTOFPARTICIPATION = 11;
-    public static final int PARTNERORGORINST = 12;
-    public static final int BENEFICIARYCATEGORY = 13;
-    public static final int UNITOFBENEFICIARY = 14;
-    public static final int NOOFBENEFICIARY = 15;
-    public static final int POSTACTEVALRATING = 16;
-    public static final int REMARKS = 17;
-    public static final int ATTRIBUTE1 = 18;
-    public static final int ATTRIBUTE2 = 19;
-    public static final int ATTRIBUTE3 = 20;
-    public static final int ATTRIBUTE4 = 21;
-    public static final int ATTRIBUTE5 = 22;
-    public static final int LASTUPDATEDATE = 23;
-    public static final int LASTUPDATEDBY = 24;
-    public static final int LASTUPDATELOGIN = 25;
-    public static final int CREATEDBY = 26;
-    public static final int CREATIONDATE = 27;
-    public static final int POSITIONNAME = 28;
+    public static final int SEQUENCENODISPLAY = 1;
+    public static final int POSITIONID = 2;
+    public static final int PROJECTNAME = 3;
+    public static final int PRIMARYROLE = 4;
+    public static final int PROJECTTYPE = 5;
+    public static final int REQUESTDATE = 6;
+    public static final int RESPONDEDDATE = 7;
+    public static final int STARTDATE = 8;
+    public static final int ENDDATE = 9;
+    public static final int DURATIONHOURS = 10;
+    public static final int SOURCEOFFUND = 11;
+    public static final int COSTOFPARTICIPATION = 12;
+    public static final int PARTNERORGORINST = 13;
+    public static final int BENEFICIARYCATEGORY = 14;
+    public static final int UNITOFBENEFICIARY = 15;
+    public static final int NOOFBENEFICIARY = 16;
+    public static final int POSTACTEVALRATING = 17;
+    public static final int REMARKS = 18;
+    public static final int ATTRIBUTE1 = 19;
+    public static final int ATTRIBUTE2 = 20;
+    public static final int ATTRIBUTE3 = 21;
+    public static final int ATTRIBUTE4 = 22;
+    public static final int ATTRIBUTE5 = 23;
+    public static final int LASTUPDATEDATE = 24;
+    public static final int LASTUPDATEDBY = 25;
+    public static final int LASTUPDATELOGIN = 26;
+    public static final int CREATEDBY = 27;
+    public static final int CREATIONDATE = 28;
     public static final int SHOWHIDE = 29;
     public static final int RENDERADDRESS = 30;
     public static final int RENDERORGRN = 31;
-    public static final int XXUPPERPUBLICSERVICECATEOVO = 32;
-    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 33;
+    public static final int POSITIONNAME = 32;
+    public static final int XXUPPERPUBLICSERVICECATEOVO = 33;
+    public static final int XXUPPERPUBLICSERVICESUBJEOVO = 34;
 
     /**This is the default constructor (do not remove)
      */
@@ -460,6 +461,8 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         switch (index) {
         case SEQUENCENO:
             return getSequenceNo();
+        case SEQUENCENODISPLAY:
+            return getSequenceNoDisplay();
         case POSITIONID:
             return getPositionId();
         case PROJECTNAME:
@@ -514,14 +517,14 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return getCreatedBy();
         case CREATIONDATE:
             return getCreationDate();
-        case POSITIONNAME:
-            return getPositionName();
         case SHOWHIDE:
             return getShowHide();
         case RENDERADDRESS:
             return getRenderAddress();
         case RENDERORGRN:
             return getRenderOrgRN();
+        case POSITIONNAME:
+            return getPositionName();
         case XXUPPERPUBLICSERVICECATEOVO:
             return getXxupPerPublicServiceCatEOVO();
         case XXUPPERPUBLICSERVICESUBJEOVO:
@@ -538,6 +541,9 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         switch (index) {
         case SEQUENCENO:
             setSequenceNo((Number)value);
+            return;
+        case SEQUENCENODISPLAY:
+            setSequenceNoDisplay((String)value);
             return;
         case POSITIONID:
             setPositionId((Number)value);
@@ -620,9 +626,6 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
         case CREATIONDATE:
             setCreationDate((Date)value);
             return;
-        case POSITIONNAME:
-            setPositionName((String)value);
-            return;
         case SHOWHIDE:
             setShowHide((String)value);
             return;
@@ -631,6 +634,9 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
             return;
         case RENDERORGRN:
             setRenderOrgRN((Boolean)value);
+            return;
+        case POSITIONNAME:
+            setPositionName((String)value);
             return;
         default:
             super.setAttrInvokeAccessor(index, value, attrDef);
@@ -661,5 +667,17 @@ public class XxupPerPublicServiceHeaderEOVORowImpl extends OAViewRowImpl {
      */
     public void setRenderOrgRN(Boolean value) {
         setAttributeInternal(RENDERORGRN, value);
+    }
+
+    /**Gets the attribute value for the calculated attribute SequenceNoDisplay
+     */
+    public String getSequenceNoDisplay() {
+        return (String) getAttributeInternal(SEQUENCENODISPLAY);
+    }
+
+    /**Sets <code>value</code> as the attribute value for the calculated attribute SequenceNoDisplay
+     */
+    public void setSequenceNoDisplay(String value) {
+        setAttributeInternal(SEQUENCENODISPLAY, value);
     }
 }

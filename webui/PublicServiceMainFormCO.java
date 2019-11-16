@@ -47,15 +47,28 @@ public class PublicServiceMainFormCO extends OAControllerImpl {
         
         String actionFromURL = pageContext.getParameter("urlParam");
         
-        if("Update".equals(actionFromURL)){
-            return;
-        }
+        
             
         /*on init, hide some fields*/
         OAViewObject mainVO = (OAViewObject) am.findViewObject("XxupPerPSHeaderTrEOVO1");
         Row mRow = mainVO.getCurrentRow();
         
+
+        //set sequenceNo 
+        String sequenceNo = "";
+        try {
+            // System.out.println(row.getAttribute("PositionId").toString());
+            sequenceNo = String.format("%010d", Integer.parseInt(mRow.getAttribute("SequenceNo").toString()));
+
+            mRow.setAttribute("SequenceNoDisplay", sequenceNo);
+            // System.out.println("SequenceNoDisplay" + sequenceNo);
+        } catch (Exception ex) {
+            throw new OAException("Setting sequenceNo: " + ex);
+        }
     
+        if("Update".equals(actionFromURL)){
+            return;
+        }
 
 
         try{

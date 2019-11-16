@@ -42,6 +42,7 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
     public static final int FEMALEBENEFCOUNT = 26;
     public static final int PROJECTLEADER = 27;
     public static final int PROJECTLEADERDISPLAY = 28;
+    public static final int SEQUENCENODISPLAY = 29;
 
     /**This is the default constructor (do not remove)
      */
@@ -432,6 +433,8 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
             return getProjectLeader();
         case PROJECTLEADERDISPLAY:
             return getProjectLeaderDisplay();
+        case SEQUENCENODISPLAY:
+            return getSequenceNoDisplay();
         default:
             return super.getAttrInvokeAccessor(index, attrDef);
         }
@@ -529,6 +532,9 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
         case PROJECTLEADERDISPLAY:
             setProjectLeaderDisplay((String)value);
             return;
+        case SEQUENCENODISPLAY:
+            setSequenceNoDisplay((String)value);
+            return;
         default:
             super.setAttrInvokeAccessor(index, value, attrDef);
             return;
@@ -569,5 +575,17 @@ public class XxupPerPSInstitutionalEOVORowImpl extends OAViewRowImpl {
      */
     public void setDurationUnit(String value) {
         setAttributeInternal(DURATIONUNIT, value);
+    }
+
+    /**Gets the attribute value for the calculated attribute SequenceNoDisplay
+     */
+    public String getSequenceNoDisplay() {
+        return (String) getAttributeInternal(SEQUENCENODISPLAY);
+    }
+
+    /**Sets <code>value</code> as the attribute value for the calculated attribute SequenceNoDisplay
+     */
+    public void setSequenceNoDisplay(String value) {
+        setAttributeInternal(SEQUENCENODISPLAY, value);
     }
 }

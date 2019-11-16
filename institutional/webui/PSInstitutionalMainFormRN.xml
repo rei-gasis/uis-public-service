@@ -6,7 +6,7 @@
             <oa:formValue id="ProjectLeader" viewAttr="ProjectLeader" viewName="XxupPerPSInstTrEOVO1"/>
             <oa:messageComponentLayout id="FieldsCL">
                <ui:contents>
-                  <oa:messageStyledText id="SequenceNo" dataType="NUMBER" prompt="Sequence No" viewName="XxupPerPSInstTrEOVO1" viewAttr="SequenceNo" styleClass="OraDataText"/>
+                  <oa:messageStyledText id="SequenceNo" dataType="VARCHAR2" prompt="Sequence No" viewName="XxupPerPSInstTrEOVO1" styleClass="OraDataText" viewAttr="SequenceNoDisplay"/>
                   <oa:messageLovInput id="ConstituentUniversity" externalListOfValues="/xxup/oracle/apps/per/publicservice/institutional/lov/webui/PerPSPInstCULovRN" viewName="XxupPerPSInstTrEOVO1" viewAttr="ConstituentUniversity" prompt="* Constituent University" readOnly="false" selectiveSearchCriteria="false" lookAheadSearchType="contains" translatableDefaultValue="">
                      <lovMappings>
                         <lovMap id="CULov" lovItem="ConstituentUniversity" resultTo="ConstituentUniversity" criteriaFrom="ConstituentUniversity"/>

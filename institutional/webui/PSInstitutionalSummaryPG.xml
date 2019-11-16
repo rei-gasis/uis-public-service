@@ -15,7 +15,7 @@
                               <oa:sortableHeader id="SequenceNoSH" prompt="Sequence No"/>
                            </ui:columnHeader>
                            <ui:contents>
-                              <oa:messageStyledText id="SequenceNo" viewAttr="SequenceNo" queryable="false" styleClass="OraDataText"/>
+                              <oa:messageStyledText id="SequenceNo" viewAttr="SequenceNoDisplay" queryable="false"/>
                            </ui:contents>
                         </oa:column>
                         <oa:column id="ProjectNameCol">

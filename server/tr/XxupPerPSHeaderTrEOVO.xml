@@ -40,7 +40,8 @@ SELECT XxupPerPsHeaderTrEO.SEQUENCE_NO,
        XxupPerPsHeaderTrEO.PROJECT_TYPE, 
        XxupPerPsHeaderTrEO.ITEM_KEY,
        pp.name POSITION_NAME,
-       asg.assignment_id
+       asg.assignment_id,
+       LPAD(XxupPerPsHeaderTrEO.SEQUENCE_NO,9,'0') SEQUENCE_NO_DISPLAY
 FROM XXUP.XXUP_PER_PS_HEADER_TR XxupPerPsHeaderTrEO,
 per_positions pp,
   (SELECT paaf.assignment_id
@@ -328,4 +329,17 @@ AND asg.user_id                      = XxupPerPSHeaderTrEO.CREATED_BY
    <AttrArray Name="KeyAttributes">
       <Item Value="ItemKey" />
    </AttrArray>
+   <ViewAttribute
+      Name="SequenceNoDisplay"
+      IsPersistent="false"
+      Precision="9"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="SEQUENCE_NO_DISPLAY"
+      Expression="SEQUENCE_NO_DISPLAY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="9" />
+      </DesignTime>
+   </ViewAttribute>
 </ViewObject>

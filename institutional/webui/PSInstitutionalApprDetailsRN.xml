@@ -3,7 +3,7 @@
    <ui:contents>
       <oa:messageComponentLayout id="DetailsRN" width="70%">
          <ui:contents>
-            <oa:messageStyledText id="SequenceNo" viewName="XxupPerPSInstTrEOVO1" viewAttr="SequenceNo" prompt="Sequence No" styleClass="OraDataText"/>
+            <oa:messageStyledText id="SequenceNo" viewName="XxupPerPSInstTrEOVO1" viewAttr="SequenceNoDisplay" prompt="Sequence Number" styleClass="OraDataText"/>
             <oa:messageStyledText id="ConstituentUniversity" viewName="XxupPerPSInstTrEOVO1" viewAttr="ConstituentUniversity" prompt="Constituent University" styleClass="OraDataText"/>
             <oa:messageLayout id="OfficeML" prompt="Office in Charge">
                <ui:contents>

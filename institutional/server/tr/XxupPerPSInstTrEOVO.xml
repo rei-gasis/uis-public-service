@@ -40,10 +40,11 @@ SELECT XxupPerPsInstitutionalTrEO.SEQUENCE_NO,
        XxupPerPsInstitutionalTrEO.FEMALE_BENEF_COUNT, 
        XxupPerPsInstitutionalTrEO.PROJECT_LEADER, 
        XxupPerPsInstitutionalTrEO.ROWID,
-	(SELECT full_name
+      (SELECT full_name
         FROM per_all_people_f papf
         WHERE person_id = project_leader
-        AND SYSDATE BETWEEN effective_start_date AND effective_end_date) project_leader_display
+        AND SYSDATE BETWEEN effective_start_date AND effective_end_date) project_leader_display,
+      LPAD(XxupPerPsInstitutionalTrEO.SEQUENCE_NO,9,'0') SEQUENCE_NO_DISPLAY
 FROM XXUP.XXUP_PER_PS_INSTITUTIONAL_TR XxupPerPsInstitutionalTrEO
    ]]></SQLQuery>
    <DesignTime>
@@ -347,5 +348,27 @@ FROM XXUP.XXUP_PER_PS_INSTITUTIONAL_TR XxupPerPsInstitutionalTrEO
       AliasName="VIEW_ATTR"
       SQLType="NUMERIC" >
    </ViewAttribute>
-   
+   <!-- <ViewAttribute
+      Name="SequenceNoDisplay"
+      IsSelected="false"
+      IsPersistent="false"
+      Precision="9"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="VIEW_ATTR"
+      SQLType="VARCHAR" >
+   </ViewAttribute> -->
+   <ViewAttribute
+      Name="SequenceNoDisplay"
+      IsPersistent="false"
+      Precision="9"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="SEQUENCE_NO_DISPLAY"
+      Expression="SEQUENCE_NO_DISPLAY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="9" />
+      </DesignTime>
+   </ViewAttribute>
 </ViewObject>

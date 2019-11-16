@@ -16,6 +16,7 @@
    </Properties>
    <SQLQuery><![CDATA[
 SELECT XxupPerPublicServiceHeaderEO.SEQUENCE_NO,
+  LPAD(XxupPerPublicServiceHeaderEO.SEQUENCE_NO,9,'0') SEQUENCE_NO_DISPLAY,  
   XxupPerPublicServiceHeaderEO.POSITION_ID,
   XxupPerPublicServiceHeaderEO.PROJECT_NAME,
   XxupPerPublicServiceHeaderEO.PRIMARY_ROLE,
@@ -51,7 +52,7 @@ WHERE pp.position_id (+) = XxupPerPublicServiceHeaderEO.POSITION_ID
    <DesignTime>
       <Attr Name="_isCodegen" Value="true" />
       <Attr Name="_isExpertMode" Value="true" />
-      <Attr Name="_version" Value="10.1.3.41.57" />
+      <Attr Name="_version" Value="10.1.3.43.6" />
       <Attr Name="_codeGenFlag2" Value="Access|Coll|VarAccess" />
    </DesignTime>
    <EntityUsage
@@ -66,6 +67,19 @@ WHERE pp.position_id (+) = XxupPerPublicServiceHeaderEO.POSITION_ID
       EntityAttrName="SequenceNo"
       EntityUsage="XxupPerPublicServiceHeaderEO"
       AliasName="SEQUENCE_NO" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="SequenceNoDisplay"
+      IsPersistent="false"
+      Precision="9"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="SEQUENCE_NO_DISPLAY"
+      Expression="SEQUENCE_NO_DISPLAY"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="9" />
+      </DesignTime>
    </ViewAttribute>
    <ViewAttribute
       Name="PositionId"
@@ -230,19 +244,6 @@ WHERE pp.position_id (+) = XxupPerPublicServiceHeaderEO.POSITION_ID
       AliasName="CREATION_DATE" >
    </ViewAttribute>
    <ViewAttribute
-      Name="PositionName"
-      IsPersistent="false"
-      Precision="240"
-      Type="java.lang.String"
-      ColumnType="VARCHAR2"
-      AliasName="POSITION_NAME"
-      Expression="POSITION_NAME"
-      SQLType="VARCHAR" >
-      <DesignTime>
-         <Attr Name="_DisplaySize" Value="240" />
-      </DesignTime>
-   </ViewAttribute>
-   <ViewAttribute
       Name="ShowHide"
       IsSelected="false"
       IsPersistent="false"
@@ -270,6 +271,19 @@ WHERE pp.position_id (+) = XxupPerPublicServiceHeaderEO.POSITION_ID
       ColumnType="NUMBER"
       AliasName="VIEW_ATTR"
       SQLType="BIT" >
+   </ViewAttribute>
+   <ViewAttribute
+      Name="PositionName"
+      IsPersistent="false"
+      Precision="240"
+      Type="java.lang.String"
+      ColumnType="VARCHAR2"
+      AliasName="POSITION_NAME"
+      Expression="POSITION_NAME"
+      SQLType="VARCHAR" >
+      <DesignTime>
+         <Attr Name="_DisplaySize" Value="240" />
+      </DesignTime>
    </ViewAttribute>
    <ViewLinkAccessor
       Name="XxupPerPublicServiceCatEOVO"

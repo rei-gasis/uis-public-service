@@ -57,9 +57,7 @@ public class PSInstitutionalMainFormCO extends OAControllerImpl {
 
         String actionFromURL = pageContext.getParameter("urlParam");
         
-        if("Update".equals(actionFromURL)){
-            return;
-        }
+        
 
 
         OAApplicationModule am = 
@@ -68,12 +66,32 @@ public class PSInstitutionalMainFormCO extends OAControllerImpl {
         Connection conn = 
             pageContext.getApplicationModule(webBean).getOADBTransaction().getJdbcConnection();
 
+
+
         /*on init, hide some fields*/
         OAViewObject mainVO = 
             (OAViewObject)am.findViewObject("XxupPerPSInstTrEOVO1");
 
         mainVO.reset();
         Row mRow = mainVO.next();
+
+        //set sequenceNo 
+        String sequenceNo = "";
+        try {
+            // System.out.println(row.getAttribute("PositionId").toString());
+            sequenceNo = String.format("%010d", Integer.parseInt(mRow.getAttribute("SequenceNo").toString()));
+
+            mRow.setAttribute("SequenceNoDisplay", sequenceNo);
+            // System.out.println("SequenceNoDisplay" + sequenceNo);
+        } catch (Exception ex) {
+            throw new OAException("Setting sequenceNo: " + ex);
+        }
+
+        //exit for UPDATE when setting VO attr
+        if("Update".equals(actionFromURL)){
+
+            return;
+        }
 
 
         try {
@@ -83,6 +101,7 @@ public class PSInstitutionalMainFormCO extends OAControllerImpl {
                 mRow.setAttribute("RenderSubjAreaOthers", false);
                 mRow.setAttribute("RenderActivityOthers", false);
                 mRow.setAttribute("RenderDelModeOthers", false);
+
             }
 
             
@@ -114,10 +133,12 @@ public class PSInstitutionalMainFormCO extends OAControllerImpl {
             }
 
             mRow.setAttribute("AssignmentId", assignmentId);
-            System.out.println("AssignmentId" + assignmentId);
+            // System.out.println("AssignmentId" + assignmentId);
         } catch (Exception ex) {
             throw new OAException("Exception" + ex);
         }
+
+        
 
     }
 
