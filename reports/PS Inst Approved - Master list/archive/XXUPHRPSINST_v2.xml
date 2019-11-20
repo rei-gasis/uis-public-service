@@ -1,0 +1,191 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<dataTemplate name="XXUPHRPSINST" description="UP HR PS INST" defaultPackage="" Version="1.0">
+
+	<parameters>
+		<parameter name="P_PERSON_ID" dataType="number" />
+		<parameter name="P_SEQ_NO" dataType="character" />
+	</parameters>
+
+	<dataQuery>
+
+
+		<sqlStatement name="Q_MAIN">
+			<![CDATA[
+			SELECT main.sequence_no ,
+				  constituent_university cu ,
+				  project_name ,
+				  (SELECT full_name
+				  FROM per_all_people_f papf
+				  WHERE project_leader = papf.person_id
+				  AND SYSDATE BETWEEN effective_start_date AND effective_end_date
+				  ) project_leader ,
+				  to_char(implementation_start_date, 'Mon DD, YYYY') implementation_start_date,
+				  to_char(implementation_end_date, 'Mon DD, YYYY') implementation_end_date,
+				  implementation_frequency ,
+				  duration_hours duration ,
+				  type_of_activity ,
+				  funding_agency ,
+				  cost_of_participation ,
+				  unit_of_beneficiary ,
+				  no_of_beneficiary total_no_benef ,
+				  male_benef_count ,
+				  female_benef_count ,
+				  country ,
+				  status ,
+				  post_act_eval_rating ,
+				  remarks rem ,
+				  listagg(o.office, chr(10)) WITHIN GROUP(
+				ORDER BY o.office) office_in_charge ,
+				  listagg(s.subject_area_interest, chr(13)) WITHIN GROUP(
+				ORDER BY s.subject_area_interest) subject_area 
+				FROM xxup.xxup_per_ps_institutional main ,
+				  xxup.xxup_per_ps_inst_office o ,
+				  xxup.xxup_per_ps_inst_subj s
+				WHERE main.created_by =
+				  (SELECT user_id FROM fnd_user WHERE employee_id = :P_PERSON_ID
+				  )
+				AND main.sequence_no = o.sequence_no
+				AND main.sequence_no = s.sequence_no
+				GROUP BY main.sequence_no,
+				  constituent_university ,
+				  project_name ,
+				  project_leader ,
+				  implementation_start_date ,
+				  implementation_end_date ,
+				  implementation_frequency ,
+				  duration_hours ,
+				  type_of_activity ,
+				  funding_agency ,
+				  cost_of_participation ,
+				  unit_of_beneficiary ,
+				  no_of_beneficiary ,
+				  male_benef_count ,
+				  female_benef_count ,
+				  country ,
+				  status ,
+				  post_act_eval_rating ,
+				  remarks
+			]]>
+		</sqlStatement>
+
+		<sqlStatement name="Q_SUBJ">
+			<![CDATA[
+			SELECT line_number subj_line_no
+			,subject_area_interest subj_area
+			FROM xxup.xxup_per_ps_inst_subj
+			WHERE sequence_no = :sequence_no
+			ORDER BY line_number
+			]]>
+		</sqlStatement>
+
+		<sqlStatement name="Q_OBJ">
+			<![CDATA[
+			SELECT line_number obj_line_no
+			,objective_category obj_cat
+			,specifics
+			FROM xxup.xxup_per_ps_inst_obj_cat
+			WHERE sequence_no = :sequence_no
+			ORDER BY line_number
+			]]>
+		</sqlStatement>
+
+		<sqlStatement name="Q_MEMBER">
+			<![CDATA[
+			SELECT line_number member_line_no
+			,full_name
+			,position pos
+			,organization org
+			,project_role proj_role
+			FROM xxup.xxup_per_ps_inst_members
+			WHERE sequence_no = :sequence_no
+			ORDER BY line_number
+			]]>
+		</sqlStatement>
+ 
+		<sqlStatement name="Q_ACT">
+			<![CDATA[ 
+			SELECT line_number act_line_no
+			,activity
+			FROM xxup.xxup_per_ps_inst_activities
+			WHERE sequence_no = :sequence_no
+			ORDER BY line_number
+			]]>
+		</sqlStatement>
+		
+
+		<sqlStatement name="Q_OFFICE">
+			<![CDATA[
+			SELECT 
+			office office_name
+			,tel_no
+			,email_address
+			,sequence_no
+			FROM xxup.xxup_per_ps_inst_office
+			WHERE sequence_no = :sequence_no
+			ORDER BY line_number
+			]]>
+		</sqlStatement>
+
+	</dataQuery>
+
+	<dataStructure>
+		<group name="G_MAIN" source="Q_MAIN">
+			<element name="sequence_no" value="sequence_no"/>
+			<element name="cu" value="cu"/>
+			<element name="project_name" value="project_name"/>
+			<element name="project_leader" value="project_leader"/>
+			<element name="implementation_start_date" value="implementation_start_date"/>
+			<element name="implementation_end_date" value="implementation_end_date"/>
+			<element name="implementation_frequency" value="implementation_frequency"/>
+			<element name="duration" value="duration"/>
+			<element name="type_of_activity" value="type_of_activity"/>
+			<element name="funding_agency" value="funding_agency"/>
+			<element name="cost_of_participation" value="cost_of_participation"/>
+			<element name="unit_of_beneficiary" value="unit_of_beneficiary"/>
+			<element name="total_no_benef" value="total_no_benef"/>
+			<element name="male_benef_count" value="male_benef_count"/>
+			<element name="female_benef_count" value="female_benef_count"/>
+			<element name="country" value="country"/>
+			<element name="status" value="status"/>
+			<element name="post_act_eval_rating" value="post_act_eval_rating"/>
+			<element name="rem" value="rem"/>
+			<element name="office_in_charge" value="office_in_charge"/>
+			<element name="subject_area" value="subject_area"/>
+
+			<group name="G_SUBJ" source="Q_SUBJ">
+				<element name="subj_line_no" value="subj_line_no"/>
+				<element name="subj_area" value="subj_area"/>
+			</group>
+
+			<group name="G_OBJ" source="Q_OBJ">
+				<element name="obj_line_no" value="obj_line_no"/>
+				<element name="obj_cat" value="obj_cat"/>
+				<element name="specifics" value="specifics"/>
+			</group>
+
+			<group name="G_ACT" source="Q_ACT">
+				<element name="act_line_no" value="act_line_no"/>
+				<element name="activity" value="activity"/>
+			</group>
+
+			<group name="G_OFFICE" source="Q_OFFICE">
+				<element name="office_name" value="office_name"/>
+				<element name="tel_no" value="tel_no"/>
+				<element name="email_address" value="email_address"/>
+			</group> 
+
+			<group name="G_MEMBER" source="Q_MEMBER">
+				
+				<element name="member_line_no" value="member_line_no"/>
+				<element name="full_name" value="full_name"/>
+				<element name="pos" value="pos"/>
+				<element name="org" value="org"/>
+				<element name="proj_role" value="proj_role"/>
+			</group>
+		</group>
+
+
+	</dataStructure>
+</dataTemplate>
+

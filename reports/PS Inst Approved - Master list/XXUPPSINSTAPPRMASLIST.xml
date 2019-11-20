@@ -1,0 +1,372 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<dataTemplate name="XXUPPSINSTAPPRMASLIST" description="UP Institutional Public Service - Masterlist" defaultPackage="" Version="1.0">
+
+	<parameters>
+		<parameter name="P_START_DATE" dataType="date" />
+		<parameter name="P_END_DATE" dataType="date" />
+    <parameter name="P_PS_TYPE" dataType="character" />
+		<parameter name="P_SUBJECT_INTEREST" dataType="character" />
+		<parameter name="P_STATUS" dataType="character" />
+		<parameter name="P_OBJ_CAT" dataType="character" />
+		<parameter name="P_BENEF_TYPE" dataType="character" />
+	</parameters>
+
+	<dataQuery>
+
+		<sqlStatement name="Q_PS_INST">
+			<![CDATA[
+WITH profile_v AS (SELECT user_id, 'UNIT' access_level
+                   FROM fnd_user 
+                   WHERE user_name IN (SELECT * 
+                                       FROM TABLE(xxup_ps_inst_wf_pkg.get_users_per_unit(fnd_global.user_id))
+                                       )
+                   UNION ALL
+                   SELECT user_id , 'CU' access_level
+                   FROM fnd_user 
+                   WHERE user_name IN (SELECT * 
+                                       FROM TABLE(xxup_ps_inst_wf_pkg.get_users_per_cu(fnd_global.user_id))
+                                       )
+                   UNION ALL
+                   SELECT user_id, 'ALL' access_level
+                   FROM fnd_user
+)
+SELECT sequence_no
+          ,cu
+          ,office
+          ,tel_no
+          ,email_address
+          ,project_name
+          ,project_leader
+          ,mem_full_name
+          ,mem_position
+          ,mem_organization
+          ,mem_project_role
+          ,non_mem_full_name
+          ,non_mem_position
+          ,non_mem_organization
+          ,non_mem_project_role
+          ,to_char(implementation_start_date, 'Mon DD, YYYY') implementation_start_date
+          ,to_char(implementation_end_date, 'Mon DD, YYYY') implementation_end_date
+          ,status
+          ,duration
+          ,implementation_frequency
+          ,objective_category
+          ,specifics
+          ,type_of_activity
+          ,activity
+          ,delivery_mode
+          ,subject_interest
+          ,funding_agency
+          ,cost_of_participation
+          ,unit_of_beneficiary 
+          ,partner_org
+          ,partner_org_loc
+          ,no_of_beneficiary
+          ,type_of_beneficiary
+          ,male_benef_count
+          ,female_benef_count
+          ,country
+          ,address
+          ,post_act_eval_rating
+          ,remarks
+          ,ps_type
+          ,created_by
+FROM 
+(
+    SELECT main.sequence_no
+          ,main.constituent_university cu
+          ,office.office
+          ,office.tel_no
+          ,office.email_address
+          ,main.project_name
+          ,main.project_leader
+          ,mem.full_name mem_full_name
+          ,mem.position mem_position
+          ,mem.organization mem_organization
+          ,mem.project_role mem_project_role
+          ,non_mem.full_name non_mem_full_name
+          ,non_mem.position non_mem_position
+          ,non_mem.organization non_mem_organization
+          ,non_mem.project_role non_mem_project_role
+          ,implementation_start_date
+          ,implementation_end_date
+          ,status
+          ,NVL2(duration, duration || ' ' || duration_unit, '') duration
+          ,main.implementation_frequency
+          ,obj_cat.objective_category
+          ,obj_cat.specifics
+          ,toa.type_of_activity
+          ,act.activity
+          ,del_mode.delivery_mode
+          ,subj.subject_interest
+          ,main.funding_agency
+          ,main.cost_of_participation
+          ,main.unit_of_beneficiary 
+          ,part_org.organization_name partner_org
+          ,part_org.location partner_org_loc
+          ,main.no_of_beneficiary
+          ,benef_type.type_of_beneficiary
+          ,main.male_benef_count
+          ,main.female_benef_count
+          ,cou.country
+          ,addr.address
+          ,main.post_act_eval_rating
+          ,main.remarks
+          ,'Institutional' ps_type
+          ,main.created_by
+    --      ,profile_v.*
+    FROM xxup.xxup_per_ps_institutional main
+    LEFT JOIN (SELECT LISTAGG(objective_category, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) objective_category
+                               ,specifics
+                               ,sequence_no
+                               ,line_number
+                FROM xxup.xxup_per_ps_inst_obj_cat obj
+                 ) obj_cat
+        ON obj_cat.sequence_no = main.sequence_no
+        AND obj_cat.line_number = 1 -- get one line only
+    LEFT JOIN (SELECT LISTAGG(office, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) office
+                     ,LISTAGG(tel_no, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) tel_no
+                     ,LISTAGG(email_address, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) email_address
+                        ,sequence_no
+                        ,line_number
+           FROM xxup.xxup_per_ps_inst_office office
+           ) office
+        ON office.sequence_no = main.sequence_no
+        AND office.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(full_name, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) full_name
+                     ,LISTAGG(position, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) position
+                     ,LISTAGG(organization, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) organization
+                     ,LISTAGG(project_role, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) project_role
+                     ,sequence_no
+                     ,line_number
+           FROM xxup.xxup_per_ps_inst_members mem
+           WHERE attribute1 IS NULL --exclude non-members
+           ) mem
+        ON mem.sequence_no = main.sequence_no
+        AND mem.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(full_name, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) full_name
+                     ,LISTAGG(position, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) position
+                     ,LISTAGG(organization, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) organization
+                     ,LISTAGG(project_role, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) project_role
+                     ,sequence_no
+                     ,line_number
+           FROM xxup.xxup_per_ps_inst_members non_mem
+           WHERE attribute1 = 'Non-UP' --non-members
+           ) non_mem
+        ON non_mem.sequence_no = main.sequence_no
+        AND non_mem.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_activity
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_toa toa
+               ) toa
+        ON toa.sequence_no = main.sequence_no
+        AND toa.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(activity, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) activity
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_activities act
+               ) act
+        ON act.sequence_no = main.sequence_no
+        AND act.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(delivery_mode, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) delivery_mode
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_delivery_mode del_mode
+               ) del_mode
+        ON del_mode.sequence_no = main.sequence_no
+        AND del_mode.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) subject_interest
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_subj subj
+               ) subj
+        ON subj.sequence_no = main.sequence_no
+        AND subj.line_number = 1  
+    LEFT JOIN (SELECT LISTAGG(organization_name, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) organization_name
+                     ,LISTAGG(location, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) location
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_part_org_tr part_org
+               ) part_org
+        ON part_org.sequence_no = main.sequence_no
+        AND part_org.line_number = 1  
+    LEFT JOIN (SELECT LISTAGG(type_of_beneficiary, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_beneficiary
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_benef_type benef_type
+               ) benef_type
+        ON benef_type.sequence_no = main.sequence_no
+        AND benef_type.line_number = 1  
+    LEFT JOIN (SELECT LISTAGG(country, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) country
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_countries cou
+               ) cou
+        ON cou.sequence_no = main.sequence_no
+        AND cou.line_number = 1  
+    LEFT JOIN (SELECT LISTAGG(address, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) address
+                        ,sequence_no
+                        ,line_number
+               FROM xxup.xxup_per_ps_inst_addr addr
+               ) addr
+        ON addr.sequence_no = main.sequence_no
+        AND addr.line_number = 1
+    UNION ALL
+    SELECT main.sequence_no
+          ,null
+          ,null
+          ,null
+          ,null
+          ,main.project_name 
+          ,null
+          ,null
+          ,null
+          ,null
+          ,null
+          ,null
+          ,null
+          ,null
+          ,null
+          ,start_date
+          ,end_date
+          ,null
+          ,to_char(duration_hours) duration_hours
+          ,null
+          ,obj_cat.objective_category
+          ,obj_cat.specifics
+          ,toa.type_of_activity
+          ,null
+          ,null
+          ,subj.subject_interest
+          ,main.source_of_fund
+          ,main.cost_of_participation
+          ,main.unit_of_beneficiary 
+          ,main.partner_org_or_inst
+          ,null
+          ,main.no_of_beneficiary
+          ,benef_type.type_of_beneficiary
+          ,null
+          ,null
+          ,cou.country
+          ,addr.address
+          ,main.post_act_eval_rating
+          ,main.remarks
+          ,'Individual' ps_type
+          ,main.created_by
+    FROM XXUP.xxup_per_public_service_header main
+    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) objective_category
+                             ,specifics
+                             ,sequence_no
+                             ,line_number
+                       FROM xxup.xxup_per_public_service_cat obj
+               ) obj_cat
+        ON obj_cat.sequence_no = main.sequence_no
+        AND obj_cat.line_number = 1 -- get one line only
+    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_activity
+                      ,sequence_no
+                      ,line_number
+         FROM xxup.xxup_per_ps_type_of_activities toa
+         ) toa
+        ON toa.sequence_no = main.sequence_no
+        AND toa.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) subject_interest
+                      ,sequence_no
+                      ,line_number
+         FROM xxup.xxup_per_public_service_subj subj
+         ) subj
+        ON subj.sequence_no = main.sequence_no
+        AND subj.line_number = 1  
+    LEFT JOIN (SELECT LISTAGG(type_of_beneficiary, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_beneficiary
+                      ,sequence_no
+                      ,line_number
+         FROM xxup.xxup_per_ps_benef_type benef_type
+         ) benef_type
+        ON benef_type.sequence_no = main.sequence_no
+        AND benef_type.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(country, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) country
+                      ,sequence_no
+                      ,line_number
+         FROM xxup.xxup_per_ps_countries cou
+         ) cou
+        ON cou.sequence_no = main.sequence_no
+        AND cou.line_number = 1
+    LEFT JOIN (SELECT LISTAGG(address, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) address
+                      ,sequence_no
+                      ,line_number
+         FROM xxup.xxup_per_public_service_addr addr
+         ) addr
+        ON addr.sequence_no = main.sequence_no
+        AND addr.line_number = 1
+) combined
+INNER JOIN profile_v
+    ON profile_v.access_level = FND_PROFILE.value('XXUP_PER_PS_SUMMARY_ACCESS_LEVEL')
+    AND profile_v.user_id = combined.created_by
+WHERE (implementation_start_date >= :P_START_DATE AND --required and has default value
+        NVL(implementation_end_date, to_date('01-JAN-0001','DD-MON-YYYY')) <= NVL(:P_END_DATE,to_date('31-DEC-4712','DD-MON-YYYY'))
+    )
+AND (:P_STATUS IS NULL OR combined.status = :P_STATUS)
+AND (:P_SUBJECT_INTEREST IS NULL OR combined.subject_interest LIKE '%' || NVL(:P_SUBJECT_INTEREST, combined.subject_interest) || '%')
+AND (:P_OBJ_CAT IS NULL OR combined.objective_category LIKE '%' || NVL(:P_OBJ_CAT, combined.objective_category) || '%')
+AND (:P_BENEF_TYPE IS NULL OR combined.type_of_beneficiary LIKE '%' || NVL(:P_BENEF_TYPE, combined.type_of_beneficiary) || '%')
+AND combined.ps_type = DECODE(:P_PS_TYPE, 'Both', ps_type
+                                                , :P_PS_TYPE)
+			]]>
+		</sqlStatement>
+
+
+
+	</dataQuery>
+
+	<dataStructure>
+		<group name="G_PS_INST" source="Q_PS_INST">
+			<element name="sequence_no" value="sequence_no"/>
+      <element name="ps_type" value="ps_type"/>
+			<element name="cu" value="cu"/>
+			<element name="office" value="office"/>
+			<element name="tel_no" value="tel_no"/>
+			<element name="email_address" value="email_address"/>
+			<element name="sequence_no" value="sequence_no"/>
+			<element name="project_name" value="project_name"/>
+			<element name="project_leader" value="project_leader"/>
+			<element name="mem_full_name" value="mem_full_name"/>
+			<element name="mem_position" value="mem_position"/>
+			<element name="mem_organization" value="mem_organization"/>
+			<element name="mem_project_role" value="mem_project_role"/>
+			<element name="non_mem_full_name" value="non_mem_full_name"/>
+			<element name="non_mem_position" value="non_mem_position"/>
+			<element name="non_mem_organization" value="non_mem_organization"/>
+			<element name="non_mem_project_role" value="non_mem_project_role"/>
+			<element name="implementation_start_date" value="implementation_start_date"/>
+			<element name="implementation_end_date" value="implementation_end_date"/>
+			<element name="status" value="status"/>
+			<element name="duration" value="duration"/>
+			<element name="implementation_frequency" value="implementation_frequency"/>
+			<element name="objective_category" value="objective_category"/>
+			<element name="specifics" value="specifics"/>
+			<element name="type_of_activity" value="type_of_activity"/>
+			<element name="activity" value="activity"/>
+			<element name="delivery_mode" value="delivery_mode"/>
+			<element name="subject_interest" value="subject_interest"/>
+			<element name="funding_agency" value="funding_agency"/>
+			<element name="cost_of_participation" value="cost_of_participation"/>
+			<element name="unit_of_beneficiary " value="unit_of_beneficiary "/>
+			<element name="partner_org" value="partner_org"/>
+			<element name="partner_org_loc" value="partner_org_loc"/>
+			<element name="type_of_beneficiary" value="type_of_beneficiary"/>
+			<element name="no_of_beneficiary" value="no_of_beneficiary"/>
+			<element name="male_benef_count" value="male_benef_count"/>
+			<element name="female_benef_count" value="female_benef_count"/>
+			<element name="country" value="country"/>
+			<element name="address" value="address"/>
+			<element name="post_act_eval_rating" value="post_act_eval_rating"/>
+			<element name="remarks" value="remarks"/>
+
+			
+		</group>
+
+
+	</dataStructure>
+</dataTemplate>
+

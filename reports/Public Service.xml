@@ -1,0 +1,131 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<dataTemplate name="UP_PUBLIC_SERVICE" description="UP Public Service" defaultPackage="" Version="1.0">
+
+<properties>
+   <property name="xml_tag_case" value="upper"/>
+</properties>
+
+<parameters>
+   <parameter name="S_DATE"   dataType="date" />
+   <parameter name="E_DATE"   dataType="date" />
+</parameters>
+
+<dataQuery>
+
+	<sqlStatement name="Q0">
+		<![CDATA[
+			SELECT 
+				UPPER(substr(HOU.NAME,instr(HOU.NAME,' ')+1)) AS LEGAL_EMPLOYER,
+				(SELECT ADDRESS_LINE_1 || ', ' || TOWN_OR_CITY FROM HR_LOCATIONS_ALL WHERE LOCATION_ID = HOU.LOCATION_ID) AS LOCATION
+			FROM
+				HR_ORGANIZATION_UNITS HOU
+			WHERE 
+				ORGANIZATION_ID
+				=  (SELECT HSCF.SEGMENT1
+				   FROM HR_SOFT_CODING_KEYFLEX HSCF
+				   WHERE
+					  SOFT_CODING_KEYFLEX_ID
+					  = (SELECT SOFT_CODING_KEYFLEX_ID FROM PER_ALL_ASSIGNMENTS_F PAAF
+					  WHERE PERSON_ID = fnd_global.employee_id()
+					  AND SYSDATE BETWEEN paaf.effective_start_date AND paaf.effective_end_date
+					  AND PAAF.ASSIGNMENT_STATUS_TYPE_ID = 1 
+					  AND PAAF.PRIMARY_FLAG = 'Y')
+				   )
+			AND ROWNUM = 1
+		]]>
+	</sqlStatement>
+
+	<sqlStatement name="Q1">
+		<![CDATA[
+			SELECT
+				(SELECT (SELECT description FROM fnd_lookup_values WHERE lookup_type = 'UP_HR_TITLE' AND lookup_code = papf.title)
+							|| ' ' || papf.first_name || ' ' || SUBSTR(papf.middle_names, 1, 1) || '. '|| papf.last_name
+					FROM PER_ALL_PEOPLE_F papf WHERE papf.person_id = fnd_global.employee_id()) AS R_FULL_NAME,    
+				ppd.segment1 as R_POSITION, 
+				(SELECT REGEXP_REPLACE(paou.name, '(UPD )|(UPB )|(UPLB )|(UPM PGH )|(UPOU )|(UPC )|(UPV )|(UPM )|(UPOU )|(UPC )|(UPS )|(UPVTC )|(UPMin )', '')
+				from PER_ALL_ORGANIZATION_UNITS paou
+				where paou.organization_id = pap.organization_id) as R_ORGANIZATION,
+				TRIM(TO_CHAR(:S_DATE, 'DD Mon YYYY')) AS REQUEST_S_DATE,
+				TRIM(TO_CHAR(:E_DATE, 'DD Mon YYYY')) AS REQUEST_E_DATE
+			FROM per_position_definitions ppd, per_all_positions pap
+			WHERE pap.position_id =
+				(SELECT position_id FROM PER_ALL_ASSIGNMENTS_F
+				WHERE person_id = fnd_global.employee_id() AND SYSDATE BETWEEN effective_start_date AND effective_end_date
+				AND primary_flag = 'Y')
+			AND ppd.position_definition_id = pap.position_definition_id
+		]]>
+	</sqlStatement>
+
+	<sqlStatement name="Q2">
+		<![CDATA[
+			select
+			SEGMENT2 AS NAME_OF_PROJECT,
+			SEGMENT7 AS ROLE,
+			TRIM(to_char(to_date(PAC.SEGMENT5, 'YYYY/MM/DD HH24:MI:SS'),'DD Mon YYYY')) AS START_DATE,
+			TRIM(to_char(to_date(PAC.SEGMENT6, 'YYYY/MM/DD HH24:MI:SS'),'DD Mon YYYY')) AS END_DATE,
+			SEGMENT12 AS HOURS,
+			SEGMENT13 AS OBJECTIVE_1,
+			SEGMENT24 AS SPECIFICS_1,
+			SEGMENT25 AS OBJECTIVE_2,
+			SEGMENT26 AS SPECIFICS_2,
+			SEGMENT27 AS OBJECTIVE_3,
+			SEGMENT28 AS SPECIFICS_3,
+			SEGMENT11 AS TYPE_OF_ACTIVITY,
+			SEGMENT3 AS AREA_OF_INTEREST_1,
+			SEGMENT16 AS AREA_OF_INTEREST_2,
+			SEGMENT10 AS SOURCE_OF_FUND
+
+
+			FROM PER_PERSON_ANALYSES PPA
+			LEFT JOIN PER_ANALYSIS_CRITERIA PAC on PPA.ANALYSIS_CRITERIA_ID = PAC.ANALYSIS_CRITERIA_ID
+
+			WHERE
+
+			PERSON_ID = fnd_global.employee_id()
+			and PPA.ID_FLEX_NUM = (SELECT ID_FLEX_NUM FROM FND_ID_FLEX_STRUCTURES_V WHERE ID_FLEX_STRUCTURE_NAME = 'Public Service')
+			and TO_DATE(TO_CHAR(PPA.CREATION_DATE, 'Mon DD, YYYY'),'Mon DD, YYYY') >= :S_DATE
+			and TO_DATE(TO_CHAR(PPA.CREATION_DATE, 'Mon DD, YYYY'),'Mon DD, YYYY') <= :E_DATE
+		]]>
+	</sqlStatement>
+
+</dataQuery>
+
+<dataStructure>
+	
+	<group name="G0" source="Q0">
+		<element name="LEGAL_EMPLOYER" value="LEGAL_EMPLOYER" />
+		<element name="LOCATION" value="LOCATION" />
+	</group>
+	
+	<group name="G1" source="Q1">
+		<element name="R_FULL_NAME" value="R_FULL_NAME" />
+		<element name="R_POSITION" value="R_POSITION" />
+		<element name="R_ORGANIZATION" value="R_ORGANIZATION" />
+		<element name="DATE_TODAY" value="DATE_TODAY" />
+		<element name="REQUEST_S_DATE" value="REQUEST_S_DATE" />
+		<element name="REQUEST_E_DATE" value="REQUEST_E_DATE" />
+	</group>
+
+	<group name="APPROVED_ROWS" source="Q2">
+		<element name="NAME_OF_PROJECT" value="NAME_OF_PROJECT" />
+		<element name="ROLE" value="ROLE" />
+		<element name="START_DATE" value="START_DATE" />
+		<element name="END_DATE" value="END_DATE" />
+		<element name="HOURS" value="HOURS" />
+		<element name="OBJECTIVE_1" value="OBJECTIVE_1" />
+		<element name="SPECIFICS_1" value="SPECIFICS_1" />
+		<element name="OBJECTIVE_2" value="OBJECTIVE_2" />
+		<element name="SPECIFICS_2" value="SPECIFICS_2" />
+		<element name="OBJECTIVE_3" value="OBJECTIVE_3" />
+		<element name="SPECIFICS_3" value="SPECIFICS_3" />
+		<element name="TYPE_OF_ACTIVITY" value="TYPE_OF_ACTIVITY" />
+		<element name="AREA_OF_INTEREST_1" value="AREA_OF_INTEREST_1" />
+		<element name="AREA_OF_INTEREST_2" value="AREA_OF_INTEREST_2" />
+		<element name="SOURCE_OF_FUND" value="SOURCE_OF_FUND" />
+ 	</group>
+
+
+</dataStructure>
+
+</dataTemplate>

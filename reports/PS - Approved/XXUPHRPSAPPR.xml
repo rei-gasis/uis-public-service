@@ -1,0 +1,154 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<dataTemplate name="XXUPHRPSAPPR" description="UP Public Service - Approved" defaultPackage="" Version="1.0">
+
+	<parameters>
+		<parameter name="P_PERSON_ID" dataType="number" />
+		<parameter name="P_SEQUENCE_NO" dataType="character" />
+		
+	</parameters>
+
+	<dataQuery>
+		<sqlStatement name="Q_HEADER">
+			<![CDATA[
+				
+				SELECT hov.name AS constituent_unit
+					  ,(address_line_1||' '||region_1||',region '||region_2||','||postal_code) AS location
+				FROM hr_organization_units_v hov
+				WHERE organization_id = (SELECT hsck.segment1
+				                        FROM per_all_assignments_f paaf
+				                            ,hr_soft_coding_keyflex hsck
+				                        WHERE SYSDATE BETWEEN effective_start_date AND effective_end_date
+				                        AND paaf.soft_coding_keyflex_id = hsck.soft_coding_keyflex_id
+				                        AND primary_flag = 'Y'
+				                        AND person_id = :P_PERSON_ID
+				)
+			]]>
+		</sqlStatement>
+
+		<sqlStatement name="Q_MAIN">
+			<![CDATA[
+			SELECT main.sequence_no
+			  ,project_name
+			  ,primary_role
+			  ,project_type
+			  ,to_char(request_date,'Mon DD, YYYY') request_date
+			  ,to_char(responded_date, 'Mon DD, YYYY') responded_date
+			  ,to_char(start_date, 'Mon DD, YYYY') start_date
+			  ,to_char(end_date, 'Mon DD, YYYY') end_date
+			  ,duration_hours duration
+			  ,source_of_fund
+			  ,cost_of_participation
+			  ,partner_org_or_inst partner_org
+			  ,beneficiary_category
+			  ,unit_of_beneficiary 
+			  ,no_of_beneficiary
+			  ,benef_type.beneficiary_type
+			  ,obj_cat.objective_category
+			  ,toa.type_of_activity
+			  ,subj.subject_interest
+			  ,cou.country
+			  ,addr.address
+			  ,post_act_eval_rating post_act
+			  ,remarks
+			FROM xxup.xxup_per_public_service_header main
+			LEFT JOIN (SELECT obj_cat || ' / ' || specifics objective_category
+			              ,sequence_no
+			              ,line_number
+			              FROM (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) obj_cat
+			                           ,specifics
+			                           ,sequence_no
+			                           ,line_number
+			                     FROM xxup.xxup_per_public_service_cat obj
+			                    )
+			             ) obj_cat
+			ON obj_cat.sequence_no = main.sequence_no
+			AND obj_cat.line_number = 1 -- get one line only
+			LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_activity
+			                    ,sequence_no
+			                    ,line_number
+			       FROM xxup.xxup_per_ps_type_of_activities toa
+			       ) toa
+			ON toa.sequence_no = main.sequence_no
+			AND toa.line_number = 1
+			LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) subject_interest
+			                    ,sequence_no
+			                    ,line_number
+			       FROM xxup.xxup_per_public_service_subj subj
+			       ) subj
+			ON subj.sequence_no = main.sequence_no
+			AND subj.line_number = 1
+			LEFT JOIN (SELECT LISTAGG(type_of_beneficiary, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) beneficiary_type
+			                    ,sequence_no
+			                    ,line_number
+			       FROM xxup.xxup_per_ps_benef_type benef_type
+			       ) benef_type
+			ON benef_type.sequence_no = main.sequence_no
+			AND benef_type.line_number = 1
+			LEFT JOIN (SELECT LISTAGG(type_of_activity, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_activity
+			                    ,sequence_no
+			                    ,line_number
+			       FROM XXUP.xxup_per_ps_type_of_activities toa
+			       ) toa
+			ON toa.sequence_no = main.sequence_no
+			AND toa.line_number = 1
+			LEFT JOIN (SELECT LISTAGG(country, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) country
+			                    ,sequence_no
+			                    ,line_number
+			       FROM XXUP.xxup_per_ps_countries cou
+			       ) cou
+			ON cou.sequence_no = main.sequence_no
+			AND cou.line_number = 1
+			LEFT JOIN (SELECT LISTAGG(address, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) address
+			                    ,sequence_no
+			                    ,line_number
+			       FROM XXUP.xxup_per_public_service_addr addr
+			       ) addr
+			ON addr.sequence_no = main.sequence_no
+			AND addr.line_number = 1
+			WHERE main.sequence_no = :P_SEQUENCE_NO
+
+			]]>
+		</sqlStatement>
+
+
+
+	</dataQuery>
+
+	<dataStructure>
+		<group name="G_HEADER" source="Q_HEADER">
+			<element name="constituent_unit" value="constituent_unit"/>
+			<element name="location" value="location"/>
+		</group>
+
+		<group name="G_MAIN" source="Q_MAIN">
+			<element name="sequence_no" value="sequence_no"/>
+			<element name="project_name" value="project_name"/>
+			<element name="primary_role" value="primary_role"/>
+			<element name="project_type" value="project_type"/>
+			<element name="request_date" value="request_date"/>
+			<element name="responded_date" value="responded_date"/>
+			<element name="start_date" value="start_date"/>
+			<element name="end_date" value="end_date"/>
+			<element name="duration" value="duration"/>
+			<element name="source_of_fund" value="source_of_fund"/>
+			<element name="cost_of_participation" value="cost_of_participation"/>
+			<element name="partner_org" value="partner_org"/>
+			<element name="beneficiary_category" value="beneficiary_category"/>
+			<element name="unit_of_beneficiary " value="unit_of_beneficiary "/>
+			<element name="no_of_beneficiary" value="no_of_beneficiary"/>
+			<element name="beneficiary_type" value="beneficiary_type"/>
+			<element name="objective_category" value="objective_category"/>
+			<element name="type_of_activity" value="type_of_activity"/>
+			<element name="subject_interest" value="subject_interest"/>
+			<element name="country" value="country"/>
+			<element name="address" value="address"/>
+			<element name="post_act" value="post_act"/>
+			<element name="remarks" value="remarks"/>
+		
+		</group>
+
+
+	</dataStructure>
+</dataTemplate>
+

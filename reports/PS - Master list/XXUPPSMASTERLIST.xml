@@ -1,0 +1,103 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<dataTemplate name="XXUPPSMASTERLIST" description="UP Public Service - Master List" defaultPackage="" Version="1.0">
+
+	<parameters>
+		<parameter name="P_PERSON_ID" dataType="number" />
+		
+	</parameters>
+
+	<dataQuery>
+
+
+		<sqlStatement name="Q_MAIN">
+			<![CDATA[
+			SELECT sequence_no
+			      ,project_name
+			      ,'Individual' type
+			      ,primary_role
+			      ,project_type
+			      ,to_char(request_date, 'Mon DD, YYYY') request_date
+			      ,to_char(responded_date, 'Mon DD, YYYY') responded_date
+			      ,source_of_fund funding_agency
+			      ,partner_org_or_inst partner_org
+			      ,type_of_beneficiary
+			      ,unit_of_beneficiary
+			      ,no_of_beneficiary
+			      ,start_date
+			      ,end_date
+			      ,duration_hours duration
+			      ,type_of_activity
+			      ,country
+			      ,post_act_eval_rating
+			      ,remarks
+			FROM xxup.xxup_per_public_service_header psh
+			WHERE psh.created_by = (SELECT user_id FROM fnd_user WHERE employee_id = :P_PERSON_ID)
+			]]>
+		</sqlStatement>
+
+		<sqlStatement name="Q_SUBJ">
+			<![CDATA[
+			SELECT line_number subj_line_no
+			,subject_area_interest subj_area
+			FROM xxup.xxup_per_public_service_subj
+			WHERE sequence_no = :p_sequence_no
+			ORDER BY line_number
+			]]>
+		</sqlStatement>
+
+		<sqlStatement name="Q_OBJ">
+			<![CDATA[
+			SELECT line_number obj_line_no
+			,objective_category obj_cat
+			,specifics
+			FROM xxup.xxup_per_public_service_obj
+			WHERE sequence_no = :p_sequence_no
+			ORDER BY line_number
+			]]>
+		</sqlStatement>
+
+		
+
+	</dataQuery>
+
+	<dataStructure>
+		<group name="G_MAIN" source="Q_MAIN">
+			<element name="sequence_no" value="sequence_no"/>
+			<element name="p_sequence_no" value="sequence_no"/>
+			<element name="type" value="type"/>
+			<element name="project_name" value="project_name"/>
+			<element name="project_type" value="project_type"/>
+			<element name="primary_role" value="primary_role"/>
+			<element name="request_date" value="request_date"/>
+			<element name="responded_date" value="responded_date"/>
+			<element name="start_date" value="start_date"/>
+			<element name="end_date" value="end_date"/>
+			<element name="duration" value="duration"/>
+			<element name="type_of_activity" value="type_of_activity"/>
+			<element name="funding_agency" value="funding_agency"/>
+			<element name="type_of_beneficiary" value="type_of_beneficiary"/>
+			<element name="unit_of_beneficiary" value="unit_of_beneficiary"/>
+			<element name="no_of_beneficiary" value="no_of_beneficiary"/>
+			<element name="partner_org" value="partner_org"/>
+			<element name="country" value="country"/>
+			<element name="post_act_eval_rating" value="post_act_eval_rating"/>
+			<element name="remarks" value="remarks"/>
+
+			<group name="G_SUBJ" source="Q_SUBJ">
+				<element name="subj_line_no" value="subj_line_no"/>
+				<element name="subj_area" value="subj_area"/>
+			</group>
+
+			<group name="G_OBJ" source="Q_OBJ">
+				<element name="obj_line_no" value="obj_line_no"/>
+				<element name="obj_cat" value="obj_cat"/>
+				<element name="specifics" value="specifics"/>
+			</group>
+			
+		</group>
+
+
+	</dataStructure>
+</dataTemplate>
+

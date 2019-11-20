@@ -1,0 +1,163 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+
+<dataTemplate name="XXUPHRPSAPPRLIST" description="UP Public Service - Approved List" defaultPackage="" Version="1.0">
+
+	<parameters>
+		<parameter name="P_PERSON_ID" dataType="number" />
+		<parameter name="P_START_DATE" dataType="date" />
+		<parameter name="P_END_DATE" dataType="date" />
+		<parameter name="P_PS_TYPE" dataType="character" />
+	</parameters>
+
+	<dataQuery>
+		<sqlStatement name="Q_HEADER">
+			<![CDATA[
+				
+				SELECT hov.name AS constituent_unit
+					  ,(address_line_1||' '||region_1||',region '||region_2||','||postal_code) AS location
+				FROM hr_organization_units_v hov
+				WHERE organization_id = (SELECT hsck.segment1
+				                        FROM per_all_assignments_f paaf
+				                            ,hr_soft_coding_keyflex hsck
+				                        WHERE SYSDATE BETWEEN effective_start_date AND effective_end_date
+				                        AND paaf.soft_coding_keyflex_id = hsck.soft_coding_keyflex_id
+				                        AND primary_flag = 'Y'
+				                        AND person_id = :P_PERSON_ID
+				)
+			]]>
+		</sqlStatement>
+
+		<sqlStatement name="Q_MAIN">
+			<![CDATA[
+			SELECT sequence_no
+			      ,project_name
+			      ,to_char(start_date,'Mon DD, YYYY') start_date
+			      ,to_char(end_date,'Mon DD, YYYY') end_date
+			      ,duration 
+			      ,objective_category
+			      ,type_of_activity
+			      ,subject_interest
+			      ,source_of_fund
+			      ,ps_type
+			FROM 
+			(
+			    SELECT main.sequence_no
+			          ,project_name
+			          ,'' primary_role
+			          ,implementation_start_date start_date
+			          ,implementation_end_date end_date
+			          ,NVL2(duration, duration || ' ' || duration_unit, '') duration
+			--          ,duration
+			          ,obj_cat.objective_category
+			          ,toa.type_of_activity
+			          ,subj.subject_interest
+			          ,funding_agency
+			          ,'Institutional' ps_type
+			          ,main.created_by
+			    FROM XXUP.xxup_per_ps_institutional main
+			    LEFT JOIN (SELECT obj_cat || ' / ' || specifics objective_category
+			                      ,sequence_no
+			                      ,line_number
+			                      FROM (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) obj_cat
+			                                   ,specifics
+			                                   ,sequence_no
+			                                   ,line_number
+			                             FROM xxup.xxup_per_ps_inst_obj_cat obj
+			                            )
+			                     ) obj_cat
+			        ON obj_cat.sequence_no = main.sequence_no
+			        AND obj_cat.line_number = 1 -- get one line only
+			    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_activity
+			                            ,sequence_no
+			                            ,line_number
+			               FROM xxup.xxup_per_ps_inst_toa toa
+			               ) toa
+			        ON toa.sequence_no = main.sequence_no
+			        AND toa.line_number = 1
+			    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) subject_interest
+			                            ,sequence_no
+			                            ,line_number
+			               FROM xxup.xxup_per_ps_inst_subj subj
+			               ) subj
+			        ON subj.sequence_no = main.sequence_no
+			        AND subj.line_number = 1
+			    UNION ALL
+			    SELECT main.sequence_no
+			      ,project_name
+			      ,primary_role
+			      ,start_date
+			      ,end_date
+			      ,to_char(duration_hours)
+			      ,obj_cat.objective_category
+			      ,toa.type_of_activity
+			      ,subj.subject_interest
+			      ,source_of_fund
+			      ,'Individual' ps_type
+			      ,main.created_by
+			    FROM XXUP.xxup_per_public_service_header main
+			    LEFT JOIN (SELECT obj_cat || ' / ' || specifics objective_category
+			                  ,sequence_no
+			                  ,line_number
+			                  FROM (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) obj_cat
+			                               ,specifics
+			                               ,sequence_no
+			                               ,line_number
+			                         FROM xxup.xxup_per_public_service_cat obj
+			                        )
+			                 ) obj_cat
+			    ON obj_cat.sequence_no = main.sequence_no
+			    AND obj_cat.line_number = 1 -- get one line only
+			    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) type_of_activity
+			                        ,sequence_no
+			                        ,line_number
+			           FROM xxup.xxup_per_ps_type_of_activities toa
+			           ) toa
+			    ON toa.sequence_no = main.sequence_no
+			    AND toa.line_number = 1
+			    LEFT JOIN (SELECT LISTAGG(attribute1, chr(10)) WITHIN GROUP(ORDER BY line_number) OVER(PARTITION BY sequence_no) subject_interest
+			                        ,sequence_no
+			                        ,line_number
+			           FROM xxup.xxup_per_public_service_subj subj
+			           ) subj
+			    ON subj.sequence_no = main.sequence_no
+			    AND subj.line_number = 1  
+			)
+			WHERE created_by = (SELECT user_id FROM fnd_user WHERE employee_id = :P_PERSON_ID)
+			AND (start_date >= :P_START_DATE AND
+			    NVL(end_date, to_date('01-JAN-0001','DD-MON-YYYY')) <= NVL(:P_END_DATE,to_date('31-DEC-4712','DD-MON-YYYY'))
+			    )
+			AND ps_type = DECODE(:P_PS_TYPE, 'Both', ps_type
+			                                       , :P_PS_TYPE)
+
+			]]>
+		</sqlStatement>
+
+
+
+	</dataQuery>
+
+	<dataStructure>
+		<group name="G_HEADER" source="Q_HEADER">
+			<element name="constituent_unit" value="constituent_unit"/>
+			<element name="location" value="location"/>
+		</group>
+
+		<group name="G_MAIN" source="Q_MAIN">
+			<element name="sequence_no" value="sequence_no"/>
+			<element name="project_name" value="project_name"/>
+			<element name="primary_role" value="primary_role"/>
+			<element name="start_date" value="start_date"/>
+			<element name="end_date" value="end_date"/>
+			<element name="duration_hours" value="duration_hours"/>
+			<element name="objective_category" value="objective_category"/>
+			<element name="type_of_activity" value="type_of_activity"/>
+			<element name="subject_interest" value="subject_interest"/>
+			<element name="source_of_fund" value="source_of_fund"/>
+			<element name="ps_type" value="ps_type"/>
+		
+		</group>
+
+
+	</dataStructure>
+</dataTemplate>
+
