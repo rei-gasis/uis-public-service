@@ -15,7 +15,7 @@
                               <oa:sortableHeader id="SequenceNoSH" prompt="Sequence No"/>
                            </ui:columnHeader>
                            <ui:contents>
-                              <oa:messageStyledText id="SequenceNo" viewAttr="SequenceNoDisplay" queryable="false"/>
+                              <oa:messageStyledText id="SequenceNo" viewAttr="SequenceNo" queryable="false" styleClass="OraDataText"/>
                            </ui:contents>
                         </oa:column>
                         <oa:column id="ProjectNameCol">
@@ -102,8 +102,18 @@
                            <ui:columnHeader>
                               <oa:sortableHeader id="updatePSSH" prompt="Update"/>
                            </ui:columnHeader>
-                           <ui:contents>
+                           <!-- <ui:contents>
                               <oa:image id="UpdatePS" source="updateicon_enabled.gif" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalRequestPG&amp;urlParam=Update&amp;pSequenceNo={@SequenceNo}"/>
+                           </ui:contents> -->
+                           <ui:contents>
+                              <oa:switcher id="UpdateImageSwitcher" viewAttr="UpdateImage">
+                                 <ui:case name="UPDATE_ENABLED">
+                                    <oa:image id="UPDATE_ENABLED" source="updateicon_enabled.gif" destination="OA.jsp?page=/xxup/oracle/apps/per/publicservice/institutional/webui/PSInstitutionalRequestPG&amp;urlParam=Update&amp;pSequenceNo={@SequenceNo}"/>
+                                 </ui:case>
+                                 <ui:case name="UPDATE_DISABLED">
+                                    <oa:image id="UPDATE_DISABLED" source="updateicon_disabled.gif"/>
+                                 </ui:case>
+                              </oa:switcher>
                            </ui:contents>
                         </oa:column>
                      </ui:contents>
